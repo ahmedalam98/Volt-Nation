@@ -10,6 +10,8 @@ const Home = () => {
       </Typography>
 
       <p className={styles.paragraph}>Home Page</p>
+
+      <p>Test from staging</p>
     </>
   );
 };
