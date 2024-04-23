@@ -1,0 +1,29 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --color-var1: #08cff6;
+  --color-var2: #144a73;
+  --color-var3: #122e42;
+  --color-var4: #05131e;
+}
+
+html {
+  font-size: 62.5%;
+  scroll-behavior: smooth;
+  scrollbar-width: thin;
+  font-family: poppins, Roboto, sans-serif;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
+}
