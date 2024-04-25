@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import SignUpForm from "./../../Components/Sign-UpForm/SignUpForm.jsx";
 import styles from "./Sign-Up-Page.module.css";
-import SignUpOptions from "../../Components/LoginOptions/SignUpOptions.jsx";
+import SignUpOptions from './../../Components/SignUpOptions/SignUpOptions.jsx'
 
 const SignUpPage = () => {
  
