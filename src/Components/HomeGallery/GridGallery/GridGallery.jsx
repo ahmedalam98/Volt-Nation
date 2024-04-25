@@ -6,7 +6,12 @@ const GridGallery = () => {
   return (
     <div className={`grid md:grid-cols-1 lg:grid-cols-2`}>
       <div className={styles.imageContainer}>
-        <img src="public/2.jpg" alt="headphone" className={`${styles.image}`} />
+        <img
+          src="src/assets/2.jpg"
+          alt="headphone"
+          className={`${styles.image}`}
+          loading="lazy"
+        />
 
         <div className={styles.textContainer}>
           <h2
@@ -21,7 +26,12 @@ const GridGallery = () => {
 
       <div className="grid grid-cols-1 grid-rows-5 md:grid-cols-2 md:grid-rows-2">
         <div className={styles.imageContainer}>
-          <img src="public/1.jpg" alt="headphone" className={styles.image} />
+          <img
+            src="src/assets/1.jpg"
+            alt="headphone"
+            className={styles.image}
+            loading="lazy"
+          />
         </div>
 
         <GalleryCard
@@ -41,7 +51,12 @@ const GridGallery = () => {
         />
 
         <div className={styles.imageContainer}>
-          <img src="public/3.jpg" alt="headphone" className={styles.image} />
+          <img
+            src="src/assets/3.jpg"
+            alt="headphone"
+            className={styles.image}
+            loading="lazy"
+          />
         </div>
       </div>
     </div>
