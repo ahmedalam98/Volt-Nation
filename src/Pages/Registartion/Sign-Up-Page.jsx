@@ -4,9 +4,7 @@ import styles from "./Sign-Up-Page.module.css";
 import SignUpOptions from "../../Components/LoginOptions/SignUpOptions.jsx";
 
 const SignUpPage = () => {
-  const [user, setUser] = useState({
-    name: "",
-  });
+ 
   return (
     <>
       <div className={styles.containerX}>
@@ -35,7 +33,7 @@ const SignUpPage = () => {
                 <p style={{ width: "10%", textAlign: "center" }}>or</p>
                 <hr style={{ width: "45%" }} />
               </div>
-              <div style={{ marginTop: "5%" }}>
+              <div style={{ marginTop: "3%" }}>
                 <SignUpOptions />
               </div>
             </div>
