@@ -1,17 +1,9 @@
-import { Typography } from "@mui/material";
-import styles from "./Home.module.css";
+import Hero from "../../Components/Hero/Hero.jsx";
 
 const Home = () => {
   return (
     <>
-      {/* Test Tailwind & MUI */}
-      <Typography variant="h1" className="font-bold underline">
-        Volt Nation
-      </Typography>
-
-      <p className={styles.paragraph}>Home Page</p>
-
-      <p>Test from staging</p>
+      <Hero />
     </>
   );
 };
