@@ -1,0 +1,44 @@
+body {
+  background-color: #051118;
+}
+* {
+  color: white;
+}
+.containerX {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.container {
+  width: 60vw;
+  height: 75vh;
+  display: flex;
+  border-radius: 25px;
+  border: 2px solid #e8e8e8;
+  padding: 10px;
+}
+.avatar,
+.form {
+  width: 50%;
+ 
+}
+.avatar img{
+    height: 100%;
+    border-radius: 25px;
+    
+}
+.containerForDetails{
+    margin-top: 5%;
+    display: flex;
+    justify-content: center;
+}
+.header{
+    font-size:30px;
+    font-weight: 500;
+}
+.Signupform{
+    margin:10px;
+    padding: 5px;
+}
