@@ -1,0 +1,13 @@
+.button {
+  text-transform: inherit;
+  border: 1px solid;
+  padding: 0.5rem 1rem;
+  transition: all 0.3s;
+  width: 180px;
+}
+
+.button:hover {
+  color: white !important;
+  background-color: var(--color-var1);
+  border: 1px solid var(--color-var1) !important;
+}
