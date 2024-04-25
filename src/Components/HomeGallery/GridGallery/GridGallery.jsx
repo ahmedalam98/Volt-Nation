@@ -7,7 +7,7 @@ const GridGallery = () => {
     <div className={`grid md:grid-cols-1 lg:grid-cols-2`}>
       <div className={styles.imageContainer}>
         <img
-          src="src/assets/2.jpg"
+          src="/2.jpg"
           alt="headphone"
           className={`${styles.image}`}
           loading="lazy"
@@ -27,7 +27,7 @@ const GridGallery = () => {
       <div className="grid grid-cols-1 grid-rows-5 md:grid-cols-2 md:grid-rows-2">
         <div className={styles.imageContainer}>
           <img
-            src="src/assets/1.jpg"
+            src="1.jpg"
             alt="headphone"
             className={styles.image}
             loading="lazy"
@@ -52,7 +52,7 @@ const GridGallery = () => {
 
         <div className={styles.imageContainer}>
           <img
-            src="src/assets/3.jpg"
+            src="3.jpg"
             alt="headphone"
             className={styles.image}
             loading="lazy"
