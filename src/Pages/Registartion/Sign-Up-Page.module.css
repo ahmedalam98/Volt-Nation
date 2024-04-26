@@ -1,0 +1,90 @@
+body {
+  background-color: #051118;
+}
+* {
+  color: white;
+}
+.containerX {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.container {
+  width: 60vw;
+  min-height: 88vh;
+  max-height: 95vh;
+  display: flex;
+  border-radius: 25px;
+  border: 2px solid #e8e8e8;
+  padding: 10px;
+}
+.avatar,
+.form {
+  width: 50%;
+}
+.avatar img {
+  height: 100%;
+  border-radius: 25px;
+}
+.containerForDetails {
+  margin-top: 5%;
+  display: flex;
+  justify-content: center;
+}
+.header {
+  font-size: 30px;
+  font-weight: 500;
+}
+.Signupform {
+  margin: 10px;
+  padding: 5px;
+}
+
+/* Small devices  */
+@media (max-width: 575.98px) {
+  .container {
+    width: 90vw;
+    height: 90vh;
+    max-height: 96vh;
+  }
+  .avatar {
+    display: none;
+  }
+  .form {
+    width: 100%;
+  }
+}
+
+/* Small devices  */
+@media (min-width: 576px) and (max-width: 767.98px) {
+  .container {
+    width: 90vw;
+    max-height: 96vh;
+  }
+}
+
+/* Medium devices (tablets, 768px and up) */
+@media (min-width: 768px) and (max-width: 991.98px) {
+  .container {
+    width: 80vw;
+    max-height: 96vh;
+  }
+}
+
+/* Large devices  */
+@media (min-width: 992px) and (max-width: 1199.98px) {
+  .container {
+    width: 70vw;
+    max-height: 96vh;
+  }
+}
+
+/* Extra large devices  */
+@media (min-width: 1200px) {
+  .container {
+    width: 60vw;
+    max-height: 96vh;
+  }
+}

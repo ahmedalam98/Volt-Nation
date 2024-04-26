@@ -1,0 +1,14 @@
+*{
+    color: white !important;
+    border-color:white !important ;
+}
+button{
+    color: black !important;
+
+}
+.errorMsg{
+    color:red !important;
+}
+.form{
+    font-size: smaller !important;
+}
