@@ -50,7 +50,11 @@
   overflow: hidden;
   white-space: nowrap;
   z-index: -1;
+}
+.slider :global(.slick-active) .subTitle,
+.slider :global(.slick-active) .subTitle2{
   animation: subTitle 10s forwards;
+
 }
 .slider :global(.slick-active) .subTitle2 {
   left: 25%;
@@ -224,9 +228,7 @@
   .img{
     width: 45%;
   }
-  /* .img img {
-    transform: scale(0.7);
-  } */
+  
 }
 
 @media (max-width: 840px) {
