@@ -7,7 +7,7 @@ export default function Hero() {
     fade: true,
     slidesToShow: 1,
     slidesToScroll: 1,
-    // autoplay: true,
+    autoplay: true,
     speed: 1000,
     autoplaySpeed: 2500,
     cssEase: "linear",
@@ -27,7 +27,7 @@ export default function Hero() {
         settings: {
           slidesToShow: 1,
           slidesToScroll: 1,
-          dots: true,
+          dots: false,
           initialSlide: 1,
         },
       },
@@ -35,7 +35,7 @@ export default function Hero() {
         breakpoint: 480,
         settings: {
           slidesToShow: 1,
-          dots: true,
+          dots: false,
           slidesToScroll: 1,
         },
       },
@@ -81,7 +81,7 @@ export default function Hero() {
           <div className={styles.img}>
             <img
               src="https://wpbingosite.com/wordpress/dimita/wp-content/uploads/2020/01/img1.png"
-              alt="airpods"
+              alt="Headphone"
             />
           </div>
           <button className={styles.shopBtn}>Shop now</button>
