@@ -1,6 +1,6 @@
+/* eslint-disable react/prop-types */
 import {
   Box,
-  Divider,
   Drawer,
   List,
   ListItem,
@@ -10,8 +10,7 @@ import {
 import HomeIcon from "@mui/icons-material/Home";
 import PersonIcon from "@mui/icons-material/Person";
 import StoreIcon from "@mui/icons-material/Store";
-import styles from "./SideMenu.module.css";
-// eslint-disable-next-line react/prop-types
+
 export default function SideMenu({ toggleDrawer, open }) {
   const DrawerList = (
     <Box sx={{ width: 250 }} role="presentation">

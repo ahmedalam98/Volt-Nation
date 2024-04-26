@@ -1,5 +1,5 @@
+/* eslint-disable react/prop-types */
 import GalleryButton from "../GalleryButton/GalleryButton.jsx";
-import PropTypes from "prop-types";
 import styles from "./GalleryCard.module.css";
 
 const GalleryCard = ({
@@ -32,14 +32,6 @@ const GalleryCard = ({
       </div>
     </div>
   );
-};
-
-GalleryCard.propTypes = {
-  buttonColor: PropTypes.string.isRequired,
-  bgColor: PropTypes.string.isRequired,
-  subTitle: PropTypes.string,
-  header: PropTypes.string,
-  headerColor: PropTypes.string.isRequired,
 };
 
 export default GalleryCard;

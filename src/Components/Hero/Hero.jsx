@@ -1,6 +1,5 @@
 import Slider from "react-slick";
 import styles from "./Hero.module.css";
-import GalleryButton from "../HomeGallery/GalleryButton/GalleryButton.jsx";
 
 export default function Hero() {
   const settings = {
