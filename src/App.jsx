@@ -3,12 +3,8 @@ import { Provider } from "react-redux";
 import { Suspense, lazy } from "react";
 import store from "./Store/store";
 import Layout from "./Layout/Layout.jsx";
-import Home from "./Pages/Home/Home.jsx";
-import LoginPage from "./Pages/Login/LoginPage.jsx";
-import Register from "./Pages/Registartion/Register.jsx";
 
-//pages
-// const Home = lazy(() => import("./Pages/Home/Home.jsx"));
+const Home = lazy(() => import("./Pages/Home/Home.jsx"));
 const Products = lazy(() => import("./Pages/Products/Products.jsx"));
 const ProductDetails = lazy(
   () => import("./Pages/ProductDetails/ProductDetails.jsx")
@@ -16,6 +12,8 @@ const ProductDetails = lazy(
 const Profile = lazy(() => import("./Pages/Profile/Profile.jsx"));
 const Cart = lazy(() => import("./Pages/Cart/Cart.jsx"));
 const NotFound = lazy(() => import("./Pages/NotFound/NotFound.jsx"));
+const LoginPage = lazy(() => import("./Pages/Login/LoginPage.jsx"));
+const Register = lazy(() => import("./Pages/Registartion/Register.jsx"));
 
 function App() {
   return (

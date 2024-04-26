@@ -48,11 +48,11 @@ const SignUpForm = () => {
         setErrors({
           ...errors,
           firstNameErr:
-            event.target.value.length == 0
+            event.target.value.length === 0
               ? "name is required"
               : event.target.value.length < 3
-              ? "name must be at least 3 chars"
-              : "",
+                ? "name must be at least 3 chars"
+                : "",
         });
         break;
       case "lastName":
@@ -60,11 +60,11 @@ const SignUpForm = () => {
         setErrors({
           ...errors,
           lastNameErr:
-            event.target.value.length == 0
+            event.target.value.length === 0
               ? "name is required"
               : event.target.value.length < 3
-              ? "name must be at least 3 chars"
-              : "",
+                ? "name must be at least 3 chars"
+                : "",
         });
         break;
       case "email":
@@ -85,8 +85,8 @@ const SignUpForm = () => {
             event.target.value.length === 0
               ? "password is required"
               : event.target.value.length < 6
-              ? "password must be at least 6 characters"
-              : "",
+                ? "password must be at least 6 characters"
+                : "",
         });
         break;
       case "repassword":
@@ -125,17 +125,18 @@ const SignUpForm = () => {
 
           <small className={styles.errorMsg}>{errors.firstNameErr}</small>
         </div>
-        <div  style={{
-              width: "50%",
-              borderRadius: "5px",
-              margin: "2.5px",
-            }}>
+        <div
+          style={{
+            width: "50%",
+            borderRadius: "5px",
+            margin: "2.5px",
+          }}
+        >
           <TextField
             id="outlined-basic"
             label="Last Name"
             variant="outlined"
             name="lastName"
-           
             onChange={(e) => handelForm(e)}
           />
           <small className={styles.errorMsg}>{errors.lastNameErr}</small>
@@ -152,6 +153,7 @@ const SignUpForm = () => {
             margin: "5px",
           }}
           onChange={(e) => handelForm(e)}
+          className={styles.formInput}
         />
         <small className={styles.errorMsg}>{errors.emailErr}</small>
       </div>
