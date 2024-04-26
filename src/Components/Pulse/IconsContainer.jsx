@@ -6,7 +6,7 @@ import VolumeUpIcon from "@mui/icons-material/VolumeUp";
 
 const IconsContainer = () => {
   return (
-    <div className="grid gap-8 grid-cols-2 grid-rows-2 md:grid-cols-3 md:grid-rows-2 lg:grid-cols-4 lg:grid-rows-1 lg:self-start">
+    <div className="grid gap-y-8 gap-x-28 md:gap-x-12 grid-cols-2 grid-rows-2 md:grid-cols-3 md:grid-rows-2 lg:grid-cols-4 lg:grid-rows-1 lg:self-start">
       <div className="flex flex-col gap-5 justify-center items-center">
         <IconCircle>
           <WifiIcon sx={{ color: "white" }} fontSize="large" />
@@ -42,7 +42,7 @@ const IconsContainer = () => {
         </IconCircle>
 
         <p className="text-[#525252] text-sm">
-          Surround System <br /> Sound
+          Surround <br /> Sound
         </p>
       </div>
     </div>
