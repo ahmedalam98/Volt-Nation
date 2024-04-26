@@ -7,7 +7,7 @@ export default function Hero() {
     fade: true,
     slidesToShow: 1,
     slidesToScroll: 1,
-    // autoplay: true,
+    autoplay: true,
     speed: 1000,
     autoplaySpeed: 2500,
     cssEase: "linear",
