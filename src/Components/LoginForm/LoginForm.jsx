@@ -10,6 +10,8 @@ import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
 import styles from "./LoginForm.module.css";
+import ResetPassword from "../ResetPassword/ResetPassword.jsx";
+import { Link } from "react-router-dom";
 function LoginForm() {
   const [user, setUser] = useState({
     email: "",
@@ -116,6 +118,19 @@ function LoginForm() {
         </div>
 
         <div style={{ marginTop: "5%", color: "black" }}>
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              marginBottom: "3%",
+            }}
+          >
+            <Link to={"/resetPassword"}>
+              <small className={styles.link}>
+                Forgot Password ?! Reset Password
+              </small>
+            </Link>
+          </div>
           <Button
             variant="contained"
             type="submit"
@@ -124,6 +139,7 @@ function LoginForm() {
               width: "90%",
               marginLeft: "5%",
             }}
+            disabled={Object.values(errors).some((err) => !!err)}
           >
             Log In
           </Button>

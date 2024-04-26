@@ -12,7 +12,7 @@ function SignUpOptions() {
         <div className="google mx-3 my-2">
           <Button className={styles.Button}>
             <img src='public/imgs/facebook-icon.png' className={styles.icon}/>
-            Sign Up With Facebook
+            Sign Up With Google
           </Button>
         </div>
         <div className="facebook my-2">

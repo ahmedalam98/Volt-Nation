@@ -1,0 +1,9 @@
+.link{
+    color:blue !important;
+    text-decoration: underline;
+    text-align: center;
+    cursor: pointer;
+}
+.errorMsg{
+    color:red !important;
+}

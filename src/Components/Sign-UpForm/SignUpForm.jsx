@@ -28,7 +28,9 @@ const SignUpForm = () => {
   });
 
   const [showPassword, setShowPassword] = React.useState(false);
+  const [showPassword2, setShowPassword2] = React.useState(false);
   const handleClickShowPassword = () => setShowPassword((show) => !show);
+  const handleClickShowPassword2 = () => setShowPassword2((show) => !show);
   const handleMouseDownPassword = (event) => {
     event.preventDefault();
   };
@@ -125,17 +127,18 @@ const SignUpForm = () => {
 
           <small className={styles.errorMsg}>{errors.firstNameErr}</small>
         </div>
-        <div  style={{
-              width: "50%",
-              borderRadius: "5px",
-              margin: "2.5px",
-            }}>
+        <div
+          style={{
+            width: "50%",
+            borderRadius: "5px",
+            margin: "2.5px",
+          }}
+        >
           <TextField
             id="outlined-basic"
             label="Last Name"
             variant="outlined"
             name="lastName"
-           
             onChange={(e) => handelForm(e)}
           />
           <small className={styles.errorMsg}>{errors.lastNameErr}</small>
@@ -204,17 +207,17 @@ const SignUpForm = () => {
           <OutlinedInput
             id="outlined-adornment-repassword"
             name="repassword"
-            type={showPassword ? "text" : "password"}
+            type={showPassword2 ? "text" : "password"}
             onChange={(e) => handelForm(e)}
             endAdornment={
               <InputAdornment position="end">
                 <IconButton
                   aria-label="toggle password visibility"
-                  onClick={handleClickShowPassword}
+                  onClick={handleClickShowPassword2}
                   onMouseDown={handleMouseDownPassword}
                   edge="end"
                 >
-                  {showPassword ? <VisibilityOff /> : <Visibility />}
+                  {showPassword2 ? <VisibilityOff /> : <Visibility />}
                 </IconButton>
               </InputAdornment>
             }
@@ -223,20 +226,12 @@ const SignUpForm = () => {
           <small className={styles.errorMsg}>{errors.repasswordErr}</small>
         </FormControl>
       </div>
-      <div
-        className="checkBox"
-        style={{ margin: "5px", marginLeft: "2%", width: "97%" }}
-      >
-        <FormControlLabel
-          required
-          control={<Checkbox />}
-          label="By registration you are agree to our terms and conditions"
-        />
-      </div>
+
       <div style={{ marginTop: "5%", color: "black" }}>
         <Button
           variant="contained"
           type="submit"
+          disabled={Object.values(errors).some((err) => !!err)}
           style={{ backgroundColor: "#8dff7a", width: "90%", marginLeft: "5%" }}
         >
           Create Account

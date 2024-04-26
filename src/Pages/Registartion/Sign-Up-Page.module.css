@@ -24,6 +24,11 @@ body {
 .form {
   width: 50%;
 }
+.form{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
 .avatar img {
   height: 100%;
   border-radius: 25px;
