@@ -1,6 +1,6 @@
+/* eslint-disable react/prop-types */
 import {
   Box,
-  Divider,
   Drawer,
   List,
   ListItem,
@@ -10,8 +10,7 @@ import {
 import HomeIcon from "@mui/icons-material/Home";
 import PersonIcon from "@mui/icons-material/Person";
 import StoreIcon from "@mui/icons-material/Store";
-import styles from "./SideMenu.module.css";
-// eslint-disable-next-line react/prop-types
+
 export default function SideMenu({ toggleDrawer, open }) {
   const DrawerList = (
     <Box sx={{ width: 250 }} role="presentation">
@@ -19,13 +18,19 @@ export default function SideMenu({ toggleDrawer, open }) {
         <ListItem disablePadding>
           <ListItemButton>
             <HomeIcon
-              sx={{ marginInlineEnd: "15px", width: "20px", height: "20px" }}
+              sx={{
+                marginInlineEnd: "15px",
+                width: "20px",
+                height: "20px",
+                color: "white",
+              }}
             />
             <ListItemText
               primary="Home"
               sx={{
                 "& .MuiTypography-root": {
                   fontSize: "17px",
+                  color: "white",
                 },
               }}
             />
@@ -34,13 +39,19 @@ export default function SideMenu({ toggleDrawer, open }) {
         <ListItem disablePadding>
           <ListItemButton>
             <StoreIcon
-              sx={{ marginInlineEnd: "15px", width: "20px", height: "20px" }}
+              sx={{
+                marginInlineEnd: "15px",
+                width: "20px",
+                height: "20px",
+                color: "white",
+              }}
             />
             <ListItemText
               primary="Shop"
               sx={{
                 "& .MuiTypography-root": {
                   fontSize: "17px",
+                  color: "white",
                 },
               }}
             />
@@ -49,13 +60,19 @@ export default function SideMenu({ toggleDrawer, open }) {
         <ListItem disablePadding>
           <ListItemButton>
             <PersonIcon
-              sx={{ marginInlineEnd: "15px", width: "20px", height: "20px" }}
+              sx={{
+                marginInlineEnd: "15px",
+                width: "20px",
+                height: "20px",
+                color: "white",
+              }}
             />
             <ListItemText
               primary="Account"
               sx={{
                 "& .MuiTypography-root": {
                   fontSize: "17px",
+                  color: "white",
                 },
               }}
             />
@@ -66,7 +83,16 @@ export default function SideMenu({ toggleDrawer, open }) {
   );
   return (
     <>
-      <Drawer open={open} onClose={toggleDrawer(false)}>
+      <Drawer
+        open={open}
+        onClose={toggleDrawer(false)}
+        sx={{
+          "& .MuiDrawer-paper": {
+            maxWidth: "100%",
+            backgroundColor: "var(--color-var3)",
+          },
+        }}
+      >
         {DrawerList}
       </Drawer>
     </>

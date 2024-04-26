@@ -1,9 +1,10 @@
 .button {
   text-transform: inherit;
   border: 1px solid;
-  padding: 0.5rem 1rem;
+  padding: 0.75rem 1rem;
   transition: all 0.3s;
   width: 180px;
+  border-radius: 3px;
 }
 
 .button:hover {

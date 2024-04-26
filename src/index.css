@@ -29,9 +29,7 @@ html {
   box-sizing: inherit;
 }
 
- body {
-  background-color: var(--color-var4);
- .loader-container {
+.loader-container {
   height: 100vh;
   display: grid;
   place-items: center;
@@ -42,6 +40,7 @@ html {
   height: 180px;
   position: relative;
 }
+
 .loader:before,
 .loader:after {
   content: "";
@@ -71,5 +70,59 @@ html {
     transform: perspective(300px) translateZ(180px);
     opacity: 0;
   }
- }
- }
+}
+
+/*-----------------------*/
+
+.circle {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 200px;
+  height: 200px;
+  background-color: var(--color-var1);
+  border-radius: 50%;
+  font-size: 1.3rem;
+}
+
+.circle:hover {
+  cursor: pointer;
+}
+
+.circle::after,
+.circle::before {
+  content: "";
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 200px;
+  height: 200px;
+  background: var(--color-var1);
+  border-radius: 50%;
+  z-index: -1;
+  animation: pulse 2.5s ease-in-out infinite;
+}
+
+.circle::after {
+  background: transparent;
+  border: 3px solid var(--color-var1);
+}
+
+.circle::before {
+  background: transparent;
+  border: 3px solid var(--color-var1);
+  animation-delay: -3s;
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1, 1);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(2, 2);
+    opacity: 0;
+  }
+}

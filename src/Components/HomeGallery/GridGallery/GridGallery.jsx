@@ -20,7 +20,9 @@ const GridGallery = () => {
             Discover your <br /> favourite item
           </h2>
 
-          <GalleryButton color="white">Discover Now</GalleryButton>
+          <div className="hidden md:block">
+            <GalleryButton color="white">Discover Now</GalleryButton>
+          </div>
         </div>
       </div>
 

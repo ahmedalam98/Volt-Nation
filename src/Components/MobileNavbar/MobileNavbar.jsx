@@ -11,6 +11,7 @@ import MenuIcon from "@mui/icons-material/Menu";
 import { useState } from "react";
 import SideMenu from "../SideMenu/SideMenu.jsx";
 import styles from "./MobileNavbar.module.css";
+import { Link } from "react-router-dom";
 
 export default function MobileNavbar() {
   const [open, setOpen] = useState(false);
@@ -45,13 +46,13 @@ export default function MobileNavbar() {
           }}
         />
       </Button>
+
       <SideMenu toggleDrawer={toggleDrawer} open={open}></SideMenu>
       {/*****  Side menu *****/}
 
       <Typography
         variant="h6"
         component="a"
-        href="#app-bar-with-responsive-menu"
         sx={{
           flex: 1,
           fontWeight: 700,
@@ -60,7 +61,7 @@ export default function MobileNavbar() {
           justifyContent: "center",
         }}
       >
-        VoltNation
+        <Link to="/">VoltNation</Link>
       </Typography>
       <Box
         sx={{
@@ -72,6 +73,7 @@ export default function MobileNavbar() {
       >
         <SearchIcon sx={{ width: "25px", height: "25px" }} />
       </Box>
+
       <Modal
         open={openModal}
         onClose={handleCloseModal}
