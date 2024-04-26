@@ -19,13 +19,19 @@ export default function SideMenu({ toggleDrawer, open }) {
         <ListItem disablePadding>
           <ListItemButton>
             <HomeIcon
-              sx={{ marginInlineEnd: "15px", width: "20px", height: "20px" }}
+              sx={{
+                marginInlineEnd: "15px",
+                width: "20px",
+                height: "20px",
+                color: "white",
+              }}
             />
             <ListItemText
               primary="Home"
               sx={{
                 "& .MuiTypography-root": {
                   fontSize: "17px",
+                  color: "white",
                 },
               }}
             />
@@ -34,13 +40,19 @@ export default function SideMenu({ toggleDrawer, open }) {
         <ListItem disablePadding>
           <ListItemButton>
             <StoreIcon
-              sx={{ marginInlineEnd: "15px", width: "20px", height: "20px" }}
+              sx={{
+                marginInlineEnd: "15px",
+                width: "20px",
+                height: "20px",
+                color: "white",
+              }}
             />
             <ListItemText
               primary="Shop"
               sx={{
                 "& .MuiTypography-root": {
                   fontSize: "17px",
+                  color: "white",
                 },
               }}
             />
@@ -49,13 +61,19 @@ export default function SideMenu({ toggleDrawer, open }) {
         <ListItem disablePadding>
           <ListItemButton>
             <PersonIcon
-              sx={{ marginInlineEnd: "15px", width: "20px", height: "20px" }}
+              sx={{
+                marginInlineEnd: "15px",
+                width: "20px",
+                height: "20px",
+                color: "white",
+              }}
             />
             <ListItemText
               primary="Account"
               sx={{
                 "& .MuiTypography-root": {
                   fontSize: "17px",
+                  color: "white",
                 },
               }}
             />
@@ -66,7 +84,16 @@ export default function SideMenu({ toggleDrawer, open }) {
   );
   return (
     <>
-      <Drawer open={open} onClose={toggleDrawer(false)}>
+      <Drawer
+        open={open}
+        onClose={toggleDrawer(false)}
+        sx={{
+          "& .MuiDrawer-paper": {
+            maxWidth: "100%",
+            backgroundColor: "var(--color-var3)",
+          },
+        }}
+      >
         {DrawerList}
       </Drawer>
     </>

@@ -1,5 +1,6 @@
 import Slider from "react-slick";
 import styles from "./Hero.module.css";
+import GalleryButton from "../HomeGallery/GalleryButton/GalleryButton.jsx";
 
 export default function Hero() {
   const settings = {
@@ -55,7 +56,6 @@ export default function Hero() {
               alt="smartphone"
             />
           </div>
-          <button className={styles.shopBtn}>Shop now</button>
         </div>
 
         <div className={styles.slide}>
@@ -70,7 +70,6 @@ export default function Hero() {
               alt="airpods"
             />
           </div>
-          <button className={styles.shopBtn}>Shop now</button>
         </div>
         <div className={styles.slide}>
           <div className={styles.subTitle}>Tech Trends</div>
@@ -84,9 +83,12 @@ export default function Hero() {
               alt="Headphone"
             />
           </div>
-          <button className={styles.shopBtn}>Shop now</button>
         </div>
       </Slider>
+
+      <div className={styles.btnContainer}>
+        <button className={styles.shopBtn}>Shop now</button>
+      </div>
     </div>
   );
 }

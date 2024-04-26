@@ -3,9 +3,10 @@ import { Provider } from "react-redux";
 import { Suspense, lazy } from "react";
 import store from "./Store/store";
 import Layout from "./Layout/Layout.jsx";
+import Home from "./Pages/Home/Home.jsx";
 
 //pages
-const Home = lazy(() => import("./Pages/Home/Home.jsx"));
+// const Home = lazy(() => import("./Pages/Home/Home.jsx"));
 const Products = lazy(() => import("./Pages/Products/Products.jsx"));
 const ProductDetails = lazy(
   () => import("./Pages/ProductDetails/ProductDetails.jsx")

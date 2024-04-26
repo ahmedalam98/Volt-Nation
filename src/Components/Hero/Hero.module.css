@@ -1,7 +1,8 @@
 .heroContainer {
   margin-top: 20px;
 }
-/* img breathing */
+
+/* --------------------- Image breathing --------------------- */
 .slide {
   display: flex !important;
   flex-direction: column !important;
@@ -9,6 +10,7 @@
   align-items: center !important;
   position: relative;
 }
+
 .img {
   animation: breathing 5s infinite normal;
 }
@@ -26,9 +28,10 @@
     transform: translate(0, 0);
   }
 }
-/* img breathing */
+/* --------------------- Image breathing --------------------- */
 
-/* animate the subtitle */
+/* Animate the subtitle */
+
 :global(.slick-active) .subTitle,
 :global(.slick-active) .subTitle2 {
   position: absolute;
@@ -41,9 +44,11 @@
   white-space: nowrap;
   animation: subTitle 10s forwards;
 }
+
 :global(.slick-active) .subTitle2 {
   left: 25%;
 }
+
 @keyframes subTitle {
   0% {
     width: 0%;
@@ -58,9 +63,9 @@
     opacity: 1;
   }
 }
-/* animate the subtitle */
 
-/* revealing headline from left */
+/* --------------------- Revealing headline from left --------------------- */
+
 :global(.slick-active) .headline1,
 :global(.slick-active) .headline2 {
   position: absolute;
@@ -99,7 +104,8 @@
     opacity: 1;
   }
 }
-/* revealing headline from left */
+
+/*  --------------------- Revealing headline from left --------------------- */
 
 /* slider */
 .slider {
@@ -114,6 +120,7 @@
   height: 35px;
   border-radius: 1px;
 }
+
 :global(.slick-prev) {
   left: 25px !important;
   border: 1px solid var(--color-var2);
@@ -123,6 +130,7 @@
   z-index: 2;
   border-radius: 1px;
 }
+
 :global(.slick-prev:before) {
   content: "<";
   color: var(--color-var1);
@@ -130,9 +138,11 @@
   margin-inline-end: -38px;
   transition: all 0.3s ease-in-out;
 }
+
 :global(.slick-prev:hover:before) {
   margin-inline-end: 0;
 }
+
 :global(.slick-next:before) {
   content: ">";
   color: var(--color-var1);
@@ -140,22 +150,30 @@
   margin-inline-start: -38px;
   transition: all 0.3s ease-in-out;
 }
+
 :global(.slick-next:hover:before) {
   margin-inline-start: 0;
 }
-/* slider */
+
+/* --------------------- slider --------------------- */
+
+.btnContainer {
+  text-align: center;
+  margin-bottom: 4rem;
+}
 
 .shopBtn {
-  background-color: var(--color-var1);
+  background-color: #09b0d1;
   border: none;
-  border-radius: 3px;
   width: 160px;
   height: 45px;
-  margin-top: 50px;
-  font-size: 17px;
-  font-weight: 500;
+  margin-top: 12px;
+  font-size: 18px;
   color: var(--color-var5);
   transition: all 0.3s ease-in-out;
+  text-transform: uppercase;
+  letter-spacing: 1.6px;
+  border-radius: 3px;
 }
 
 .shopBtn:hover {
@@ -168,11 +186,13 @@
     font-size: 7rem;
   }
 }
+
 @media (max-width: 1270px) {
   :global(.slick-active) .headline1 {
     font-size: 6rem;
   }
 }
+
 @media (max-width: 1215px) {
   :global(.slick-active) .headline2 {
     animation: slideIn 2s forwards;
@@ -181,30 +201,30 @@
     left: 15%;
   }
 }
+
 @media (max-width: 1180px) {
   :global(.slick-active) .headline1 {
     font-size: 5rem;
   }
-  .heroContainer{
+  .heroContainer {
     margin-top: 0;
   }
- 
 }
+
 @media (max-width: 1010px) {
   :global(.slick-active) .headline1 {
     font-size: 4rem;
     letter-spacing: 25px;
-
-   }
-   :global(.slick-active) .headline2 {
+  }
+  :global(.slick-active) .headline2 {
     font-size: 7rem;
     letter-spacing: 25px;
-
   }
   .img img {
     transform: scale(0.7);
   }
 }
+
 @media (max-width: 840px) {
   :global(.slick-active) .headline1 {
     letter-spacing: 20px;
@@ -217,7 +237,6 @@
   :global(.slick-active) .subTitle2 {
     top: 36%;
   }
-
 }
 
 @media (max-width: 780px) {
@@ -229,13 +248,14 @@
     font-size: 5.5rem;
   }
 }
+
 @media (max-width: 660px) {
   :global(.slick-active) .headline1 {
     /* font-size: 3rem; */
     letter-spacing: 10px;
   }
   :global(.slick-active) .headline2 {
-     font-size: 5rem;
+    font-size: 5rem;
   }
   :global(.slick-prev),
   :global(.slick-next) {
@@ -246,8 +266,10 @@
   }
   .shopBtn {
     margin-top: 0;
+    font-size: 16px;
   }
 }
+
 @media (max-width: 590px) {
   :global(.slick-active) .headline1 {
     letter-spacing: 5px;
@@ -257,12 +279,13 @@
     /* font-size: 8rem; */
   }
 }
+
 @media (max-width: 540px) {
   :global(.slick-active) .headline1 {
     font-size: 3rem;
   }
-  
 }
+
 @media (max-width: 450px) {
   :global(.slick-active) .headline1 {
     font-size: 2.5rem;
@@ -272,13 +295,14 @@
     font-size: 4.5rem;
   }
 }
+
 @media (max-width: 376px) {
   :global(.slick-active) .headline1 {
     letter-spacing: 0;
 
-     font-size: 2.4rem;
+    font-size: 2.4rem;
   }
   :global(.slick-active) .headline2 {
-     font-size: 3.7rem;
+    font-size: 3.7rem;
   }
 }

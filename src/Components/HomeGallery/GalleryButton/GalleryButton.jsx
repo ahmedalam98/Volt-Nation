@@ -1,14 +1,16 @@
 import styles from "./GalleryButton.module.css";
 import PropTypes from "prop-types";
+import { Link } from "react-router-dom";
 
 const GalleryButton = ({ color, children, fontSize }) => {
   return (
-    <button
+    <Link
+      to="/"
       style={{ borderColor: color, color: color, fontSize: fontSize }}
       className={styles.button}
     >
       {children}
-    </button>
+    </Link>
   );
 };
 
