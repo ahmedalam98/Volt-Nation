@@ -1,5 +1,6 @@
 import React from "react";
 import styles from "./Offers.module.css";
+import Swiper from "./Slider/Slider.jsx";
 
 export default function Offers() {
   return (
@@ -23,7 +24,9 @@ export default function Offers() {
           </h5>
           <button className={`${styles.button} mt-16  `}>SHOP NOW</button>
         </div>
-        <div className="scale-95 md:w-2/3 md:scale-95 ">Swiper</div>
+        <div className="scale-95 md:w-2/3 md:scale-95 ">
+          <Swiper />
+        </div>
       </div>
     </div>
   );
