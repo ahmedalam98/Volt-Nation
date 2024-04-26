@@ -1,5 +1,6 @@
 import { Button } from "@mui/material";
 import styles from "./SignUpOptions.module.css";
+import { Link } from "react-router-dom";
 
 
 function SignUpOptions() {
@@ -22,7 +23,7 @@ function SignUpOptions() {
         </div>
       </div>
       <div style={{marginTop:'2%',textAlign:'center',}}>
-        <small><a >Allready Have An Accoun ?! LOG IN </a></small>
+        <small><Link to="/login">Allready Have An Accoun ?! LOG IN </Link></small>
       </div>
     </>
   );

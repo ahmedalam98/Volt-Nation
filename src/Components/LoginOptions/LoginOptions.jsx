@@ -1,5 +1,6 @@
 import { Button } from "@mui/material";
 import styles from "./LoginOptions.module.css";
+import { Link } from "react-router-dom";
 function LoginOptions() {
   return (
     <div>
@@ -19,7 +20,7 @@ function LoginOptions() {
       </div>
       <div style={{ marginTop: "2%", textAlign: "center" }}>
         <small>
-          <a>Do Not Have An Accoun ?! SIGN UP </a>
+          <Link to="/sign-up">Do Not Have An Accoun ?! SIGN UP </Link>
         </small>
       </div>
     </div>
