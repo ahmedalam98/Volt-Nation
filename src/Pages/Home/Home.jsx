@@ -1,15 +1,15 @@
-import { Typography } from "@mui/material";
-import styles from "./Home.module.css";
+import Hero from "../../Components/Hero/Hero.jsx";
+import GridGallery from "../../Components/HomeGallery/GridGallery/GridGallery.jsx";
+import Pulse from "../../Components/Pulse/Pulse.jsx";
+import Offers from "../../Components/Offers/Offers.jsx";
 
 const Home = () => {
   return (
     <>
-      {/* Test Tailwind & MUI */}
-      <Typography variant="h1" className="font-bold underline">
-        Volt Nation
-      </Typography>
-
-      <p className={styles.paragraph}>Home Page</p>
+      <Hero />
+      <GridGallery />
+      <Pulse />
+      <Offers />
     </>
   );
 };
