@@ -2,12 +2,10 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import { Provider } from "react-redux";
 import { Suspense, lazy } from "react";
 import store from "./Store/store";
-
-import SignUpPage from "./Pages/Registartion/Sign-Up-Page.jsx";
-import LoginPage from "./Pages/Login/LoginPage.jsx";
 import Layout from "./Layout/Layout.jsx";
 import Home from "./Pages/Home/Home.jsx";
-
+import LoginPage from "./Pages/Login/LoginPage.jsx";
+import Register from "./Pages/Registartion/Register.jsx";
 
 //pages
 // const Home = lazy(() => import("./Pages/Home/Home.jsx"));
@@ -17,8 +15,6 @@ const ProductDetails = lazy(
 );
 const Profile = lazy(() => import("./Pages/Profile/Profile.jsx"));
 const Cart = lazy(() => import("./Pages/Cart/Cart.jsx"));
-const Login = lazy(() => import("./Pages/Login/Login.jsx"));
-const Register = lazy(() => import("./Pages/Register/Register.jsx"));
 const NotFound = lazy(() => import("./Pages/NotFound/NotFound.jsx"));
 
 function App() {
@@ -33,9 +29,6 @@ function App() {
           }
         >
           <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/sign-up" element={<SignUpPage />} />
-            <Route path="/login" element={<LoginPage />} />
             <Route path="/" element={<Layout />}>
               <Route path="/" element={<Home />} />
               <Route path="/products" element={<Products />} />
@@ -43,8 +36,10 @@ function App() {
               <Route path="/profile" element={<Profile />} />
               <Route path="/cart" element={<Cart />} />
             </Route>
-            <Route path="*" element={<NotFound />} />
+            <Route path="/login" element={<LoginPage />} />
+            <Route path="/sign-up" element={<Register />} />
 
+            <Route path="*" element={<NotFound />} />
           </Routes>
         </Suspense>
       </Router>

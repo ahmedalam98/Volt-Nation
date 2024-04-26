@@ -1,16 +1,14 @@
-import React, { useState } from "react";
-import SignUpForm from "./../../Components/Sign-UpForm/SignUpForm.jsx";
-import styles from "./Sign-Up-Page.module.css";
-import SignUpOptions from './../../Components/SignUpOptions/SignUpOptions.jsx'
+import SignUpForm from "../../Components/Sign-UpForm/SignUpForm.jsx";
+import styles from "./Register.module.css";
+import SignUpOptions from "../../Components/SignUpOptions/SignUpOptions.jsx";
 
-const SignUpPage = () => {
- 
+const Register = () => {
   return (
     <>
       <div className={styles.containerX}>
         <div className={styles.container}>
           <div className={styles.avatar}>
-            <img src="public/imgs/Big_phone_with_cart.jpg" />
+            <img src="/5.jpg" alt="register" />
           </div>
           <div className={styles.form}>
             <div className={styles.containerForDetails}>
@@ -44,4 +42,4 @@ const SignUpPage = () => {
   );
 };
 
-export default SignUpPage;
+export default Register;

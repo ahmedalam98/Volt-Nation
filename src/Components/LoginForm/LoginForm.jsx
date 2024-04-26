@@ -7,9 +7,8 @@ import InputAdornment from "@mui/material/InputAdornment";
 import FormControl from "@mui/material/FormControl";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import Checkbox from "@mui/material/Checkbox";
 import styles from "./LoginForm.module.css";
+
 function LoginForm() {
   const [user, setUser] = useState({
     email: "",
@@ -20,6 +19,7 @@ function LoginForm() {
     emailErr: "",
     passwordErr: "",
   });
+
   const [showPassword, setShowPassword] = React.useState(false);
   const handleClickShowPassword = () => setShowPassword((show) => !show);
   const handleMouseDownPassword = (event) => {
@@ -54,8 +54,8 @@ function LoginForm() {
             event.target.value.length === 0
               ? "password is required"
               : event.target.value.length < 6
-              ? "password must be at least 6 characters"
-              : "",
+                ? "password must be at least 6 characters"
+                : "",
         });
         break;
       default:
