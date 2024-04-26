@@ -8,11 +8,12 @@ const GalleryCard = ({
   subTitle,
   header,
   headerColor,
+  dynamicCard,
 }) => {
   return (
     <div
       style={{ backgroundColor: bgColor }}
-      className={`relative ${styles.card}`}
+      className={`relative ${styles.card} ${dynamicCard && "hidden md:block"}`}
     >
       <div className={styles.container}>
         <div className="mb-6">
