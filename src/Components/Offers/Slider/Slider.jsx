@@ -9,25 +9,25 @@ let offers = [
     image:
       "https://images.unsplash.com/photo-1576087503901-b2a3e3b66672?q=80&w=1887&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     offerValue: " Only from $210.00",
-    saleValue: "sale up to 40%",
+    saleValue: "Sale up to 40%",
   },
   {
     image:
       "https://images.unsplash.com/photo-1612444530582-fc66183b16f7?q=80&w=1888&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     offerValue: "Only from $140.00",
-    saleValue: "sale up to 60%",
+    saleValue: "Sale up to 60%",
   },
   {
     image:
       "https://images.unsplash.com/photo-1503328427499-d92d1ac3d174?q=80&w=1887&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     offerValue: "Only from $210.00",
-    saleValue: "trend 2024",
+    saleValue: "Trend 2024",
   },
   {
     image:
       "https://images.unsplash.com/photo-1552168324-d612d77725e3?q=80&w=1936&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     offerValue: " Only from $210.00",
-    saleValue: "sale up to 80%",
+    saleValue: "Sale up to 80%",
   },
 ];
 
