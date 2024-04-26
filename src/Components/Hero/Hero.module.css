@@ -15,21 +15,18 @@
   animation: breathing 5s infinite normal;
   margin-bottom: 40px;
   width: 35%;
-
-
- }
-.img img{
+}
+.img img {
   width: 100%;
-
 }
 
 @keyframes breathing {
   0% {
-   transform:translate(0, 0);
+    transform: translate(0, 0);
   }
 
   50% {
-    transform:translate(30px, 30px);
+    transform: translate(30px, 30px);
   }
 
   100% {
@@ -52,9 +49,8 @@
   z-index: -1;
 }
 .slider :global(.slick-active) .subTitle,
-.slider :global(.slick-active) .subTitle2{
+.slider :global(.slick-active) .subTitle2 {
   animation: subTitle 10s forwards;
-
 }
 .slider :global(.slick-active) .subTitle2 {
   left: 25%;
@@ -87,7 +83,6 @@
   letter-spacing: 25px;
   font-weight: 800;
   z-index: -1;
-
 }
 .slider :global(.slick-active) .headline1 {
   animation: slideIn 2s forwards;
@@ -166,8 +161,8 @@
 
 .btnContainer {
   text-align: center;
-  margin-bottom: 4rem;
- 
+  margin-top: 2rem;
+  margin-bottom: 2.4rem;
 }
 
 .shopBtn {
@@ -213,9 +208,8 @@
   .slider :global(.slick-active) .headline1 {
     font-size: 5rem;
   }
- 
 }
- 
+
 @media (max-width: 1010px) {
   .slider :global(.slick-active) .headline1 {
     font-size: 4rem;
@@ -225,10 +219,9 @@
     font-size: 7rem;
     letter-spacing: 25px;
   }
-  .img{
+  .img {
     width: 45%;
   }
-  
 }
 
 @media (max-width: 840px) {
@@ -268,8 +261,8 @@
     display: none !important;
   }
   .img {
-width: 55%;  
-}
+    width: 55%;
+  }
   .shopBtn {
     margin-top: 0;
     font-size: 16px;

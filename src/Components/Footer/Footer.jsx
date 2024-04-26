@@ -4,7 +4,7 @@ import FooterSubscribe from "./FooterSubscribe.jsx";
 
 export default function Footer() {
   return (
-    <div>
+    <div className="mt-20 md:mt-0">
       <div className="h-fit md:h-[340px] grid grid-cols-1 md:grid-cols-[1fr_1.5fr_1.5fr] lg:grid-cols-[1.5fr_1.5fr_2fr] gap-10 mt-10 text-white mx-16 mb-10 md:mb-0">
         <FooterFirstColumn />
 

@@ -4,7 +4,7 @@ import Swiper from "./Slider/Slider.jsx";
 
 export default function Offers() {
   return (
-    <div className="flex justify-center mt-20 ">
+    <div className="flex justify-center mt-20 md:mt-5">
       <div className="w-11/12 text-white md:text-start md:flex ">
         <div className="flex flex-col justify-center md:w-1/3 ">
           <h5 className="text-[20px] text-[#666] font-sans font-normal">
@@ -22,7 +22,11 @@ export default function Offers() {
           <h5 className="text-[20px] text-[#666] font-sans font-normal">
             The brand comes from the google home collection 2024
           </h5>
-          <button className={`${styles.button} mt-16  `}>SHOP NOW</button>
+          <div className="text-center md:text-start">
+            <button className={`${styles.button} mt-16 mb-8 md:mb-0`}>
+              SHOP NOW
+            </button>
+          </div>
         </div>
         <div className="scale-95 md:w-2/3 md:scale-95 ">
           <Swiper />
