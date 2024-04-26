@@ -1,10 +1,12 @@
-import Hero from "../../Components/Hero/Hero.jsx";
-
+ import Hero from "../../Components/Hero/Hero.jsx";
+ import GridGallery from "../../Components/HomeGallery/GridGallery/GridGallery.jsx";
+ 
 const Home = () => {
   return (
     <>
-      <Hero />
-    </>
+       <Hero />
+       <GridGallery />
+     </>
   );
 };
 

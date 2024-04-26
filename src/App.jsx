@@ -7,8 +7,8 @@ import Layout from "./Layout/Layout.jsx";
 //pages
 const Home = lazy(() => import("./Pages/Home/Home.jsx"));
 const Products = lazy(() => import("./Pages/Products/Products.jsx"));
-const ProductDetails = lazy(() =>
-  import("./Pages/ProductDetails/ProductDetails.jsx")
+const ProductDetails = lazy(
+  () => import("./Pages/ProductDetails/ProductDetails.jsx")
 );
 const Profile = lazy(() => import("./Pages/Profile/Profile.jsx"));
 const Cart = lazy(() => import("./Pages/Cart/Cart.jsx"));
@@ -20,7 +20,13 @@ function App() {
   return (
     <Provider store={store}>
       <Router>
-        <Suspense fallback={<h1>Loading ....</h1>}>
+        <Suspense
+          fallback={
+            <div className="loader-container">
+              <div className="loader"></div>
+            </div>
+          }
+        >
           <Routes>
             <Route path="/" element={<Layout />}>
               <Route path="/" element={<Home />} />
