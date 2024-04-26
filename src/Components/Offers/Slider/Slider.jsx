@@ -69,7 +69,7 @@ export default function Swiper() {
   };
   return (
     <div className=" slider-container">
-      <Slider {...settings} className="relative flex ">
+      <Slider {...settings} className={`relative flex ${Styles.responsive} `}>
         {offers.map((offer) => (
           <div
             key={offer.offerValue}
