@@ -26,7 +26,7 @@ const GridGallery = () => {
         </div>
       </div>
 
-      <div className="grid grid-cols-1 grid-rows-5 md:grid-cols-2 md:grid-rows-2">
+      <div className="grid grid-cols-1 grid-rows-2 md:grid-cols-2 md:grid-rows-2">
         <div className={styles.imageContainer}>
           <img
             src="1.jpg"
@@ -42,6 +42,7 @@ const GridGallery = () => {
           subTitle={"RGB Design 2024"}
           header={"CREATION CONQUERED"}
           headerColor={"#1b1b1b"}
+          dynamicCard={true}
         />
 
         <GalleryCard
@@ -50,9 +51,10 @@ const GridGallery = () => {
           subTitle={"Best Brand 2024"}
           header={"SURROUND SOUND"}
           headerColor={"#EDEDED"}
+          dynamicCard={false}
         />
 
-        <div className={styles.imageContainer}>
+        <div className={`hidden md:block ${styles.imageContainer}`}>
           <img
             src="3.jpg"
             alt="headphone"
