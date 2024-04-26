@@ -42,13 +42,13 @@
 }
 
 @media (max-width: 500px) {
-  :global(.slick-next) {
+  .responsive :global(.slick-next) {
     display: none !important;
   }
-  :global(.slick-prev) {
+  .responsive :global(.slick-prev) {
     display: none !important;
   }
-  :global(.respns) {
+  .responsive :global(.respns) {
     transform: scale(1) !important;
   }
 }
