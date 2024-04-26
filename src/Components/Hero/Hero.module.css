@@ -1,5 +1,5 @@
 .heroContainer {
-  margin-top: 20px;
+  margin-top: 30px;
 }
 
 /* --------------------- Image breathing --------------------- */
@@ -13,15 +13,23 @@
 
 .img {
   animation: breathing 5s infinite normal;
+  margin-bottom: 40px;
+  width: 35%;
+
+
+ }
+.img img{
+  width: 100%;
+
 }
 
 @keyframes breathing {
   0% {
-    transform: translate(0, 0);
+   transform:translate(0, 0);
   }
 
   50% {
-    transform: translate(30px, 30px);
+    transform:translate(30px, 30px);
   }
 
   100% {
@@ -30,17 +38,18 @@
 }
 /* --------------------- Image breathing --------------------- */
 
-/* Animate the subtitle */
-.slider :global(.slick-active) .subTitle,
-.slider :global(.slick-active) .subTitle2 {
+/* ---------------- Animate the subtitle ---------------- */
+.slider .subTitle,
+.slider .subTitle2 {
   position: absolute;
   left: 15%;
-  top: 39%;
+  top: 34%;
   opacity: 0;
   font-size: 1rem;
   color: var(--color-var5);
   overflow: hidden;
   white-space: nowrap;
+  z-index: -1;
   animation: subTitle 10s forwards;
 }
 .slider :global(.slick-active) .subTitle2 {
@@ -63,16 +72,18 @@
 }
 
 /* --------------------- Revealing headline from left --------------------- */
-.slider :global(.slick-active) .headline1,
-.slider :global(.slick-active) .headline2 {
+.slider .headline1,
+.slider .headline2 {
   position: absolute;
   left: -50px;
-  top: 40%;
+  top: 35%;
   opacity: 0;
   font-size: 8rem;
   color: var(--color-var5);
-  letter-spacing: 30px;
+  letter-spacing: 25px;
   font-weight: 800;
+  z-index: -1;
+
 }
 .slider :global(.slick-active) .headline1 {
   animation: slideIn 2s forwards;
@@ -104,7 +115,7 @@
 
 /*  --------------------- Revealing headline from left --------------------- */
 
-/* slider */
+/* -------------------- slider -------------------------- */
 .slider {
   width: 100%;
 }
@@ -152,6 +163,7 @@
 .btnContainer {
   text-align: center;
   margin-bottom: 4rem;
+ 
 }
 
 .shopBtn {
@@ -159,7 +171,6 @@
   border: none;
   width: 160px;
   height: 45px;
-  margin-top: 12px;
   font-size: 18px;
   color: var(--color-var5);
   transition: all 0.3s ease-in-out;
@@ -172,7 +183,7 @@
   background-color: var(--color-var2);
 }
 
-/* responsive */
+/* --------------- responsive ------------------- */
 @media (max-width: 1430px) {
   .slider :global(.slick-active) .headline1 {
     font-size: 7rem;
@@ -198,11 +209,9 @@
   .slider :global(.slick-active) .headline1 {
     font-size: 5rem;
   }
-  .heroContainer {
-    margin-top: 0;
-  }
+ 
 }
-
+ 
 @media (max-width: 1010px) {
   .slider :global(.slick-active) .headline1 {
     font-size: 4rem;
@@ -212,9 +221,12 @@
     font-size: 7rem;
     letter-spacing: 25px;
   }
-  .img img {
-    transform: scale(0.7);
+  .img{
+    width: 45%;
   }
+  /* .img img {
+    transform: scale(0.7);
+  } */
 }
 
 @media (max-width: 840px) {
@@ -227,7 +239,7 @@
   }
   .slider :global(.slick-active) .subTitle,
   .slider :global(.slick-active) .subTitle2 {
-    top: 36%;
+    top: 28%;
   }
 }
 
@@ -253,9 +265,9 @@
   .slider :global(.slick-next) {
     display: none !important;
   }
-  .img img {
-    transform: scale(0.6);
-  }
+  .img {
+width: 55%;  
+}
   .shopBtn {
     margin-top: 0;
     font-size: 16px;
@@ -268,7 +280,6 @@
   }
   .slider :global(.slick-active) .headline2 {
     letter-spacing: 8px;
-    /* font-size: 8rem; */
   }
 }
 
