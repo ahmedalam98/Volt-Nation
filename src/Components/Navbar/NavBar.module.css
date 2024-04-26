@@ -1,3 +1,6 @@
+:global(.MuiAppBar-root) {
+  box-shadow: none !important;
+}
 .authBtn {
   background-color: transparent !important;
   border: 2px solid var(--color-var1) !important;
@@ -8,6 +11,7 @@
   text-transform: none !important;
   font-weight: 500 !important;
   border-radius: 5px !important;
+  transition: all 0.3s ease-in-out !important;
 }
 .authBtn:hover {
   background-color: var(--color-var2) !important;
