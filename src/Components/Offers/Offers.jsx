@@ -4,7 +4,7 @@ import Swiper from "./Slider/Slider.jsx";
 
 export default function Offers() {
   return (
-    <div className="flex justify-center ">
+    <div className="flex justify-center mt-20 ">
       <div className="w-11/12 text-white md:text-start md:flex ">
         <div className="flex flex-col justify-center md:w-1/3 ">
           <h5 className="text-[20px] text-[#666] font-sans font-normal">
