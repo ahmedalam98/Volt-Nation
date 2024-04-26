@@ -35,7 +35,7 @@
   left: 15%;
   top: 39%;
   opacity: 0;
-  font-size: 2rem;
+  font-size: 1rem;
   color: var(--color-var5);
   overflow: hidden;
   white-space: nowrap;
@@ -67,7 +67,7 @@
   left: -50px;
   top: 40%;
   opacity: 0;
-  font-size: 13rem;
+  font-size: 8rem;
   color: var(--color-var5);
   letter-spacing: 30px;
   font-weight: 800;
@@ -161,32 +161,45 @@
 .shopBtn:hover {
   background-color: var(--color-var2);
 }
+
+/* responsive */
 @media (max-width: 1430px) {
   :global(.slick-active) .headline1 {
-    font-size: 11rem;
+    font-size: 7rem;
   }
 }
 @media (max-width: 1270px) {
   :global(.slick-active) .headline1 {
-    font-size: 10rem;
+    font-size: 6rem;
   }
 }
 @media (max-width: 1215px) {
   :global(.slick-active) .headline2 {
     animation: slideIn 2s forwards;
   }
+  :global(.slick-active) .subTitle2 {
+    left: 15%;
+  }
 }
 @media (max-width: 1180px) {
   :global(.slick-active) .headline1 {
-    font-size: 8rem;
+    font-size: 5rem;
   }
-  :global(.slick-active) .headline2 {
-    font-size: 11rem;
+  .heroContainer{
+    margin-top: 0;
   }
+ 
 }
 @media (max-width: 1010px) {
   :global(.slick-active) .headline1 {
-    font-size: 6rem;
+    font-size: 4rem;
+    letter-spacing: 25px;
+
+   }
+   :global(.slick-active) .headline2 {
+    font-size: 7rem;
+    letter-spacing: 25px;
+
   }
   .img img {
     transform: scale(0.7);
@@ -198,28 +211,31 @@
   }
   :global(.slick-active) .headline2 {
     letter-spacing: 20px;
+    font-size: 6rem;
   }
   :global(.slick-active) .subTitle,
   :global(.slick-active) .subTitle2 {
     top: 36%;
   }
+
 }
 
-@media (max-width: 740px) {
+@media (max-width: 780px) {
   :global(.slick-active) .headline1 {
-    font-size: 5rem;
+    font-size: 3.5rem;
+    letter-spacing: 18px;
   }
   :global(.slick-active) .headline2 {
-    font-size: 9rem;
+    font-size: 5.5rem;
   }
 }
-@media (max-width: 640px) {
+@media (max-width: 660px) {
   :global(.slick-active) .headline1 {
     /* font-size: 3rem; */
     letter-spacing: 10px;
   }
   :global(.slick-active) .headline2 {
-    letter-spacing: 5px;
+     font-size: 5rem;
   }
   :global(.slick-prev),
   :global(.slick-next) {
@@ -232,30 +248,37 @@
     margin-top: 0;
   }
 }
-@media (max-width: 530px) {
+@media (max-width: 590px) {
   :global(.slick-active) .headline1 {
     letter-spacing: 5px;
   }
   :global(.slick-active) .headline2 {
-    letter-spacing: 5px;
-    font-size: 8rem;
+    letter-spacing: 8px;
+    /* font-size: 8rem; */
   }
 }
-@media (max-width: 460px) {
+@media (max-width: 540px) {
   :global(.slick-active) .headline1 {
-    font-size: 4rem;
+    font-size: 3rem;
   }
-  :global(.slick-active) .headline2 {
-    /* letter-spacing: 0; */
-    font-size: 6rem;
-  }
+  
 }
-@media (max-width: 380px) {
+@media (max-width: 450px) {
   :global(.slick-active) .headline1 {
-    letter-spacing: 0;
+    font-size: 2.5rem;
   }
   :global(.slick-active) .headline2 {
     letter-spacing: 0;
-    font-size: 6rem;
+    font-size: 4.5rem;
+  }
+}
+@media (max-width: 376px) {
+  :global(.slick-active) .headline1 {
+    letter-spacing: 0;
+
+     font-size: 2.4rem;
+  }
+  :global(.slick-active) .headline2 {
+     font-size: 3.7rem;
   }
 }
