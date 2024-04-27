@@ -12,12 +12,7 @@ function SignUpOptions() {
             Sign Up With Google
           </Button>
         </div>
-        <div className="facebook my-2">
-          <Button className={styles.Button}>
-            <img src="5.png" alt="facebook" className={styles.icon} />
-            Sign Up With Facebook
-          </Button>
-        </div>
+        
       </div>
       <div style={{ marginTop: "2%", textAlign: "center" }}>
         <Link to="/login" className="text-sm">
