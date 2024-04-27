@@ -7,10 +7,7 @@ import InputAdornment from "@mui/material/InputAdornment";
 import FormControl from "@mui/material/FormControl";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import Checkbox from "@mui/material/Checkbox";
 import styles from "./LoginForm.module.css";
-import ResetPassword from "../ResetPassword/ResetPassword.jsx";
 import { Link } from "react-router-dom";
 function LoginForm() {
   const [user, setUser] = useState({
