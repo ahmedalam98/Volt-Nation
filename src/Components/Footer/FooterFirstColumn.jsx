@@ -7,7 +7,7 @@ import SocialIcon from "./SocialIcon.jsx";
 
 const FooterFirstColumn = () => {
   return (
-    <div className="flex flex-col gap-8 items-center md:items-start">
+    <div className="flex flex-col gap-5 items-center md:items-start">
       <h3 className="text-xl font-bold tracking-widest">CONTACT US</h3>
 
       <p className=" text-gray-400">Call Us 24/7 Free</p>

@@ -66,7 +66,7 @@ const FooterSecondColumn = () => {
         ))}
       </div>
 
-      <div className="flex flex-col gap-5">
+      <div className="flex flex-col gap-5 md:hidden lg:flex">
         <h3 className="text-xl font-bold mb-3 tracking-widest">EXPLORE</h3>
         {footerText[1].links.map((link) => (
           <Link

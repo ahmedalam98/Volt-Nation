@@ -81,7 +81,7 @@ export default function Swiper() {
               alt="offer"
               className="text-center shadow-xl h-[500px] md:h-[700px]"
             />
-            <div className="absolute translate-x-[-50%] left-1/2 top-1/2 translate-y-[150%] text-white bg-black py-2 px-6 bg-opacity-20 rounded-md">
+            <div className="absolute translate-x-[-50%] left-1/2 top-1/2 translate-y-[150%] text-white bg-black py-2 px-6 bg-opacity-20 rounded-md tracking-wide">
               <div className="leading-7 text-[15px] ">{offer.offerValue}</div>
               <h2 className="mt-5 text-[24px] font-bold">{offer.saleValue}</h2>
             </div>
