@@ -1,15 +1,18 @@
 import React, { useState, useRef } from "react";
-import { useLocation, Link } from "react-router-dom";
+import { useLocation, Link, useNavigate } from "react-router-dom";
 import { Button, TextField } from "@mui/material";
 import styles from "./Otp.module.css";
 
 function Otp() {
   const location = useLocation();
+  const navigate = useNavigate();
   const [otp, setOtp] = useState("");
-  let otpFromFront = location.state.otp;
+  let otpFromFront = location.state.otp.join("");
   console.log(otpFromFront);
+  //Data From The Inputs
   const [inputs, setInputs] = useState(["", "", "", ""]);
   const inputRefs = [useRef(), useRef(), useRef(), useRef()];
+  const [showerErr, setShowErr] = useState(false);
 
   const handleInputChange = (index, value) => {
     const newInputs = [...inputs];
@@ -26,10 +29,19 @@ function Otp() {
       inputRefs[index - 1].current.focus();
     }
   };
+  const clearInputs = () => {
+    setInputs(["", "", "", ""]);
+    setOtp("");
+    inputRefs[0].current.focus();
+  };
 
   const handleVerify = () => {
-    console.log("Verifying OTP:", otp);
-    // Add your OTP verification logic here
+    if (otpFromFront === otp) {
+      navigate("/resetPasswordUsr");
+    } else {
+      alert("not correct please try again");
+      clearInputs();
+    }
   };
 
   return (

@@ -6,6 +6,7 @@ import SignUpPage from "./Pages/Registartion/Sign-Up-Page.jsx";
 import LoginPage from "./Pages/Login/LoginPage.jsx";
 import ResetPassword from "./Components/ResetPassword/ResetPassword.jsx";
 import Otp from "./Components/OTP/Otp.jsx";
+import ResetUserPassword from "./Components/ResetPassword/ResetUserPassword.jsx";
 
 const Home = lazy(() => import("./Pages/Home/Home.jsx"));
 
@@ -20,6 +21,7 @@ function App() {
             <Route path="/login" element={<LoginPage />} />
             <Route path="/resetPassword" element={<ResetPassword />} />
             <Route path="/OTP" element={<Otp />} />
+            <Route path="/resetPasswordUsr" element={<ResetUserPassword />} />
           </Routes>
         </Suspense>
       </Router>
