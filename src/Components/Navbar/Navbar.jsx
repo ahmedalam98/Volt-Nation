@@ -103,7 +103,6 @@ function NavBar() {
                 justifyContent: "flex-end",
                 display: { xs: "none", md: "flex" },
               }}
-              onClick={() => navigate("/login")}
             >
               <Button
                 className={styles.authBtn}
