@@ -43,7 +43,7 @@ function NavBar() {
                   id="search"
                   placeholder="Search"
                   className={styles.search}
-                />
+                />{" "}
                 <Button
                   className={`${styles.customBtn} ${styles.home}`}
                   sx={{
@@ -55,7 +55,14 @@ function NavBar() {
                     margin: "0 15px",
                   }}
                 >
-                  Home{" "}
+                  <Link
+                    to="/"
+                    style={{
+                      padding: "10px",
+                    }}
+                  >
+                    Home{" "}
+                  </Link>
                 </Button>
                 <Button
                   className={`${styles.customBtn} ${styles.products}`}
@@ -68,7 +75,14 @@ function NavBar() {
                     margin: "0 15px",
                   }}
                 >
-                  Products
+                  <Link
+                    to="/products"
+                    style={{
+                      padding: "10px",
+                    }}
+                  >
+                    Products
+                  </Link>
                 </Button>
                 <Button
                   className={`${styles.customBtn} ${styles.account}`}
@@ -81,7 +95,14 @@ function NavBar() {
                     margin: "0 15px",
                   }}
                 >
-                  Account
+                  <Link
+                    to="/profile"
+                    style={{
+                      padding: "10px",
+                    }}
+                  >
+                    Account
+                  </Link>
                 </Button>
                 <label htmlFor="search" className={styles.label}>
                   <SearchIcon sx={{ width: "30px", height: "30px" }} />
@@ -97,8 +118,12 @@ function NavBar() {
                 display: { xs: "none", md: "flex" },
               }}
             >
-              <Button className={styles.authBtn}>Login</Button>
-              <Button className={styles.authBtn}>Register</Button>
+              <Link to="/login">
+                <Button className={styles.authBtn}>Login</Button>
+              </Link>{" "}
+              <Link to="/sign-up">
+                <Button className={styles.authBtn}>Register</Button>
+              </Link>{" "}
             </Box>
 
             {/* start of mobile navbar */}
