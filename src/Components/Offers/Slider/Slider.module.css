@@ -41,6 +41,11 @@
   margin-inline-start: 0 !important;
 }
 
+:global(.slick-dots li button:before) {
+  margin-top: 1rem;
+  color: white;
+}
+
 @media (max-width: 500px) {
   .responsive :global(.slick-next) {
     display: none !important;
