@@ -8,7 +8,7 @@ const Register = () => {
       <div className={styles.containerX}>
         <div className={styles.container}>
           <div className={styles.avatar}>
-            <img src="/5.jpg" alt="register" />
+            <img src="/4.jpg" alt="register" />
           </div>
           <div className={styles.form}>
             <div className={styles.containerForDetails}>
