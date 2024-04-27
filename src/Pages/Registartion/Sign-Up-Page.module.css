@@ -1,9 +1,7 @@
 body {
   background-color: #051118;
 }
-* {
-  color: white;
-}
+
 .containerX {
   width: 100vw;
   height: 100vh;
