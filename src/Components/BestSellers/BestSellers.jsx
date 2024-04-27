@@ -62,13 +62,13 @@ export default function BestSellers() {
   };
 
   return (
-    <div className="mt-16 mb-4">
+      <div className="mt-16 mb-4">
       <h2 className="text-white text-4xl ms-16 tracking-wider">
         Our Best Sellers
       </h2>
 
-      <Slider {...settings} className={styles.slider}>
-        {data?.data?.slice(20, 30).map((el) => (
+      <Slider {...settings} className={styles.swiper}>
+         {data?.data?.slice(20, 30).map((el) => (
           <Card key={el.id} product={el} />
         ))}
       </Slider>
