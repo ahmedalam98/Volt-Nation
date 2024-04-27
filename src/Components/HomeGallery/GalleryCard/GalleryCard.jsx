@@ -1,4 +1,3 @@
-/* eslint-disable react/prop-types */
 import GalleryButton from "../GalleryButton/GalleryButton.jsx";
 import styles from "./GalleryCard.module.css";
 

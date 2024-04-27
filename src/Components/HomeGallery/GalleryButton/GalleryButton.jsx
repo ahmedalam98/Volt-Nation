@@ -1,4 +1,3 @@
-/* eslint-disable react/prop-types */
 import styles from "./GalleryButton.module.css";
 import { Link } from "react-router-dom";
 

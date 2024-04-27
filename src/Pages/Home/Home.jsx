@@ -3,18 +3,26 @@ import GridGallery from "../../Components/HomeGallery/GridGallery/GridGallery.js
 import Pulse from "../../Components/Pulse/Pulse.jsx";
 import Offers from "../../Components/Offers/Offers.jsx";
 import BestSellers from "../../Components/BestSellers/BestSellers.jsx";
-import { useEffect, useState } from "react";
+import { useEffect, useRef } from "react";
 import "./Home.css";
 
+const animatedSections = [
+  { id: "section-1", component: <GridGallery /> },
+  { id: "section-2", component: <BestSellers /> },
+  { id: "section-3", component: <Pulse /> },
+  { id: "section-4", component: <Offers /> },
+];
+
 const Home = () => {
-  const [isScrolled, setIsScrolled] = useState(false);
+  const isScrolled = useRef({});
+  console.log(isScrolled.current);
 
   useEffect(() => {
     const sectionObserver = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            setIsScrolled(true);
+            isScrolled.current[entry.target.id] = true;
             entry.target.classList.add("in-view");
             sectionObserver.unobserve(entry.target);
           }
@@ -40,27 +48,15 @@ const Home = () => {
     <>
       <Hero />
 
-      <section
-        className={`${isScrolled["section-1"] ? "in-view" : "fade-in-bottom"}`}
-        id="section-1"
-      >
-        <GridGallery />
-      </section>
-      <BestSellers />
-
-      <section
-        className={`${isScrolled["section-2"] ? "in-view" : "fade-in-bottom"}`}
-        id="section-2"
-      >
-        <Pulse />
-      </section>
-
-      <section
-        className={`${isScrolled["section-3"] ? "in-view" : "fade-in-bottom"}`}
-        id="section-3"
-      >
-        <Offers />
-      </section>
+      {animatedSections.map((section) => (
+        <section
+          key={section.id}
+          className={`${isScrolled.current[section.id] ? "in-view" : "fade-in-bottom"}`}
+          id={section.id}
+        >
+          {section.component}
+        </section>
+      ))}
     </>
   );
 };
