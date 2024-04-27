@@ -8,9 +8,9 @@ import SearchIcon from "@mui/icons-material/Search";
 
 import styles from "./NavBar.module.css";
 import MobileNavbar from "../MobileNavbar/MobileNavbar.jsx";
-import { Link } from "react-router-dom";
-
+import { useNavigate } from "react-router-dom";
 function NavBar() {
+  const navigate = useNavigate();
   return (
     <div className={styles.navContainer}>
       <AppBar position="static" sx={{ background: "transparent" }}>
@@ -25,8 +25,9 @@ function NavBar() {
                 fontSize: { xs: "20px", md: "30px" },
                 display: { xs: "none", md: "flex" },
               }}
+              onClick={() => navigate("/")}
             >
-              <Link to="/">VoltNation</Link>
+              VoltNation
             </Typography>
 
             <Box
@@ -43,7 +44,7 @@ function NavBar() {
                   id="search"
                   placeholder="Search"
                   className={styles.search}
-                />{" "}
+                />
                 <Button
                   className={`${styles.customBtn} ${styles.home}`}
                   sx={{
@@ -53,16 +54,11 @@ function NavBar() {
                     fontSize: "18px",
                     fontWeight: "600",
                     margin: "0 15px",
+                    padding: "10px",
                   }}
+                  onClick={() => navigate("/")}
                 >
-                  <Link
-                    to="/"
-                    style={{
-                      padding: "10px",
-                    }}
-                  >
-                    Home{" "}
-                  </Link>
+                  Home
                 </Button>
                 <Button
                   className={`${styles.customBtn} ${styles.products}`}
@@ -73,16 +69,11 @@ function NavBar() {
                     fontSize: "18px",
                     fontWeight: "600",
                     margin: "0 15px",
+                    padding: "10px",
                   }}
+                  onClick={() => navigate("/products")}
                 >
-                  <Link
-                    to="/products"
-                    style={{
-                      padding: "10px",
-                    }}
-                  >
-                    Products
-                  </Link>
+                  Products
                 </Button>
                 <Button
                   className={`${styles.customBtn} ${styles.account}`}
@@ -93,16 +84,11 @@ function NavBar() {
                     fontSize: "18px",
                     fontWeight: "600",
                     margin: "0 15px",
+                    padding: "10px",
                   }}
+                  onClick={() => navigate("/profile")}
                 >
-                  <Link
-                    to="/profile"
-                    style={{
-                      padding: "10px",
-                    }}
-                  >
-                    Account
-                  </Link>
+                  Account
                 </Button>
                 <label htmlFor="search" className={styles.label}>
                   <SearchIcon sx={{ width: "30px", height: "30px" }} />
@@ -118,12 +104,19 @@ function NavBar() {
                 display: { xs: "none", md: "flex" },
               }}
             >
-              <Link to="/login">
-                <Button className={styles.authBtn}>Login</Button>
-              </Link>{" "}
-              <Link to="/sign-up">
-                <Button className={styles.authBtn}>Register</Button>
-              </Link>{" "}
+              <Button
+                className={styles.authBtn}
+                onClick={() => navigate("/login")}
+              >
+                Login
+              </Button>
+
+              <Button
+                className={styles.authBtn}
+                onClick={() => navigate("/sign-up")}
+              >
+                Register
+              </Button>
             </Box>
 
             {/* start of mobile navbar */}

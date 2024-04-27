@@ -10,7 +10,9 @@ import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
 import styles from "./SignUpForm.module.css";
-
+import { useDispatch, useSelector } from "react-redux";
+import { registerUser } from "../../Store/authSlice";
+import { useNavigate } from "react-router-dom";
 const SignUpForm = () => {
   const [user, setUser] = useState({
     firstName: "",
@@ -32,11 +34,28 @@ const SignUpForm = () => {
   const handleMouseDownPassword = (event) => {
     event.preventDefault();
   };
+  // const handleSubmit = (event) => {
+  //   event.preventDefault();
+  // };
 
-  const handleSubmit = (event) => {
+  //////////////////////////////////
+  const navigate = useNavigate();
+
+  const isRegistered = useSelector((state) => state.auth.isRegistered);
+  const registrationError = useSelector(
+    (state) => state.auth.registrationError
+  );
+  if (isRegistered) {
+    navigate("/login");
+  }
+  const dispatch = useDispatch();
+
+  const handleRegisterClick = (event) => {
     event.preventDefault();
-  };
 
+    dispatch(registerUser(user));
+  };
+  ////////////////////
   // Email Validation
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
@@ -104,7 +123,7 @@ const SignUpForm = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form>
       <div style={{ display: "flex", width: "100%" }}>
         <div
           style={{
@@ -225,21 +244,14 @@ const SignUpForm = () => {
           <small className={styles.errorMsg}>{errors.repasswordErr}</small>
         </FormControl>
       </div>
-      <div
-        className="checkBox"
-        style={{ margin: "5px", marginLeft: "2%", width: "97%" }}
-      >
-        <FormControlLabel
-          required
-          control={<Checkbox />}
-          label="By registration you are agree to our terms and conditions"
-        />
-      </div>
+      {registrationError ? <div>{registrationError}</div> : null}
+
       <div style={{ marginTop: "5%", color: "black" }}>
         <Button
           variant="contained"
           type="submit"
           style={{ backgroundColor: "#8dff7a", width: "90%", marginLeft: "5%" }}
+          onClick={handleRegisterClick}
         >
           Create Account
         </Button>

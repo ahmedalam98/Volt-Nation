@@ -1,4 +1,3 @@
-/* eslint-disable react/prop-types */
 import IconsContainer from "./IconsContainer.jsx";
 import styles from "./Pulse.module.css";
 

@@ -8,7 +8,9 @@ import FormControl from "@mui/material/FormControl";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import styles from "./LoginForm.module.css";
-
+import { useDispatch, useSelector } from "react-redux";
+import { logInUser } from "../../Store/authSlice";
+import { useNavigate } from "react-router-dom";
 function LoginForm() {
   const [user, setUser] = useState({
     email: "",
@@ -26,10 +28,22 @@ function LoginForm() {
     event.preventDefault();
   };
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
-  };
+  ///////////////////////////////////////////
+  const navigate = useNavigate();
 
+  const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
+  const logInError = useSelector((state) => state.auth.logInError);
+
+  if (isLoggedIn) {
+    navigate("/");
+  }
+  const dispatch = useDispatch();
+  const handleLogInClick = (event) => {
+    event.preventDefault();
+
+    dispatch(logInUser(user));
+  };
+  ///////////////////////////////////////////
   // Email Validation
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
@@ -65,7 +79,7 @@ function LoginForm() {
 
   return (
     <>
-      <form onSubmit={handleSubmit}>
+      <form>
         <div className="email">
           <TextField
             fullWidth
@@ -114,7 +128,7 @@ function LoginForm() {
             <small className={styles.errorMsg}>{errors.passwordErr}</small>
           </FormControl>
         </div>
-
+        {logInError ? <div>{logInError}</div> : null}
         <div style={{ marginTop: "5%", color: "black" }}>
           <Button
             variant="contained"
@@ -124,6 +138,7 @@ function LoginForm() {
               width: "90%",
               marginLeft: "5%",
             }}
+            onClick={handleLogInClick}
           >
             Log In
           </Button>

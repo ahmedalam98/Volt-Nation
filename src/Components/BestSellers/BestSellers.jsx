@@ -3,12 +3,15 @@ import styles from "./BestSellers.module.css";
 import { useQuery } from "react-query";
 import { getProducts } from "../../api/apiFunctions";
 import Card from "../Card/Card.jsx";
+
 export default function BestSellers() {
   const { isLoading, isError, data, error, refetch } = useQuery(
     ["products"],
     getProducts
   );
-  console.log(data?.data);
+
+  // console.log(data?.data);
+
   const settings = {
     infinite: true,
     // fade: true,
@@ -57,10 +60,15 @@ export default function BestSellers() {
       },
     ],
   };
+
   return (
-    <div>
+      <div className="mt-16 mb-4">
+      <h2 className="text-white text-4xl ms-16 tracking-wider">
+        Our Best Sellers
+      </h2>
+
       <Slider {...settings} className={styles.swiper}>
-        {data?.data?.slice(20, 30).map((el) => (
+         {data?.data?.slice(20, 30).map((el) => (
           <Card key={el.id} product={el} />
         ))}
       </Slider>

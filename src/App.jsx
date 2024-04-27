@@ -4,6 +4,7 @@ import { Suspense, lazy } from "react";
 import store from "./Store/store";
 import Layout from "./Layout/Layout.jsx";
 import { QueryClient, QueryClientProvider } from "react-query";
+// import { ReactQueryDevtools } from "react-query/devtools";
 
 const Home = lazy(() => import("./Pages/Home/Home.jsx"));
 const Products = lazy(() => import("./Pages/Products/Products.jsx"));
@@ -16,7 +17,6 @@ const NotFound = lazy(() => import("./Pages/NotFound/NotFound.jsx"));
 const LoginPage = lazy(() => import("./Pages/Login/LoginPage.jsx"));
 const Register = lazy(() => import("./Pages/Registartion/Register.jsx"));
 
-
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
@@ -26,36 +26,35 @@ const queryClient = new QueryClient({
   },
 });
 
-
 function App() {
   return (
-   <QueryClientProvider client={queryClient}>
-     <Provider store={store}>
-      <Router>
-        <Suspense
-          fallback={
-            <div className="loader-container">
-              <div className="loader"></div>
-            </div>
-          }
-        >
-          <Routes>
-            <Route path="/" element={<Layout />}>
-              <Route path="/" element={<Home />} />
-              <Route path="/products" element={<Products />} />
-              <Route path="/products/:id" element={<ProductDetails />} />
-              <Route path="/profile" element={<Profile />} />
-              <Route path="/cart" element={<Cart />} />
-            </Route>
-            <Route path="/login" element={<LoginPage />} />
-            <Route path="/sign-up" element={<Register />} />
+    <QueryClientProvider client={queryClient}>
+      <Provider store={store}>
+        <Router>
+          <Suspense
+            fallback={
+              <div className="loader-container">
+                <div className="loader"></div>
+              </div>
+            }
+          >
+            <Routes>
+              <Route path="/" element={<Layout />}>
+                <Route path="/" element={<Home />} />
+                <Route path="/products" element={<Products />} />
+                <Route path="/products/:id" element={<ProductDetails />} />
+                <Route path="/profile" element={<Profile />} />
+                <Route path="/cart" element={<Cart />} />
+              </Route>
+              <Route path="/login" element={<LoginPage />} />
+              <Route path="/sign-up" element={<Register />} />
 
-            <Route path="*" element={<NotFound />} />
-          </Routes>
-        </Suspense>
-      </Router>
-    </Provider>
-   </QueryClientProvider>
+              <Route path="*" element={<NotFound />} />
+            </Routes>
+          </Suspense>
+        </Router>
+      </Provider>
+    </QueryClientProvider>
   );
 }
 

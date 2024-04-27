@@ -92,3 +92,24 @@
     max-height: 96vh;
   }
 }
+
+:global(.MuiFormLabel-root) {
+  color: white !important;
+}
+:global(.MuiInputBase-input) {
+  color: white !important;
+}
+
+:global(& .MuiOutlinedInput-root) {
+  :global(& fieldset) {
+    border-color: white !important;
+  }
+
+  :global(&:hover fieldset) {
+    border-color: white !important;
+  }
+
+  :global(&.Mui-focused fieldset) {
+    border-color: var(--color1) !important;
+  }
+}

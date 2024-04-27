@@ -11,12 +11,6 @@ function LoginOptions() {
             Login With Google
           </Button>
         </div>
-        <div className="facebook my-2">
-          <Button className={styles.Button} style={{ width: "100%" }}>
-            <img src="5.png" alt="facebook" className={styles.icon} />
-            Login With Facebook
-          </Button>
-        </div>
       </div>
       <div style={{ marginTop: "2%", textAlign: "center" }}>
         <Link className="text-sm" to="/sign-up">

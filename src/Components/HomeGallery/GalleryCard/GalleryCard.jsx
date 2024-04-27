@@ -1,4 +1,3 @@
-/* eslint-disable react/prop-types */
 import GalleryButton from "../GalleryButton/GalleryButton.jsx";
 import styles from "./GalleryCard.module.css";
 
@@ -21,13 +20,17 @@ const GalleryCard = ({
 
           <h2
             style={{ color: headerColor }}
-            className="text-2xl lg:text-base xl:text-2xl font-bold whitespace-nowrap overflow-hidden text-ellipsis"
+            className="overflow-hidden text-2xl font-bold lg:text-base xl:text-2xl whitespace-nowrap text-ellipsis"
           >
             {header}
           </h2>
         </div>
 
-        <GalleryButton fontSize={"14px"} color={buttonColor}>
+        <GalleryButton
+          navigateTo={"/products"}
+          fontSize={"14px"}
+          color={buttonColor}
+        >
           Shop Collection
         </GalleryButton>
       </div>

@@ -1,5 +1,5 @@
 import React from "react";
 
 export default function ProductDetails() {
-  return <div>ProductDetails</div>;
+  return <div className="text-white">ProductDetails</div>;
 }
