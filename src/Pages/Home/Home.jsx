@@ -2,10 +2,10 @@ import Hero from "../../Components/Hero/Hero.jsx";
 import GridGallery from "../../Components/HomeGallery/GridGallery/GridGallery.jsx";
 import Pulse from "../../Components/Pulse/Pulse.jsx";
 import Offers from "../../Components/Offers/Offers.jsx";
- import BestSellers from "../../Components/BestSellers/BestSellers.jsx";
- import { useEffect, useState } from "react";
+import BestSellers from "../../Components/BestSellers/BestSellers.jsx";
+import { useEffect, useState } from "react";
 import "./Home.css";
- 
+
 const Home = () => {
   const [isScrolled, setIsScrolled] = useState(false);
 
@@ -39,15 +39,14 @@ const Home = () => {
   return (
     <>
       <Hero />
-       <BestSellers />
-     
- 
+
       <section
         className={`${isScrolled["section-1"] ? "in-view" : "fade-in-bottom"}`}
         id="section-1"
       >
         <GridGallery />
       </section>
+      <BestSellers />
 
       <section
         className={`${isScrolled["section-2"] ? "in-view" : "fade-in-bottom"}`}
@@ -62,7 +61,7 @@ const Home = () => {
       >
         <Offers />
       </section>
-     </>
+    </>
   );
 };
 
