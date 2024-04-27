@@ -1,8 +1,10 @@
 import React from "react";
 import styles from "./Offers.module.css";
 import Swiper from "./Slider/Slider.jsx";
+import { useNavigate } from "react-router-dom";
 
 export default function Offers() {
+  const navigate = useNavigate();
   return (
     <div className="flex justify-center mt-20 md:mt-5 ">
       <div className="w-11/12 text-white md:text-start md:flex ">
@@ -23,7 +25,10 @@ export default function Offers() {
             The brand comes from the google home collection 2024
           </h5>
           <div className="text-center md:text-start">
-            <button className={`${styles.button} mt-16 mb-8 md:mb-0`}>
+            <button
+              onClick={() => navigate("/products")}
+              className={`${styles.button} mt-16 mb-8 md:mb-0`}
+            >
               SHOP NOW
             </button>
           </div>

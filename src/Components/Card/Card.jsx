@@ -2,6 +2,7 @@ import { Rating } from "@mui/material";
 import styles from "./Card.module.css";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import ShoppingBagOutlinedIcon from "@mui/icons-material/ShoppingBagOutlined";
+import { Link } from "react-router-dom";
 // eslint-disable-next-line react/prop-types
 export default function Card({ product }) {
   console.log(product, "card");
@@ -16,7 +17,9 @@ export default function Card({ product }) {
           <div className={styles.rating}>
             <Rating name="read-only" value={product.rating} readOnly />
           </div>
-          <div className={styles.name}>{product.pName}</div>
+          <div className={styles.name}>
+            <Link to={`/products/${product.id}`}> {product.pName}</Link>
+          </div>
           <div className={styles.brand}>{product.brand}</div>
           <div className={styles.price}>{product.price}</div>
         </div>

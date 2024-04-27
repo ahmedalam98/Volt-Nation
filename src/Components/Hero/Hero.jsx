@@ -1,7 +1,9 @@
 import Slider from "react-slick";
 import styles from "./Hero.module.css";
+import { useNavigate } from "react-router-dom";
 
 export default function Hero() {
+  const navigate = useNavigate();
   const settings = {
     infinite: true,
     fade: true,
@@ -86,7 +88,12 @@ export default function Hero() {
       </Slider>
 
       <div className={styles.btnContainer}>
-        <button className={styles.shopBtn}>Shop now</button>
+        <button
+          className={styles.shopBtn}
+          onClick={() => navigate("/products")}
+        >
+          Shop now
+        </button>
       </div>
     </div>
   );
