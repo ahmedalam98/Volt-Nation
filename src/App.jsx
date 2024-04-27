@@ -3,6 +3,7 @@ import { Provider } from "react-redux";
 import { Suspense, lazy } from "react";
 import store from "./Store/store";
 import Layout from "./Layout/Layout.jsx";
+import { QueryClient, QueryClientProvider } from "react-query";
 
 const Home = lazy(() => import("./Pages/Home/Home.jsx"));
 const Products = lazy(() => import("./Pages/Products/Products.jsx"));
@@ -15,9 +16,21 @@ const NotFound = lazy(() => import("./Pages/NotFound/NotFound.jsx"));
 const LoginPage = lazy(() => import("./Pages/Login/LoginPage.jsx"));
 const Register = lazy(() => import("./Pages/Registartion/Register.jsx"));
 
+
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      refetchOnWindowFocus: false,
+      staleTime: Infinity,
+    },
+  },
+});
+
+
 function App() {
   return (
-    <Provider store={store}>
+   <QueryClientProvider client={queryClient}>
+     <Provider store={store}>
       <Router>
         <Suspense
           fallback={
@@ -42,6 +55,7 @@ function App() {
         </Suspense>
       </Router>
     </Provider>
+   </QueryClientProvider>
   );
 }
 
