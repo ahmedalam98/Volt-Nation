@@ -59,7 +59,7 @@ export default function BestSellers() {
   };
   return (
     <div>
-      <Slider {...settings} className={styles.slider}>
+      <Slider {...settings} className={styles.swiper}>
         {data?.data?.slice(20, 30).map((el) => (
           <Card key={el.id} product={el} />
         ))}
