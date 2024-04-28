@@ -67,11 +67,7 @@ export default function BestSellers() {
         Our Best Sellers
       </h2>
 
-      {isLoading && (
-        <div className="spinner-container">
-          <div className="spinner"></div>
-        </div>
-      )}
+      {isLoading && <div className="text-white text-4xl mt-16">Loading...</div>}
 
       <Slider {...settings} className={styles.swiper}>
         {data?.data?.slice(20, 30).map((el) => (
