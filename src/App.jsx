@@ -6,6 +6,14 @@ import Layout from "./Layout/Layout.jsx";
 import { QueryClient, QueryClientProvider } from "react-query";
 // import { ReactQueryDevtools } from "react-query/devtools";
 
+import Dashboard from "./Components/Dashboard/Dashboard.jsx";
+import Overview from "./Components/Dashboard/Overview.jsx";
+import AdminProducts from "./Components/Dashboard/AdminProducts.jsx";
+import AdminOrders from "./Components/Dashboard/AdminOrders.jsx";
+import AdminCategories from "./Components/Dashboard/AdminCategories.jsx";
+import ProtectedRoute from "./Utils/ProtectedRoute.jsx";
+import Admins from "./Components/Dashboard/Admins.jsx";
+
 const Home = lazy(() => import("./Pages/Home/Home.jsx"));
 const Products = lazy(() => import("./Pages/Products/Products.jsx"));
 const ProductDetails = lazy(
@@ -40,15 +48,36 @@ function App() {
           >
             <Routes>
               <Route path="/" element={<Layout />}>
+                {/* Public Routes */}
                 <Route path="/" element={<Home />} />
                 <Route path="/products" element={<Products />} />
                 <Route path="/products/:id" element={<ProductDetails />} />
                 <Route path="/profile" element={<Profile />} />
                 <Route path="/cart" element={<Cart />} />
               </Route>
+
+              {/* Auth Routes */}
               <Route path="/login" element={<LoginPage />} />
               <Route path="/sign-up" element={<Register />} />
 
+              {/* Protected Dashboard Routes */}
+              <Route element={<ProtectedRoute />}>
+                <Route path="/dashboard" element={<Dashboard />}>
+                  <Route index element={<Overview />} />
+                  <Route
+                    path="/dashboard/products"
+                    element={<AdminProducts />}
+                  />
+                  <Route
+                    path="/dashboard/categories"
+                    element={<AdminCategories />}
+                  />
+                  <Route path="/dashboard/orders" element={<AdminOrders />} />
+                  <Route path="/dashboard/admins" element={<Admins />} />
+                </Route>
+              </Route>
+
+              {/* 404 Route */}
               <Route path="*" element={<NotFound />} />
             </Routes>
           </Suspense>

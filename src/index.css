@@ -29,6 +29,15 @@ html {
   box-sizing: inherit;
 }
 
+.spinner-container {
+  height: 50vh;
+  display: grid;
+  place-items: center;
+}
+
+.spinner {
+}
+
 .loader-container {
   height: 100vh;
   display: grid;
