@@ -1,12 +1,13 @@
 import AttachMoneyIcon from "@mui/icons-material/AttachMoney";
 import LoyaltyIcon from "@mui/icons-material/Loyalty";
 import LaptopWindowsIcon from "@mui/icons-material/LaptopWindows";
+import PersonIcon from "@mui/icons-material/Person";
 import { Bar, BarChart, ResponsiveContainer, XAxis, YAxis } from "recharts";
 
 const Overview = () => {
   const headers = [
     {
-      header: "Total Revenue",
+      header: "Revenue",
       value: 45231,
       icon: <AttachMoneyIcon fontSize="large" />,
     },
@@ -15,6 +16,11 @@ const Overview = () => {
       header: "Products",
       value: 60,
       icon: <LaptopWindowsIcon fontSize="large" />,
+    },
+    {
+      header: "Users",
+      value: 2300,
+      icon: <PersonIcon fontSize="large" />,
     },
   ];
 
@@ -70,19 +76,19 @@ const Overview = () => {
   ];
 
   return (
-    <div className="flex flex-col justify-between h-[95vh]">
-      <div className="flex gap-5 md:gap-10 xl:gap-16 flex-wrap mx-auto mt-2 justify-center items-center">
+    <div className="flex flex-col justify-around xl:justify-between h-[95vh]">
+      <div className="flex gap-5 md:gap-3 xl:gap-10 flex-wrap mx-auto mt-2 justify-center items-center">
         {headers.map((item) => (
           <div
             key={item.header}
-            className=" h-28 w-52 md:w-80 p-5 rounded-lg bg-[var(--color-var3)] flex flex-col justify-between"
+            className=" h-20 md:h-28 w-56 p-5 rounded-lg bg-[var(--color-var3)] flex flex-col justify-between"
           >
             <div className="flex justify-between items-center">
-              <h2 className="text-2xl md:text-3xl ">{item.header}</h2>
+              <h2 className="text-3xl ">{item.header}</h2>
               <div className=" text-white">{item.icon}</div>
             </div>
 
-            <p className=" text-3xl">{item.value}</p>
+            <p className="text-3xl">{item.value}</p>
           </div>
         ))}
       </div>
@@ -112,7 +118,7 @@ const Overview = () => {
         </ResponsiveContainer>
 
         <div
-          className="bg-[var(--color-var3)] rounded-lg p-5 h-[400px] w-[90%] lg:w-[400px] mx-auto"
+          className="bg-[var(--color-var3)] rounded-lg p-5 h-[250px] lg:h-[400px]  w-[90%] lg:w-[400px] mx-auto  lg:me-10 mb-10 lg:mb-0"
           style={{
             overflowY: "auto",
             scrollBehavior: "smooth",
@@ -121,7 +127,7 @@ const Overview = () => {
         >
           <h2 className="text-2xl">Recent Orders</h2>
           <div className="flex flex-col gap-5 mt-5">
-            <div className="flex justify-between">
+            <div className="flex justify-fabetween">
               <p>Order #345</p>
               <p>$1200</p>
             </div>

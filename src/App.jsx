@@ -4,13 +4,15 @@ import { Suspense, lazy } from "react";
 import store from "./Store/store";
 import Layout from "./Layout/Layout.jsx";
 import { QueryClient, QueryClientProvider } from "react-query";
+// import { ReactQueryDevtools } from "react-query/devtools";
+
 import Dashboard from "./Components/Dashboard/Dashboard.jsx";
 import Overview from "./Components/Dashboard/Overview.jsx";
 import AdminProducts from "./Components/Dashboard/AdminProducts.jsx";
 import AdminOrders from "./Components/Dashboard/AdminOrders.jsx";
 import AdminCategories from "./Components/Dashboard/AdminCategories.jsx";
 import ProtectedRoute from "./Utils/ProtectedRoute.jsx";
-// import { ReactQueryDevtools } from "react-query/devtools";
+import Admins from "./Components/Dashboard/Admins.jsx";
 
 const Home = lazy(() => import("./Pages/Home/Home.jsx"));
 const Products = lazy(() => import("./Pages/Products/Products.jsx"));
@@ -71,6 +73,7 @@ function App() {
                     element={<AdminCategories />}
                   />
                   <Route path="/dashboard/orders" element={<AdminOrders />} />
+                  <Route path="/dashboard/admins" element={<Admins />} />
                 </Route>
               </Route>
 

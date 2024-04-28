@@ -12,6 +12,11 @@
   word-break: break-word;
 }
 
+.divider {
+  height: 0px;
+  margin: 15px 0;
+}
+
 .sidebar {
   /* 50px is related to width conditional styling inside Dashboard component */
   position: fixed;
