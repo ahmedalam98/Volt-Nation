@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faChartColumn,
@@ -9,7 +9,6 @@ import {
   faUsers,
   faArrowLeft,
   faDoorOpen,
-  faCrown,
 } from "@fortawesome/free-solid-svg-icons";
 import styles from "./Dashboard.module.css";
 
@@ -19,10 +18,16 @@ const links = [
   { to: "/dashboard/categories", icon: faList, text: "Categories" },
   { to: "/dashboard/orders", icon: faTruckFast, text: "Orders" },
   { to: "/dashboard/admins", icon: faUsers, text: "Admins" },
-  { to: "/login", icon: faDoorOpen, text: "Log out" },
 ];
 
 const SideBar = ({ isOpen, onToggle, isToggleAllowed }) => {
+  const navigate = useNavigate();
+
+  const handleLogOut = () => {
+    localStorage.removeItem("token");
+    navigate("/login");
+  };
+
   const handleTrigger = () => {
     onToggle();
   };
@@ -36,26 +41,28 @@ const SideBar = ({ isOpen, onToggle, isToggleAllowed }) => {
           </div>
         ) : null}
 
-        <br />
-
         {links.map((link) => (
           <Link to={link.to} key={link.text}>
             <div className={styles.sidePosition}>
               <FontAwesomeIcon icon={link.icon} />
-              <span>{link.text}</span>
+              <span className="tracking-wide">{link.text}</span>
             </div>
           </Link>
         ))}
+
+        <div className={styles.sidePosition} onClick={handleLogOut}>
+          <FontAwesomeIcon icon={faDoorOpen} />
+          <span className="tracking-wide">Log out</span>
+        </div>
       </div>
 
       <div
-        className={` flex flex-col justify-center items-center text-4xl gap-4 absolute left-7 bottom-24 text-white transition-opacity duration-300 tracking-wider ${
+        className={`flex flex-col justify-center items-center text-4xl gap-4 absolute left-8 bottom-16 text-white transition-opacity duration-300 tracking-wider ${
           !isOpen ? "opacity-0 delay-75" : "opacity-100"
         }`}
       >
-        <FontAwesomeIcon icon={faCrown} />
-        <p>Admin</p>
-        <p>Dashboard</p>
+        <div className={styles.thunder}></div>
+        <p>VoltNation</p>
       </div>
     </div>
   );

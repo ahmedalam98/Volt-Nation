@@ -2,7 +2,8 @@ import AttachMoneyIcon from "@mui/icons-material/AttachMoney";
 import LoyaltyIcon from "@mui/icons-material/Loyalty";
 import LaptopWindowsIcon from "@mui/icons-material/LaptopWindows";
 import PersonIcon from "@mui/icons-material/Person";
-import { Bar, BarChart, ResponsiveContainer, XAxis, YAxis } from "recharts";
+import Avatar from "@mui/material/Avatar";
+import Status from "./Status.jsx";
 
 const Overview = () => {
   const headers = [
@@ -24,55 +25,22 @@ const Overview = () => {
     },
   ];
 
-  const data = [
-    {
-      name: "Jan",
-      total: Math.floor(Math.random() * 5000) + 1000,
-    },
-    {
-      name: "Feb",
-      total: Math.floor(Math.random() * 5000) + 1000,
-    },
-    {
-      name: "Mar",
-      total: Math.floor(Math.random() * 5000) + 1000,
-    },
-    {
-      name: "Apr",
-      total: Math.floor(Math.random() * 5000) + 1000,
-    },
-    {
-      name: "May",
-      total: Math.floor(Math.random() * 5000) + 1000,
-    },
-    {
-      name: "Jun",
-      total: Math.floor(Math.random() * 5000) + 1000,
-    },
-    {
-      name: "Jul",
-      total: Math.floor(Math.random() * 5000) + 1000,
-    },
-    {
-      name: "Aug",
-      total: Math.floor(Math.random() * 5000) + 1000,
-    },
-    {
-      name: "Sep",
-      total: Math.floor(Math.random() * 5000) + 1000,
-    },
-    {
-      name: "Oct",
-      total: Math.floor(Math.random() * 5000) + 1000,
-    },
-    {
-      name: "Nov",
-      total: Math.floor(Math.random() * 5000) + 1000,
-    },
-    {
-      name: "Dec",
-      total: Math.floor(Math.random() * 5000) + 1000,
-    },
+  const dummyData = [
+    { name: "Ahmed Ibrahim", color: "orange", money: 1200 },
+    { name: "Sarah Al-Jaberi", color: "red", money: 1500 },
+    { name: "Mohamed Ali", color: "blue", money: 2000 },
+    { name: "Fatima Khalid", color: "green", money: 950 },
+    { name: "Yousef Saeed", color: "grey", money: 1750 },
+    { name: "Layla Hasan", color: "purple", money: 1800 },
+    { name: "Kareem Saeed", color: "pink", money: 1250 },
+    { name: "Mona Al-Hussein", color: "teal", money: 1100 },
+    { name: "Ayman Ibrahim", color: "indigo", money: 2300 },
+    { name: "Zahra Abbas", color: "brown", money: 1900 },
+    { name: "Hani Al-Bashir", color: "grey", money: 1350 },
+    { name: "Noura Fahd", color: "cyan", money: 1420 },
+    { name: "Ali Mansour", color: "lime", money: 1680 },
+    { name: "Salma Al-Faraj", color: "amber", money: 1520 },
+    { name: "Omar Ismail", color: "fuchsia", money: 2100 },
   ];
 
   return (
@@ -93,32 +61,11 @@ const Overview = () => {
         ))}
       </div>
 
-      <div className=" grid grid-cols1 lg:grid-cols-[2fr_1fr] gap-10 mt-20 lg:mt-0">
-        <ResponsiveContainer width="100%" height={420} className="self-end">
-          <BarChart data={data}>
-            <XAxis
-              dataKey="name"
-              stroke="#888888"
-              fontSize={12}
-              tickLine={false}
-              axisLine={false}
-            />
-
-            <YAxis
-              domain={[0, 6000]}
-              stroke="#888888"
-              fontSize={12}
-              tickLine={false}
-              axisLine={false}
-              tickFormatter={(value) => `$${value}`}
-            />
-
-            <Bar dataKey="total" fill="#08cff6" radius={[4, 4, 0, 0]} />
-          </BarChart>
-        </ResponsiveContainer>
+      <div className=" grid grid-cols1 xl:grid-cols-[2fr_1fr] gap-10 mt-20 lg:mt-0">
+        <Status />
 
         <div
-          className="bg-[var(--color-var3)] rounded-lg p-5 h-[250px] lg:h-[400px]  w-[90%] lg:w-[400px] mx-auto  lg:me-10 mb-10 lg:mb-0"
+          className="bg-[var(--color-var3)] rounded-lg p-5 h-[250px] lg:h-[400px] w-[90%] xl:w-[400px] mx-auto lg:me-10 mb-10 lg:mb-0"
           style={{
             overflowY: "auto",
             scrollBehavior: "smooth",
@@ -126,67 +73,18 @@ const Overview = () => {
           }}
         >
           <h2 className="text-2xl">Recent Orders</h2>
-          <div className="flex flex-col gap-5 mt-5">
-            <div className="flex justify-fabetween">
-              <p>Order #345</p>
-              <p>$1200</p>
-            </div>
-            <div className="flex justify-between">
-              <p>Order #346</p>
-              <p>$1300</p>
-            </div>
-            <div className="flex justify-between">
-              <p>Order #347</p>
-              <p>$1400</p>
-            </div>
-            <div className="flex justify-between">
-              <p>Order #348</p>
-              <p>$1500</p>
-            </div>
-            <div className="flex justify-between">
-              <p>Order #349</p>
-              <p>$1600</p>
-            </div>
-            <div className="flex justify-between">
-              <p>Order #345</p>
-              <p>$1200</p>
-            </div>
-            <div className="flex justify-between">
-              <p>Order #346</p>
-              <p>$1300</p>
-            </div>
-            <div className="flex justify-between">
-              <p>Order #347</p>
-              <p>$1400</p>
-            </div>
-            <div className="flex justify-between">
-              <p>Order #348</p>
-              <p>$1500</p>
-            </div>
-            <div className="flex justify-between">
-              <p>Order #349</p>
-              <p>$1600</p>
-            </div>
-            <div className="flex justify-between">
-              <p>Order #345</p>
-              <p>$1200</p>
-            </div>
-            <div className="flex justify-between">
-              <p>Order #346</p>
-              <p>$1300</p>
-            </div>
-            <div className="flex justify-between">
-              <p>Order #347</p>
-              <p>$1400</p>
-            </div>
-            <div className="flex justify-between">
-              <p>Order #348</p>
-              <p>$1500</p>
-            </div>
-            <div className="flex justify-between">
-              <p>Order #349</p>
-              <p>$1600</p>
-            </div>
+          <div className="flex flex-col gap-5 my-5">
+            {dummyData.map((item, index) => (
+              <div key={index} className="flex justify-between items-center">
+                <div className="flex">
+                  <Avatar className="me-4" sx={{ backgroundColor: item.color }}>
+                    {item.name[0]}
+                  </Avatar>
+                  <p className="my-auto">{item.name}</p>
+                </div>
+                <p>${item.money}</p>
+              </div>
+            ))}
           </div>
         </div>
       </div>
