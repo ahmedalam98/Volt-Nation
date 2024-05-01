@@ -11,15 +11,29 @@ import styles from "./LoginForm.module.css";
 import { useDispatch, useSelector } from "react-redux";
 import { logInUser } from "../../Store/authSlice";
 import { useNavigate } from "react-router-dom";
+import { useForm } from "react-hook-form";
+
 function LoginForm() {
+  //React Hook Froms
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    watch,
+    getValues,
+  } = useForm();
+
+  const formHasErrors = Object.keys(errors).length > 0;
+
+  const onSubmit = (data) => {
+    //Data of the user if it is validated
+    console.log(data, "DATA");
+    setUser(data);
+  };
+
   const [user, setUser] = useState({
     email: "",
     password: "",
-  });
-
-  const [errors, setErrors] = useState({
-    emailErr: "",
-    passwordErr: "",
   });
 
   const [showPassword, setShowPassword] = React.useState(false);
@@ -39,112 +53,89 @@ function LoginForm() {
   }
   const dispatch = useDispatch();
   const handleLogInClick = (event) => {
-    event.preventDefault();
-
+    // event.preventDefault();
     dispatch(logInUser(user));
+    console.log("Action dispatched");
   };
-  ///////////////////////////////////////////
-  // Email Validation
-  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
   //Validation
-  const handelForm = (event) => {
-    switch (event.target.name) {
-      case "email":
-        setUser({ ...user, email: event.target.value });
-
-        setErrors({
-          ...errors,
-          emailErr: emailRegex.test(event.target.value)
-            ? ""
-            : "email is not valid",
-        });
-        break;
-      case "password":
-        setUser({ ...user, password: event.target.value });
-        setErrors({
-          ...errors,
-          passwordErr:
-            event.target.value.length === 0
-              ? "password is required"
-              : event.target.value.length < 6
-                ? "password must be at least 6 characters"
-                : "",
-        });
-        break;
-      default:
-        break;
-    }
-  };
+  const handelForm = (event) => {};
 
   return (
     <>
-      <div className={`${styles.container} global-styles`}>
-        <form>
-          <div className="email">
-            <TextField
-              fullWidth
-              label="E-mail"
-              name="email"
-              className={styles.textField}
+      <form>
+        <div className="email">
+          <TextField
+            fullWidth
+            label="E-mail"
+            name="email"
+            className={styles.textField}
+            InputLabelProps={{
+              style: { color: "white" },
+            }}
+            {...register("email", {
+              required: "email is required",
+              pattern: {
+                value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+                message: "Invalid email address",
+              },
+            })}
+          />
+          <small className={styles.errorMsg}>{errors.email?.message}</small>
+        </div>
+        <div className="password">
+          <FormControl variant="outlined" className={styles.passwordInput}>
+            <InputLabel htmlFor="outlined-adornment-password">
+              Password
+            </InputLabel>
+            <OutlinedInput
+              id="outlined-adornment-password"
+              name="password"
+              {...register("password", {
+                required: "password is required",
+                pattern: {
+                  value:
+                    /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*]).{8,}$/,
+                  message:
+                    "Password must contain at least one uppercase letter, one lowercase letter, one digit, and one special character",
+                },
+              })}
+              type={showPassword ? "text" : "password"}
               onChange={(e) => handelForm(e)}
+              endAdornment={
+                <InputAdornment position="end">
+                  <IconButton
+                    aria-label="toggle password visibility"
+                    onClick={handleClickShowPassword}
+                    onMouseDown={handleMouseDownPassword}
+                    edge="end"
+                    className={styles.showPasswordIcon}
+                  >
+                    {showPassword ? <VisibilityOff /> : <Visibility />}
+                  </IconButton>
+                </InputAdornment>
+              }
+              label="Password"
             />
-            <small className={styles.errorMsg}>{errors.emailErr}</small>
-          </div>
-          <div className="password">
-            <FormControl
-              sx={{
-                width: "98%",
-                borderRadius: "5px",
-                margin: "5px",
-              }}
-              variant="outlined"
-            >
-              <InputLabel htmlFor="outlined-adornment-password">
-                Password
-              </InputLabel>
-              <OutlinedInput
-                id="outlined-adornment-password"
-                name="password"
-                type={showPassword ? "text" : "password"}
-                onChange={(e) => handelForm(e)}
-                endAdornment={
-                  <InputAdornment position="end">
-                    <IconButton
-                      aria-label="toggle password visibility"
-                      onClick={handleClickShowPassword}
-                      onMouseDown={handleMouseDownPassword}
-                      edge="end"
-                      className={styles.showPasswordIcon}
-                    >
-                      {showPassword ? <VisibilityOff /> : <Visibility />}
-                    </IconButton>
-                  </InputAdornment>
-                }
-                label="Password"
-              />
-              <small className={styles.errorMsg}>{errors.passwordErr}</small>
-            </FormControl>
-          </div>
-          {logInError ? <div>{logInError}</div> : null}
-          <div style={{ marginTop: "5%", color: "black" }}>
-            <Button
-              variant="contained"
-              type="submit"
-              style={{
-                backgroundColor: "#8dff7a",
-                width: "90%",
-                marginLeft: "5%",
-              }}
-              onClick={handleLogInClick}
-              className={styles.submitBtn}
-              disabled={!(errors.emailErr==""&&errors.passwordErr=="")}
-            >
-              Log In
-            </Button>
-          </div>
-        </form>
-      </div>
+            <small className={styles.errorMsg}>
+              {" "}
+              {errors.password?.message}
+            </small>
+          </FormControl>
+        </div>
+        {logInError ? <div>{logInError}</div> : null}
+        <div className="mt-5">
+          <Button
+            variant="contained"
+            type="submit"
+            onClick={handleSubmit(onSubmit)}
+            //onClick={(ev) => handleLogInClick(ev)}
+            className={styles.submitBtn}
+          >
+            Log In
+          </Button>
+        </div>
+      </form>
     </>
   );
 }

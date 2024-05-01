@@ -33,7 +33,6 @@ const SignUpForm = () => {
   const formHasErrors = Object.keys(errors).length > 0;
   const onSubmit = (data) => {
     //Data of the user if it is validated
-    console.log(data);
     setUser(data);
   };
 
