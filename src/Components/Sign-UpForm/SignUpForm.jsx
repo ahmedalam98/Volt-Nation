@@ -20,19 +20,21 @@ const SignUpForm = () => {
     handleSubmit,
     formState: { errors },
     watch,
+    getValues,
   } = useForm();
-  console.log(watch("firstName"));
-  const [user, setUser] = useState({
-    firstName: "",
-    lastName: "",
-    email: "",
-    password: "",
-  });
+  const [user, setUser] = useState({});
 
   const [showPassword, setShowPassword] = React.useState(false);
   const handleClickShowPassword = () => setShowPassword((show) => !show);
   const handleMouseDownPassword = (event) => {
     event.preventDefault();
+  };
+
+  const formHasErrors = Object.keys(errors).length > 0;
+  const onSubmit = (data) => {
+    //Data of the user if it is validated
+    console.log(data);
+    setUser(data);
   };
 
   //////////////////////////////////
@@ -48,14 +50,19 @@ const SignUpForm = () => {
   const dispatch = useDispatch();
 
   const handleRegisterClick = (event) => {
-    event.preventDefault();
-
-    dispatch(registerUser(user));
+    //ASK AML
+    if (formHasErrors) {
+      event.preventDefault();
+    } else {
+      // dispatch(registerUser(user));
+    }
   };
 
   return (
     <div className={styles.formContainer}>
-      <form>
+      <form
+      //onSubmit={handleSubmit(onSubmit)}
+      >
         <div className={styles.nameInputContainer}>
           <div className={styles.inputName}>
             <TextField
@@ -67,7 +74,7 @@ const SignUpForm = () => {
                 style: { color: "white" },
               }}
               {...register("firstName", {
-                required: "Name is required",
+                required: "name is required",
                 minLength: {
                   value: 3,
                   message: "Minimum length is 3 characters",
@@ -89,10 +96,15 @@ const SignUpForm = () => {
               }}
               {...register("lastName", {
                 required: "name is required",
-                minLenght: 3,
+                minLength: {
+                  value: 3,
+                  message: "Minimum length is 3 characters",
+                },
               })}
-              onChange={(e) => handleSubmit(e)}
             />
+            <small className={styles.errorMsg}>
+              {errors.lastName?.message}
+            </small>
           </div>
         </div>
         <div className="email">
@@ -101,10 +113,16 @@ const SignUpForm = () => {
             InputLabelProps={{
               style: { color: "white" },
             }}
-            {...register("email", { required: "email is required" })}
-            onChange={(e) => handleSubmit(e)}
+            {...register("email", {
+              required: "email is required",
+              pattern: {
+                value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+                message: "Invalid email address",
+              },
+            })}
             className={styles.formInput}
           />
+          <small className={styles.errorMsg}>{errors.email?.message}</small>
         </div>
         <div className="password">
           <FormControl className={styles.formInput} variant="outlined">
@@ -118,7 +136,12 @@ const SignUpForm = () => {
               id="outlined-adornment-password"
               {...register("password", {
                 required: "password is required",
-                minLenght: 6,
+                pattern: {
+                  value:
+                    /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*]).{8,}$/,
+                  message:
+                    "Password must contain at least one uppercase letter, one lowercase letter, one digit, and one special character",
+                },
               })}
               type={showPassword ? "text" : "password"}
               onChange={(e) => handleSubmit(e)}
@@ -136,6 +159,9 @@ const SignUpForm = () => {
               }
               label="Password"
             />
+            <small className={styles.errorMsg}>
+              {errors.password?.message}
+            </small>
           </FormControl>
         </div>
         <div className="re-password">
@@ -150,7 +176,8 @@ const SignUpForm = () => {
               id="outlined-adornment-repassword"
               {...register("repassword", {
                 required: "repassword is required",
-                minLenght: 6,
+                validate: (value) =>
+                  value === getValues("password") || "Passwords do not match",
               })}
               type={showPassword ? "text" : "password"}
               onChange={(e) => handleSubmit(e)}
@@ -168,6 +195,9 @@ const SignUpForm = () => {
               }
               label="re-Password"
             />
+            <small className={styles.errorMsg}>
+              {errors.repassword?.message}
+            </small>
           </FormControl>
         </div>
         {registrationError ? <div>{registrationError}</div> : null}
@@ -177,10 +207,8 @@ const SignUpForm = () => {
             variant="contained"
             type="submit"
             className={styles.submitBtn}
-            // onClick={handleRegisterClick}
-            onClick={handleSubmit((data) => {
-              console.log(data);
-            })}
+            //onClick={handleRegisterClick}
+            onClick={handleSubmit(onSubmit)}
           >
             Create Account
           </Button>
