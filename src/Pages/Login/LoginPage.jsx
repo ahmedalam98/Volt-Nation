@@ -4,15 +4,10 @@ import LoginOptions from "../../Components/LoginOptions/LoginOptions.jsx";
 
 const LoginPage = () => {
   return (
+    <div  className={`${styles.container} global-styles`}>
     <div className={styles.containerX}>
-      <div className={styles.container}>
-        <div className={styles.avatar}>
-          <img
-            src="https://ecc-alex.com/pub/media/wysiwyg/nextgen_1.jpg"
-            alt="login"
-          />
-        </div>
-        <div className={styles.form}>
+      <div className={styles.bigContainer}>
+      <div className={styles.form}>
           <div>
             <div className={styles.containerForDetails}>
               <div>
@@ -46,7 +41,15 @@ const LoginPage = () => {
             </div>
           </div>
         </div>
+        <div className={styles.avatar}>
+          <img
+            src="https://ecc-alex.com/pub/media/wysiwyg/nextgen_1.jpg"
+            alt="login"
+          />
+        </div>
+        
       </div>
+    </div>
     </div>
   );
 };

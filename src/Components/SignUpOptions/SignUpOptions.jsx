@@ -14,7 +14,7 @@ function SignUpOptions() {
         </div>
         
       </div>
-      <div style={{ marginTop: "2%", textAlign: "center" }}>
+      <div style={{ marginTop: "2%", textAlign: "center",color:"blue",textDecoration:'underLine' }}>
         <Link to="/login" className="text-sm">
           Allready Have An Accoun ?! LOG IN{" "}
         </Link>

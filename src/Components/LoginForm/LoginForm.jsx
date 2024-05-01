@@ -79,71 +79,72 @@ function LoginForm() {
 
   return (
     <>
-      <form>
-        <div className="email">
-          <TextField
-            fullWidth
-            label="E-mail"
-            name="email"
-            style={{
-              width: "98%",
-              borderRadius: "5px",
-              margin: "5px",
-            }}
-            onChange={(e) => handelForm(e)}
-          />
-          <small className={styles.errorMsg}>{errors.emailErr}</small>
-        </div>
-        <div className="password">
-          <FormControl
-            sx={{
-              width: "98%",
-              borderRadius: "5px",
-              margin: "5px",
-            }}
-            variant="outlined"
-          >
-            <InputLabel htmlFor="outlined-adornment-password">
-              Password
-            </InputLabel>
-            <OutlinedInput
-              id="outlined-adornment-password"
-              name="password"
-              type={showPassword ? "text" : "password"}
+      <div className={`${styles.container} global-styles`}>
+        <form>
+          <div className="email">
+            <TextField
+              fullWidth
+              label="E-mail"
+              name="email"
+              className={styles.textField}
               onChange={(e) => handelForm(e)}
-              endAdornment={
-                <InputAdornment position="end">
-                  <IconButton
-                    aria-label="toggle password visibility"
-                    onClick={handleClickShowPassword}
-                    onMouseDown={handleMouseDownPassword}
-                    edge="end"
-                  >
-                    {showPassword ? <VisibilityOff /> : <Visibility />}
-                  </IconButton>
-                </InputAdornment>
-              }
-              label="Password"
             />
-            <small className={styles.errorMsg}>{errors.passwordErr}</small>
-          </FormControl>
-        </div>
-        {logInError ? <div>{logInError}</div> : null}
-        <div style={{ marginTop: "5%", color: "black" }}>
-          <Button
-            variant="contained"
-            type="submit"
-            style={{
-              backgroundColor: "#8dff7a",
-              width: "90%",
-              marginLeft: "5%",
-            }}
-            onClick={handleLogInClick}
-          >
-            Log In
-          </Button>
-        </div>
-      </form>
+            <small className={styles.errorMsg}>{errors.emailErr}</small>
+          </div>
+          <div className="password">
+            <FormControl
+              sx={{
+                width: "98%",
+                borderRadius: "5px",
+                margin: "5px",
+              }}
+              variant="outlined"
+            >
+              <InputLabel htmlFor="outlined-adornment-password">
+                Password
+              </InputLabel>
+              <OutlinedInput
+                id="outlined-adornment-password"
+                name="password"
+                type={showPassword ? "text" : "password"}
+                onChange={(e) => handelForm(e)}
+                endAdornment={
+                  <InputAdornment position="end">
+                    <IconButton
+                      aria-label="toggle password visibility"
+                      onClick={handleClickShowPassword}
+                      onMouseDown={handleMouseDownPassword}
+                      edge="end"
+                      className={styles.showPasswordIcon}
+                    >
+                      {showPassword ? <VisibilityOff /> : <Visibility />}
+                    </IconButton>
+                  </InputAdornment>
+                }
+                label="Password"
+              />
+              <small className={styles.errorMsg}>{errors.passwordErr}</small>
+            </FormControl>
+          </div>
+          {logInError ? <div>{logInError}</div> : null}
+          <div style={{ marginTop: "5%", color: "black" }}>
+            <Button
+              variant="contained"
+              type="submit"
+              style={{
+                backgroundColor: "#8dff7a",
+                width: "90%",
+                marginLeft: "5%",
+              }}
+              onClick={handleLogInClick}
+              className={styles.submitBtn}
+              disabled={!(errors.emailErr==""&&errors.passwordErr=="")}
+            >
+              Log In
+            </Button>
+          </div>
+        </form>
+      </div>
     </>
   );
 }

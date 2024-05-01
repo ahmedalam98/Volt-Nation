@@ -1,3 +1,7 @@
+:global(.global-styles) {
+  color:white;
+  border-color: white;
+}
 .containerX {
   width: 100vw;
   height: 100vh;
@@ -5,7 +9,7 @@
   justify-content: center;
   align-items: center;
 }
-.container {
+.bigContainer {
   width: 60vw;
   min-height: 88vh;
   max-height: 95vh;

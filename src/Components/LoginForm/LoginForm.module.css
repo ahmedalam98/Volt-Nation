@@ -1,0 +1,22 @@
+:global(.global-styles) {
+    color:white;
+    border-color: white;
+  }
+.showPasswordIcon {
+  color: white !important;
+}
+.submitBtn {
+  color: black !important;
+}
+.textField {
+  width: 98% !important;
+  border-radius: 5px !important;
+  margin: 5px !important;
+}
+.errorMsg{
+  color: red;
+}
+
+
+
+

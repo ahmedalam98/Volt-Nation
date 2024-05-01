@@ -12,7 +12,7 @@ function LoginOptions() {
           </Button>
         </div>
       </div>
-      <div style={{ marginTop: "2%", textAlign: "center" }}>
+      <div style={{ marginTop: "2%", textAlign: "center",color:"blue",textDecoration:'underLine' }}>
         <Link className="text-sm" to="/sign-up">
           Do Not Have An Account ?! SIGN UP{" "}
         </Link>
