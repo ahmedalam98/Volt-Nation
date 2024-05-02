@@ -56,14 +56,14 @@ const SideBar = ({ isOpen, onToggle, isToggleAllowed }) => {
         </div>
       </div>
 
-      <div
+      {/* <div
         className={`flex flex-col justify-center items-center text-4xl gap-4 absolute left-8 bottom-16 text-white transition-opacity duration-300 tracking-wider ${
           !isOpen ? "opacity-0 delay-75" : "opacity-100"
         }`}
       >
         <div className={styles.thunder}></div>
         <p>VoltNation</p>
-      </div>
+      </div> */}
     </div>
   );
 };
