@@ -48,7 +48,7 @@ function Otp() {
     <div className={styles.container}>
       <div className={styles.subContainer}>
         <div className={styles.img}>
-          <img src="public/imgs/check.png" alt="Checkmark" />
+          <img src="./../../../public/otp-password.png" alt="Checkmark" />
         </div>
         <div className={styles.header}>
           <h1>Enter Verification Code</h1>

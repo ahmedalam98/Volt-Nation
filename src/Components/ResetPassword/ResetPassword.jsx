@@ -36,6 +36,7 @@ const ResetPassword = () => {
   const handelResetPassword = () => {
     //generate OTP random number
     const otp = generateRandomNumbers();
+    console.log(otp);
     //Send OTP number to user's email through BACKEND Ya AMAAAAALLLLLL
     //go to OTP page and compare
     navigate('/OTP', { state: { otp:otp }})
@@ -48,7 +49,7 @@ const ResetPassword = () => {
           <div className={styles.detailsContainer}>
             <img
               className={styles.icon}
-              src="public/imgs/reset-password-icon.png"
+              src="public/forgot-password.png"
             />
             <div className="my-5">
               <h1 className={styles.header}>Reset your password</h1>
@@ -62,6 +63,9 @@ const ResetPassword = () => {
               name="userEmail"
               style={{
                 borderRadius: "3px",
+              }}
+              InputLabelProps={{
+                style: { color: "white",borderColor: "white" },
               }}
               className="my-5"
               onChange={(e) => handelValidation(e)}

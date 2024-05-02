@@ -4,6 +4,9 @@ import { Suspense, lazy } from "react";
 import store from "./Store/store";
 import Layout from "./Layout/Layout.jsx";
 import { QueryClient, QueryClientProvider } from "react-query";
+import ResetPassword from "./Components/ResetPassword/ResetPassword.jsx";
+import Otp from "./Components/OTP/Otp.jsx";
+import ResetUserPassword from "./Components/ResetPassword/ResetUserPassword.jsx";
 // import { ReactQueryDevtools } from "react-query/devtools";
 
 const Home = lazy(() => import("./Pages/Home/Home.jsx"));
@@ -48,6 +51,10 @@ function App() {
               </Route>
               <Route path="/login" element={<LoginPage />} />
               <Route path="/sign-up" element={<Register />} />
+              <Route path="/resetPassword" element={<ResetPassword/>} />
+              <Route path="/resetPasswordUsr" element={<ResetUserPassword/>} />
+              
+              <Route path="/otp" element={<Otp/>} />
 
               <Route path="*" element={<NotFound />} />
             </Routes>

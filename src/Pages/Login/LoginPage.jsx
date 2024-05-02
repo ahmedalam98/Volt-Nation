@@ -10,21 +10,20 @@ const LoginPage = () => {
   const [isSignUpClicked, setIsSignUpClicked] = useState(false);
 
   const handleSignUpClick = () => {
-    // Add any other logic before navigating, if needed
     setIsSignUpClicked(true);
-    // Use setTimeout to delay navigation until after animation
     setTimeout(() => {
       navigate("/sign-up");
-    }, 500); // Adjust timing based on your animation duration
+    }, 500);
   };
 
+  
+  
+
   useEffect(() => {
-    // Set loaded to true after a short delay to trigger the fade-in animation
     const timer = setTimeout(() => {
       setLoaded(true);
     }, 100);
 
-    // Clear the timer on component unmount to avoid memory leaks
     return () => clearTimeout(timer);
   }, []);
 
@@ -59,7 +58,6 @@ const LoginPage = () => {
                     <hr className={styles.subHr} />
                   </div>
                   <div className="mt-5">
-                    {/* <LoginOptions onCLick={handleSignUpClick}/> */}
                     <div>
                       <div className={styles.conOfOptions}>
                         <div className="google mx-3 my-2">
@@ -83,6 +81,18 @@ const LoginPage = () => {
                       >
                         <Link className="text-sm" onClick={handleSignUpClick}>
                           Do Not Have An Account ?! SIGN UP{" "}
+                        </Link>
+                      </div>
+                      <div
+                        style={{
+                          marginTop: "2%",
+                          textAlign: "center",
+                          color: "blue",
+                          textDecoration: "underLine",
+                        }}
+                      >
+                        <Link to='/resetPassword' className="text-sm" >
+                          Forgot Password{" "}
                         </Link>
                       </div>
                     </div>

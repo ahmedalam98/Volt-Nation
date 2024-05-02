@@ -26,7 +26,13 @@ const ResetUserPassword = () => {
   const handleClickShowPassword2 = () => setShowPassword2((show) => !show);
   const navigate = useNavigate();
 
-  const handelResetPassword = () => {};
+  const handelResetPassword = (event) => {
+    if(errPassword==""&&errRePassword==""){
+      console.log('OK');
+    }else{
+      event.preventDefault();
+    }
+  };
   const handleMouseDownPassword = (event) => {
     event.preventDefault();
   };
@@ -66,7 +72,7 @@ const ResetUserPassword = () => {
           <div className={styles.detailsContainer}>
             <img
               className={styles.icon}
-              src="public/imgs/reset-password-icon.png"
+              src="public/forgot-password (2).png"
             />
             <div className="my-5">
               <h1 className={styles.header}>Reset your password</h1>
@@ -85,7 +91,7 @@ const ResetUserPassword = () => {
                 }}
                 variant="outlined"
               >
-                <InputLabel htmlFor="outlined-adornment-password">
+                <InputLabel htmlFor="outlined-adornment-password" style={{color:'white'}}>
                   Password
                 </InputLabel>
                 <OutlinedInput
@@ -100,6 +106,7 @@ const ResetUserPassword = () => {
                         onClick={handleClickShowPassword}
                         onMouseDown={handleMouseDownPassword}
                         edge="end"
+                        style={{color:'white'}}
                       >
                         {showPassword ? <VisibilityOff /> : <Visibility />}
                       </IconButton>
@@ -121,7 +128,7 @@ const ResetUserPassword = () => {
                 }}
                 variant="outlined"
               >
-                <InputLabel htmlFor="outlined-adornment-password">
+                <InputLabel htmlFor="outlined-adornment-password" style={{color:'white'}}>
                   Re-Password
                 </InputLabel>
                 <OutlinedInput
@@ -136,6 +143,7 @@ const ResetUserPassword = () => {
                         onClick={handleClickShowPassword2}
                         onMouseDown={handleMouseDownPassword}
                         edge="end"
+                        style={{color:'white'}}
                       >
                         {showPassword2 ? <VisibilityOff /> : <Visibility />}
                       </IconButton>
@@ -151,10 +159,10 @@ const ResetUserPassword = () => {
               <Button
                 variant="contained"
                 className={styles.btn2}
-                onClick={() => {
-                  handelResetPassword();
+                onClick={(event) => {
+                  handelResetPassword(event);
                 }}
-                disabled={!(errPassword !== "" && errRePassword !== "")}
+               
               >
                 Save New Password
               </Button>
