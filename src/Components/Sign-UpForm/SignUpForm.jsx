@@ -63,15 +63,16 @@ const SignUpForm = () => {
       //onSubmit={handleSubmit(onSubmit)}
       >
         <div className={styles.nameInputContainer}>
-          <div className={styles.inputName}>
+          <div className={`${styles.inputName} `}>
             <TextField
               id="outlined"
               label="First Name"
               variant="outlined"
               fullWidth
               InputLabelProps={{
-                style: { color: "white" },
+                style: { color: "white",borderColor: "white" },
               }}
+             
               {...register("firstName", {
                 required: "name is required",
                 minLength: {
@@ -151,6 +152,7 @@ const SignUpForm = () => {
                     onClick={handleClickShowPassword}
                     onMouseDown={handleMouseDownPassword}
                     edge="end"
+                    style={{ color: "white" }}
                   >
                     {showPassword ? <VisibilityOff /> : <Visibility />}
                   </IconButton>
@@ -187,6 +189,7 @@ const SignUpForm = () => {
                     onClick={handleClickShowPassword}
                     onMouseDown={handleMouseDownPassword}
                     edge="end"
+                    style={{ color: "white" }}
                   >
                     {showPassword ? <VisibilityOff /> : <Visibility />}
                   </IconButton>
