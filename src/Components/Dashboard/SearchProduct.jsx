@@ -17,6 +17,8 @@ const SearchProduct = ({
     const timeout = setTimeout(() => {
       onChange(value);
     }, debounce);
+
+    // To clear the timeout & prevent redundant or rapid updates. If the component re-renders before the timeout,
     return () => clearTimeout(timeout);
   });
 
