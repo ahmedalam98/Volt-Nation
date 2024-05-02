@@ -6,11 +6,15 @@ import {
   getCoreRowModel,
   useReactTable,
   getPaginationRowModel,
+  getFilteredRowModel,
 } from "@tanstack/react-table";
 import { data } from "./data";
 
 import EditNoteIcon from "@mui/icons-material/EditNote";
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
+import DownloadButton from "./DownloadButton.jsx";
+import SearchProduct from "./SearchProduct.jsx";
+import { useState } from "react";
 
 const AdminProducts = () => {
   // const { isLoading, isError, data, error, refetch } = useQuery(
@@ -87,10 +91,16 @@ const AdminProducts = () => {
     },
   ];
 
+  const [globalFilter, setGlobalFilter] = useState("");
+
   const table = useReactTable({
     // data: data?.data.slice(20, 60),
     data: data,
     columns,
+    state: {
+      globalFilter,
+    },
+    getFilteredRowModel: getFilteredRowModel(),
     getCoreRowModel: getCoreRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
   });
@@ -98,6 +108,15 @@ const AdminProducts = () => {
   return (
     <div className="p-4">
       <div className="max-w-6xl min-w-[800px] overflow-x-auto md:overflow-x-hidden mx-auto text-white fill-gray-600">
+        <div className="flex justify-between mb-2">
+          <SearchProduct
+            value={globalFilter ?? ""}
+            onChange={(value) => setGlobalFilter(value)}
+            className="p-2 bg-transparent outline-none border-b-2 w-1/5 focus:w-1/3 duration-300 border-[var(--color-var1)]"
+          />
+          <DownloadButton data={data} fileName={"Products"} />
+        </div>
+
         <table className="border border-gray-700 w-full text-left min-w-[800px] overflow-x-auto md:overflow-x-hidden">
           <thead className="bg-[var(--color-var2)]">
             {table.getHeaderGroups().map((headerGroup) => (
@@ -137,44 +156,46 @@ const AdminProducts = () => {
                 </tr>
               ))
             ) : (
-              <tr>
-                <td colSpan={columns.length}>No data available</td>
+              <tr className="text-center h-32 text-3xl tracking-wider">
+                <td colSpan={12}>Product Not Found ✖️</td>
               </tr>
             )}
           </tbody>
         </table>
 
         {/* Pagination */}
-        <div className="flex items-center justify-start md:justify-end mt-4 gap-2">
-          <button
-            onClick={() => {
-              table.previousPage();
-            }}
-            disabled={!table.getCanPreviousPage()}
-            className="p-1 border border-gray-300 px-2 disabled:opacity-30"
-          >
-            {"<"}
-          </button>
+        <div className="flex items-center justify-center mt-4 gap-12">
+          <div className="flex items-center justify-center">
+            <button
+              onClick={() => {
+                table.previousPage();
+              }}
+              disabled={!table.getCanPreviousPage()}
+              className="p-1 border border-gray-300 px-2 disabled:opacity-30"
+            >
+              {"<"}
+            </button>
 
-          <button
-            onClick={() => {
-              table.nextPage();
-            }}
-            disabled={!table.getCanNextPage()}
-            className="p-1 border border-gray-300 px-2 disabled:opacity-30"
-          >
-            {">"}
-          </button>
+            <button
+              onClick={() => {
+                table.nextPage();
+              }}
+              disabled={!table.getCanNextPage()}
+              className="p-1 border border-gray-300 px-2 disabled:opacity-30"
+            >
+              {">"}
+            </button>
 
-          <span className="flex items-center gap-1">
-            <div>Page</div>
-            <strong>
-              {table.getState().pagination.pageIndex + 1} of{" "}
-              {table.getPageCount()}
-            </strong>
-          </span>
+            <span className="flex items-center gap-1">
+              <div>Page</div>
+              <strong>
+                {table.getState().pagination.pageIndex + 1} of{" "}
+                {table.getPageCount()}
+              </strong>
+            </span>
+          </div>
 
-          <span className="flex items-center gap-1 ms-8">
+          {/* <span className="flex items-center gap-1 ms-8">
             <div>Go to page:</div>
             <input
               type="number"
@@ -185,21 +206,23 @@ const AdminProducts = () => {
                 table.setPageIndex(page);
               }}
             />
-          </span>
+          </span> */}
 
-          <select
-            value={table.getState().pagination.pageSize}
-            onChange={(e) => {
-              table.setPageSize(Number(e.target.value));
-            }}
-            className=" bg-transparent p-2 border border-gray-300 outline-none "
-          >
-            {[5, 10, 20].map((pageSize) => (
-              <option key={pageSize} value={pageSize} className=" text-black">
-                Show {pageSize}
-              </option>
-            ))}
-          </select>
+          <div>
+            <select
+              value={table.getState().pagination.pageSize}
+              onChange={(e) => {
+                table.setPageSize(Number(e.target.value));
+              }}
+              className=" bg-transparent p-2 border border-gray-300 outline-none "
+            >
+              {[5, 10, 20].map((pageSize) => (
+                <option key={pageSize} value={pageSize} className=" text-black">
+                  Show {pageSize}
+                </option>
+              ))}
+            </select>
+          </div>
         </div>
       </div>
     </div>
