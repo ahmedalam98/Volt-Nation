@@ -1,27 +1,5 @@
 import AddIcon from "@mui/icons-material/Add";
-
-const categories = [
-  {
-    name: "Smart Phones",
-    img: "https://m-cdn.phonearena.com/images/article/64576-wide-two_1200/The-Best-Phones-to-buy-in-2024---our-top-10-list.jpg?1712577497",
-  },
-  {
-    name: "Laptops",
-    img: "https://assets2.razerzone.com/images/pnx.assets/7fb8deac5d3c73e360bc687ed62be6cf/gaming-laptops-og-image.webp",
-  },
-  {
-    name: "Desktops",
-    img: "https://www.intel.com/content/dam/www/public/us/en/images/video-thumbnails/15s-vid-intel-pro-rpls-14thg-ag-na-hqprim-na-us-eng-16x9-video-thumbnail.png.rendition.intel.web.1920.1080.png",
-  },
-  {
-    name: "Accessories",
-    img: "https://m.media-amazon.com/images/I/71ZgJvkP0tL._AC_SL1500_.jpg",
-  },
-  {
-    name: "Chairs",
-    img: "https://kaleidoscope.scene7.com/is/image/OttoUK/600w/X-Rocker-Maverick-Ergonomic-Office-Gaming-Chair---Black-Blue~25W613FRSP.jpg",
-  },
-];
+import { categories } from "./Dummy/categories";
 
 const AdminCategories = () => {
   return (
@@ -31,11 +9,11 @@ const AdminCategories = () => {
           Categories
         </h1>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-y-4 gap-x-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8">
           {categories.map((category, index) => (
             <div
               key={index}
-              className="flex flex-col items-center gap-4 bg-[var(--color-var3)] p-4 rounded-lg w-[24rem] md:w-[18rem] lg:w-[21rem] mx-auto"
+              className="flex flex-col items-center gap-4 bg-[var(--color-var3)] p-4 rounded-lg w-[24rem] md:w-[18rem] lg:w-[21rem] mx-auto lg:mx-0"
             >
               <img
                 src={category.img}
@@ -49,7 +27,7 @@ const AdminCategories = () => {
             </div>
           ))}
 
-          <div className="flex flex-col items-center justify-center gap-4 bg-[var(--color-var3)] p-4 rounded-lg cursor-pointer w-[24rem] md:w-[18rem] lg:w-[21rem] mx-auto">
+          <div className="flex flex-col items-center justify-center gap-4 bg-[var(--color-var3)] p-4 rounded-lg cursor-pointer w-[24rem] md:w-[18rem] lg:w-[21rem] mx-auto lg:mx-0">
             <AddIcon className="text-slate-300" sx={{ fontSize: 200 }} />
 
             <h2 className="text-2xl text-slate-200 tracking-wide">

@@ -8,7 +8,7 @@ import {
   getPaginationRowModel,
   getFilteredRowModel,
 } from "@tanstack/react-table";
-import { data } from "./data";
+import { data } from "./Dummy/data.js";
 
 import EditNoteIcon from "@mui/icons-material/EditNote";
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
@@ -195,7 +195,7 @@ const AdminProducts = () => {
               {">"}
             </button>
 
-            <span className="flex items-center gap-1">
+            <span className="flex items-center gap-1 ms-3">
               <div>Page</div>
               <strong>
                 {table.getState().pagination.pageIndex + 1} of{" "}

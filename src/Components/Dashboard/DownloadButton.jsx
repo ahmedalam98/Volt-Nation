@@ -19,7 +19,7 @@ const DownloadButton = ({ data = [], fileName = "data" }) => {
         style={{ transition: "all 0.3s" }}
         onClick={handleDownloadSheet}
       >
-        Download Data
+        <span className="hidden md:block">Download Data</span>
         <DownloadIcon />
       </button>
     </div>
