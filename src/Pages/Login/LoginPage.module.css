@@ -1,7 +1,19 @@
 :global(.global-styles) {
-  color:white;
+  color: white;
   border-color: white;
 }
+.slideOutImg {
+  transform: translateX(-100%);
+  opacity: 0;
+  transition: all 0.5s ease-out;
+}
+.slideOutForm {
+ 
+  transform: translateX(100%);
+  opacity: 0;
+  transition: all 0.5s ease-out;
+}
+
 .containerX {
   width: 100vw;
   height: 100vh;
@@ -9,7 +21,7 @@
   justify-content: center;
   align-items: center;
 }
-.bigContainer {
+.subContainer {
   width: 60vw;
   min-height: 88vh;
   max-height: 95vh;
@@ -26,6 +38,24 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
+}
+.hr {
+  width: 70%;
+  margin-left: 15%;
+  margin-top: 5%;
+}
+.hrContainer {
+  margin-top: 5%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.subHr {
+  width: 45%;
+}
+.subP {
+  width: 10%;
+  text-align: center;
 }
 .avatar img {
   height: 100%;
@@ -45,14 +75,10 @@
   font-size: 30px;
   font-weight: 500;
 }
-.Signupform {
-  margin: 10px;
-  padding: 5px;
-}
 
 /* Small devices  */
 @media (max-width: 575.98px) {
-  .container {
+  .subContainer {
     width: 90vw;
     height: 90vh;
     max-height: 96vh;
@@ -67,23 +93,29 @@
 
 /* Small devices  */
 @media (min-width: 576px) and (max-width: 767.98px) {
-  .container {
+  .subContainer {
     width: 90vw;
     max-height: 96vh;
+  }
+  .avatar {
+    display: none;
+  }
+  .form {
+    width: 100%;
   }
 }
 
 /* Medium devices (tablets, 768px and up) */
 @media (min-width: 768px) and (max-width: 991.98px) {
-  .container {
-    width: 80vw;
+  .subContainer {
+    width: 90vw;
     max-height: 96vh;
   }
 }
 
 /* Large devices  */
 @media (min-width: 992px) and (max-width: 1199.98px) {
-  .container {
+  .subContainer {
     width: 70vw;
     max-height: 96vh;
   }
@@ -91,29 +123,8 @@
 
 /* Extra large devices  */
 @media (min-width: 1200px) {
-  .container {
+  .subContainer {
     width: 60vw;
     max-height: 96vh;
-  }
-}
-
-:global(.MuiFormLabel-root) {
-  color: white !important;
-}
-:global(.MuiInputBase-input) {
-  color: white !important;
-}
-
-:global(& .MuiOutlinedInput-root) {
-  :global(& fieldset) {
-    border-color: white !important;
-  }
-
-  :global(&:hover fieldset) {
-    border-color: white !important;
-  }
-
-  :global(&.Mui-focused fieldset) {
-    border-color: var(--color1) !important;
   }
 }

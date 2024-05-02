@@ -85,12 +85,15 @@ function LoginForm() {
         </div>
         <div className="password">
           <FormControl variant="outlined" className={styles.passwordInput}>
-            <InputLabel htmlFor="outlined-adornment-password">
+            <InputLabel htmlFor="outlined-adornment-password" style={{ color: "white" }}>
               Password
             </InputLabel>
             <OutlinedInput
               id="outlined-adornment-password"
               name="password"
+              InputLabelProps={{
+                style: { color: "white" },
+              }}
               {...register("password", {
                 required: "password is required",
                 pattern: {
