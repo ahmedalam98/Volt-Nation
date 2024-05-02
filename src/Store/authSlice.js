@@ -95,5 +95,4 @@ const authSlice = createSlice({
   },
 });
 
-export const { demoLogIn, demoLogOut } = authSlice.actions;
 export default authSlice.reducer;
