@@ -16,7 +16,8 @@ const ProductDetails = lazy(
   () => import("./Pages/ProductDetails/ProductDetails.jsx")
 );
 const Profile = lazy(() => import("./Pages/Profile/Profile.jsx"));
-const Cart = lazy(() => import("./Pages/Cart/Cart.jsx"));
+// const Cart = lazy(() => import("./Pages/Cart/Cart.jsx"));
+const Cart = lazy(() => import("./Components/Cart/Cart.jsx"));
 const NotFound = lazy(() => import("./Pages/NotFound/NotFound.jsx"));
 const LoginPage = lazy(() => import("./Pages/Login/LoginPage.jsx"));
 const Register = lazy(() => import("./Pages/Registartion/Register.jsx"));
