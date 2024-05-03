@@ -57,7 +57,6 @@ function App() {
                 <Route path="/" element={<Home />} />
                 <Route path="/products" element={<Products />} />
                 <Route path="/products/:id" element={<ProductDetails />} />
-                <Route path="/profile" element={<Profile />} />
                 <Route path="/cart" element={<Cart />} />
               </Route>
 
@@ -80,6 +79,10 @@ function App() {
                   <Route path="/dashboard/orders" element={<AdminOrders />} />
                   <Route path="/dashboard/admins" element={<Admins />} />
                 </Route>
+              </Route>
+
+              <Route element={<ProtectedRoute />}>
+                <Route path="/profile" element={<Profile />} />
               </Route>
 
               {/* 404 Route */}
