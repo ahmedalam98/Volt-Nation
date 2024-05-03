@@ -20,7 +20,7 @@ const links = [
   { to: "/dashboard/admins", icon: faUsers, text: "Admins" },
 ];
 
-const SideBar = ({ isOpen, onToggle, isToggleAllowed }) => {
+const SideBar = ({ isOpen, onToggle }) => {
   const navigate = useNavigate();
 
   const handleLogOut = () => {
@@ -35,11 +35,12 @@ const SideBar = ({ isOpen, onToggle, isToggleAllowed }) => {
   return (
     <div className={styles.page}>
       <div className={`${styles.sidebar} ${isOpen ? styles.sideOpen : ""}`}>
-        {isToggleAllowed ? (
-          <div className={styles.trigger} onClick={handleTrigger}>
-            <FontAwesomeIcon icon={isOpen ? faArrowLeft : faBars} />
-          </div>
-        ) : null}
+        <div
+          className={`${styles.trigger} hidden md:flex`}
+          onClick={handleTrigger}
+        >
+          <FontAwesomeIcon icon={isOpen ? faArrowLeft : faBars} />
+        </div>
 
         {links.map((link) => (
           <Link to={link.to} key={link.text}>
@@ -55,15 +56,6 @@ const SideBar = ({ isOpen, onToggle, isToggleAllowed }) => {
           <span className="tracking-wide">Log out</span>
         </div>
       </div>
-
-      {/* <div
-        className={`flex flex-col justify-center items-center text-4xl gap-4 absolute left-8 bottom-16 text-white transition-opacity duration-300 tracking-wider ${
-          !isOpen ? "opacity-0 delay-75" : "opacity-100"
-        }`}
-      >
-        <div className={styles.thunder}></div>
-        <p>VoltNation</p>
-      </div> */}
     </div>
   );
 };

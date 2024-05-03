@@ -1,33 +1,13 @@
-import { useState, useLayoutEffect } from "react";
+import { useState } from "react";
 import { Outlet } from "react-router-dom";
 import SideBar from "./SideBar.jsx";
 import styles from "./Dashboard.module.css";
 
 const Dashboard = () => {
-  const [isSideBarOpen, setIsSideBarOpen] = useState(true);
-  const [isToggleAllowed, setIsToggleAllowed] = useState(true);
-
-  // Set sidebar state based on window width
-  const handleResize = () => {
-    const width = window.innerWidth;
-    const isOpen = width >= 660;
-    setIsSideBarOpen(isOpen);
-    setIsToggleAllowed(width >= 660);
-  };
-
-  useLayoutEffect(() => {
-    handleResize();
-    window.addEventListener("resize", handleResize);
-
-    return () => {
-      window.removeEventListener("resize", handleResize);
-    };
-  }, []);
+  const [isSideBarOpen, setIsSideBarOpen] = useState(false);
 
   const toggleSideBar = () => {
-    if (isToggleAllowed) {
-      setIsSideBarOpen((prev) => !prev);
-    }
+    setIsSideBarOpen((prev) => !prev);
   };
 
   const outletWidth = isSideBarOpen
@@ -36,11 +16,7 @@ const Dashboard = () => {
 
   return (
     <div>
-      <SideBar
-        isOpen={isSideBarOpen}
-        onToggle={toggleSideBar}
-        isToggleAllowed={isToggleAllowed}
-      />
+      <SideBar isOpen={isSideBarOpen} onToggle={toggleSideBar} />
 
       <div
         className={styles.content}
