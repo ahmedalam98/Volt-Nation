@@ -5,14 +5,7 @@ import store from "./Store/store";
 import Layout from "./Layout/Layout.jsx";
 import { QueryClient, QueryClientProvider } from "react-query";
 // import { ReactQueryDevtools } from "react-query/devtools";
-
-import Dashboard from "./Components/Dashboard/Dashboard.jsx";
-import Overview from "./Components/Dashboard/Overview.jsx";
-import AdminProducts from "./Components/Dashboard/AdminProducts.jsx";
-import AdminOrders from "./Components/Dashboard/AdminOrders.jsx";
-import AdminCategories from "./Components/Dashboard/AdminCategories.jsx";
 import ProtectedRoute from "./Utils/ProtectedRoute.jsx";
-import Admins from "./Components/Dashboard/Admins.jsx";
 
 const Home = lazy(() => import("./Pages/Home/Home.jsx"));
 const Products = lazy(() => import("./Pages/Products/Products.jsx"));
@@ -24,6 +17,18 @@ const Cart = lazy(() => import("./Pages/Cart/Cart.jsx"));
 const NotFound = lazy(() => import("./Pages/NotFound/NotFound.jsx"));
 const LoginPage = lazy(() => import("./Pages/Login/LoginPage.jsx"));
 const Register = lazy(() => import("./Pages/Registartion/Register.jsx"));
+const Dashboard = lazy(() => import("./Components/Dashboard/Dashboard.jsx"));
+const Overview = lazy(() => import("./Components/Dashboard/Overview.jsx"));
+const AdminProducts = lazy(
+  () => import("./Components/Dashboard/AdminProducts.jsx")
+);
+const AdminOrders = lazy(
+  () => import("./Components/Dashboard/AdminOrders.jsx")
+);
+const AdminCategories = lazy(
+  () => import("./Components/Dashboard/AdminCategories.jsx")
+);
+const Admins = lazy(() => import("./Components/Dashboard/Admins.jsx"));
 
 const queryClient = new QueryClient({
   defaultOptions: {
