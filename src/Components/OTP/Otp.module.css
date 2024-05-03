@@ -1,0 +1,105 @@
+.container {
+  width: 100vw !important;
+  height: 100vh !important;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.subContainer {
+  width: 40% !important;
+  height: 60vh !important;
+  border: 3px white solid;
+  padding: 15px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+}
+.otpInputs {
+  display: flex;
+  justify-content: center !important;
+  margin: 10px;
+}
+.otpInput {
+  width: 13% !important;
+  height: 50px;
+  margin: 10px;
+  color: brown !important;
+  font-size: xx-large;
+  text-align: center !important;
+}
+.btns {
+  display: flex;
+  justify-content: space-around;
+  margin: 10px;
+  margin-top: 5%;
+}
+.btnBack {
+  color: white !important;
+  background-color: inherit !important;
+  width: 100%;
+
+  border: 2px white solid !important;
+}
+.header {
+  font-size: 25px;
+  text-align: center;
+  margin: 10px;
+  color:white ;
+}
+.img {
+  display: flex;
+  justify-content: center;
+  margin: 10px;
+  padding: 10px;
+  
+}
+.img img {
+  width: 150px;
+  height: 150px;
+}
+.btnBack:hover {
+  color: black !important;
+  background-color: white !important;
+
+  border: 2px black solid !important;
+}
+.btn {
+  background-color: #8dff7a !important;
+  width: 25%;
+color:black;
+  transition: all 0.4s ease !important;
+}
+.btn:hover {
+  transform: scale(1.02);
+}
+/* Small devices  */
+@media (max-width: 575.98px) {
+  .subContainer {
+    width: 80% !important;
+    height: 60vh !important;
+  }
+}
+
+/* Small devices  */
+@media (min-width: 576px) and (max-width: 767.98px) {
+  .subContainer {
+    width: 70% !important;
+    height: 60vh !important;
+  }
+}
+
+/* Medium devices (tablets, 768px and up) */
+@media (min-width: 768px) and (max-width: 991.98px) {
+  .subContainer {
+    width: 60% !important;
+    height: 60vh !important;
+  }
+}
+
+/* Large devices  */
+@media (min-width: 992px) and (max-width: 1199.98px) {
+}
+
+/* Extra large devices  */
+@media (min-width: 1200px) {
+}
