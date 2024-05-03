@@ -32,6 +32,7 @@ const SignUpForm = () => {
 
   const formHasErrors = Object.keys(errors).length > 0;
   const onSubmit = (data) => {
+    console.log(data);
     //Data of the user if it is validated
     setUser(data);
   };
@@ -70,9 +71,8 @@ const SignUpForm = () => {
               variant="outlined"
               fullWidth
               InputLabelProps={{
-                style: { color: "white",borderColor: "white" },
+                style: { color: "white", borderColor: "white" },
               }}
-             
               {...register("firstName", {
                 required: "name is required",
                 minLength: {
@@ -202,6 +202,25 @@ const SignUpForm = () => {
             </small>
           </FormControl>
         </div>
+        <div className="mobile">
+          <TextField
+            label="Mobile Number"
+            inputProps={{ inputMode: "numeric", pattern: "[0-9]*"  }}
+            InputLabelProps={{
+              style: { color: "white" },
+            }}
+            {...register("mobile", {
+              required: "Mobile number is required",
+              pattern: {
+                value: /^(010|011|012|015)\d{8,9}$/,
+                message: "Invalid mobile number",
+              },
+            })}
+            className={styles.formInput}
+          />
+          <small className={styles.errorMsg}>{errors.mobile?.message}</small>
+        </div>
+
         {registrationError ? <div>{registrationError}</div> : null}
 
         <div className={styles.submitBtnContainer}>
