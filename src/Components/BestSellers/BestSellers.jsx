@@ -67,7 +67,9 @@ export default function BestSellers() {
         Our Best Sellers
       </h2>
 
-      <Slider {...settings} className={styles.slider}>
+      {isLoading && <div className="text-white text-4xl mt-16">Loading...</div>}
+
+      <Slider {...settings} className={styles.swiper}>
         {data?.data?.slice(20, 30).map((el) => (
           <Card key={el.id} product={el} />
         ))}
