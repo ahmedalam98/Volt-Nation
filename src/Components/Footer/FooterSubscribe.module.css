@@ -1,0 +1,38 @@
+.cardsContainer img {
+  width: 50px;
+  height: 50px;
+}
+
+@media (max-width: 660px) {
+  .cardsContainer img {
+    width: 30px;
+    height: 30px;
+  }
+
+  .cardsContainer {
+    margin-bottom: 2rem;
+  }
+}
+
+@media (max-width: 1024px) {
+  .cardsContainer img {
+    width: 24px;
+    height: 24px;
+  }
+}
+
+.subBtn {
+  background-color: #09b0d1;
+  border: none;
+  padding: 8px 20px;
+  font-size: 14px;
+  color: var(--color-var5);
+  transition: all 0.3s ease-in-out;
+  text-transform: uppercase;
+  letter-spacing: 1.6px;
+  border-radius: 3px;
+}
+
+.subBtn:hover {
+  background-color: var(--color-var2);
+}

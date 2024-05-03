@@ -7,13 +7,14 @@
   --color-var2: #144a73;
   --color-var3: #122e42;
   --color-var4: #05131e;
+  --color-var5: #ffffff;
 }
 
 html {
-  font-size: 62.5%;
   scroll-behavior: smooth;
   scrollbar-width: thin;
-  font-family: poppins, Roboto, sans-serif;
+  font-family: Rubik, sans-serif !important;
+  background-color: var(--color-var4);
 }
 
 * {
@@ -26,4 +27,56 @@ html {
 *::before,
 *::after {
   box-sizing: inherit;
+}
+
+.spinner-container {
+  height: 50vh;
+  display: grid;
+  place-items: center;
+}
+
+.spinner {
+}
+
+.loader-container {
+  height: 100vh;
+  display: grid;
+  place-items: center;
+}
+
+.loader {
+  width: 100px;
+  height: 180px;
+  position: relative;
+}
+
+.loader:before,
+.loader:after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: var(--color-var1);
+  box-shadow: 0 0 0 50px;
+  clip-path: polygon(
+    100% 0,
+    23% 46%,
+    46% 44%,
+    15% 69%,
+    38% 67%,
+    0 100%,
+    76% 57%,
+    53% 58%,
+    88% 33%,
+    60% 37%
+  );
+}
+.loader:after {
+  animation: l8 1s infinite;
+  transform: perspective(300px) translateZ(0px);
+}
+@keyframes l8 {
+  to {
+    transform: perspective(300px) translateZ(180px);
+    opacity: 0;
+  }
 }

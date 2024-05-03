@@ -1,0 +1,28 @@
+.button {
+  text-transform: inherit;
+  border: 1px solid;
+  padding: 0.8rem;
+  transition: all 0.3s;
+  width: 180px;
+  border-radius: 3px;
+  font-size: 18px;
+  letter-spacing: 1.6px;
+}
+
+.button:hover {
+  color: white !important;
+  background-color: var(--color-var1);
+  border: 1px solid var(--color-var1) !important;
+}
+
+.line:before {
+  position: absolute;
+  left: 0;
+  content: "";
+  width: 4px;
+  height: 100%;
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+  transform: translateY(-50%);
+  background: var(--color-var1);
+}
