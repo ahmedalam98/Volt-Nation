@@ -8,8 +8,8 @@ import FormControl from "@mui/material/FormControl";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import styles from "./SignUpForm.module.css";
-import { useSelector } from "react-redux";
-// import { registerUser } from "../../Store/authSlice";
+import { useSelector, useDispatch } from "react-redux";
+import { registerUser } from "../../Store/authSlice";
 import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 
@@ -22,6 +22,8 @@ const SignUpForm = () => {
     getValues,
   } = useForm();
 
+  const dispatch = useDispatch();
+
   const [user, setUser] = useState({});
 
   console.log(user, "USER");
@@ -31,7 +33,6 @@ const SignUpForm = () => {
   const handleMouseDownPassword = (event) => {
     event.preventDefault();
   };
-
 
   const formHasErrors = Object.keys(errors).length > 0;
   const onSubmit = async (data) => {
