@@ -75,13 +75,13 @@ const AdminProducts = () => {
         return (
           <div className="flex items-center gap-6">
             <button
-              className="bg-blue-500 text-white p-2 rounded"
+              className="bg-blue-500 hover:bg-blue-800 duration-300 text-white p-2 rounded"
               onClick={() => handleEdit(row)}
             >
               <EditNoteIcon />
             </button>
             <button
-              className="bg-red-500 text-white p-2 rounded"
+              className="bg-red-500 hover:bg-red-800 duration-300 text-white p-2 rounded"
               onClick={() => handleDelete(row)}
             >
               <DeleteOutlineIcon />

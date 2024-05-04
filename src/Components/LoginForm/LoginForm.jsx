@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { TextField, Button } from "@mui/material";
 import InputLabel from "@mui/material/InputLabel";
 import IconButton from "@mui/material/IconButton";
@@ -8,35 +8,28 @@ import FormControl from "@mui/material/FormControl";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import styles from "./LoginForm.module.css";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { logInUser } from "../../Store/authSlice";
 import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
+import axios from "axios";
 
 function LoginForm() {
+  const [user, setUser] = useState({
+    email: "",
+    password: "",
+  });
   //React Hook Froms
   const {
     register,
     handleSubmit,
     formState: { errors },
-    watch,
-    getValues,
   } = useForm();
 
-  const formHasErrors = Object.keys(errors).length > 0;
+  // const formHasErrors = Object.keys(errors).length > 0;
 
-  const onSubmit = (data) => {
-    //Data of the user if it is validated
-    console.log(data, "DATA");
-    setUser(data);
-  };
+  const [showPassword, setShowPassword] = useState(false);
 
-  const [user, setUser] = useState({
-    email: "",
-    password: "",
-  });
-
-  const [showPassword, setShowPassword] = React.useState(false);
   const handleClickShowPassword = () => setShowPassword((show) => !show);
   const handleMouseDownPassword = (event) => {
     event.preventDefault();
@@ -44,18 +37,39 @@ function LoginForm() {
 
   ///////////////////////////////////////////
   const navigate = useNavigate();
-
   const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
   const logInError = useSelector((state) => state.auth.logInError);
 
   if (isLoggedIn) {
     navigate("/");
   }
+
   const dispatch = useDispatch();
-  const handleLogInClick = (event) => {
-    // event.preventDefault();
+  const onSubmit = async (data) => {
+    await setUser(data);
+    console.log("user is ", user);
     dispatch(logInUser(user));
-    console.log("Action dispatched");
+    console.log("Action dispatched with ", user);
+  };
+  const registerUser = async (email, password) => {
+    try {
+      const response = await axios.post(
+        "https://volt-nation.up.railway.app/user/login",
+        {
+          email: email,
+          password: password,
+        }
+      );
+
+      console.log(response.data);
+    } catch (error) {
+      console.error("Error registering user:", error);
+    }
+  };
+
+  const handleLogInClick = (event) => {
+    event.preventDefault();
+    registerUser(user.email, user.password);
   };
 
   //Validation
@@ -63,7 +77,7 @@ function LoginForm() {
 
   return (
     <>
-      <form>
+      <form onSubmit={handleLogInClick}>
         <div className="email">
           <TextField
             fullWidth
@@ -85,7 +99,10 @@ function LoginForm() {
         </div>
         <div className="password">
           <FormControl variant="outlined" className={styles.passwordInput}>
-            <InputLabel htmlFor="outlined-adornment-password" style={{ color: "white" }}>
+            <InputLabel
+              htmlFor="outlined-adornment-password"
+              style={{ color: "white" }}
+            >
               Password
             </InputLabel>
             <OutlinedInput
@@ -132,7 +149,6 @@ function LoginForm() {
             variant="contained"
             type="submit"
             onClick={handleSubmit(onSubmit)}
-            //onClick={(ev) => handleLogInClick(ev)}
             className={styles.submitBtn}
           >
             Log In

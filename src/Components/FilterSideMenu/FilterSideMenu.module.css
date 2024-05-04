@@ -1,0 +1,23 @@
+.filterMenu {
+  background-color: var(--color-var3);
+  padding: 30px;
+  color: var(--color-var5);
+}
+.filterMenu :global(.MuiButtonBase-root) {
+  color: white;
+}
+
+.filterMenu :global(.MuiFormLabel-root) {
+  color: white;
+  margin-bottom: 20px;
+}
+
+.filterBtn {
+  font-size: 22px;
+  margin-bottom: 20px;
+  color: var(--color-var1) !important;
+  display: flex;
+  align-items: center;
+  border-bottom: 3px solid var(--color-var1);
+  border-radius: 2px;
+}
