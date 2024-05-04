@@ -70,7 +70,7 @@ export default function BestSellers() {
       {isLoading && <div className="text-white text-4xl mt-16">Loading...</div>}
 
       <Slider {...settings} className={styles.swiper}>
-        {data?.data?.slice(20, 30).map((el) => (
+        {data?.data?.slice(0, 15).map((el) => (
           <Card key={el.id} product={el} />
         ))}
       </Slider>
