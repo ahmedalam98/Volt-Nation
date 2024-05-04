@@ -1,16 +1,25 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./Cart.module.css";
 import { IconButton } from "@mui/material";
 import IndeterminateCheckBoxIcon from "@mui/icons-material/IndeterminateCheckBox";
 import AddBoxIcon from "@mui/icons-material/AddBox";
+import {
+  addItemToCart,
+  decrementItem,
+  removeFromCart,
+} from "../../api/apiFunctions";
 
 export default function CartItem(props) {
   console.log(props);
-  const { id, pName, price, images, brand, features, colors, deleteProduct } =
+  const { _id, id, pName, price, images, brand, deleteProduct, quantity } =
     props;
-  const [cartItems, setCartItems] = useState(1);
+  const [cartItems, setCartItems] = useState(quantity);
 
-  if (cartItems < 1) {
+  useEffect(() => {
+    setCartItems(quantity);
+  }, [quantity]);
+
+  if (quantity < 1) {
     deleteProduct(id);
   }
 
@@ -31,7 +40,7 @@ export default function CartItem(props) {
           <div className="flex items-center sm:gap-10 ">
             <div className="flex justify-end text-2xl ">
               <div className="counter   sm:m-[-2px] m-[-5px] ">
-                <IconButton onClick={() => setCartItems((el) => el + 1)}>
+                <IconButton onClick={() => addItemToCart(_id)}>
                   <AddBoxIcon
                     style={{
                       color: "white",
@@ -42,7 +51,7 @@ export default function CartItem(props) {
 
                 <IconButton
                   sx={{ color: "white" }}
-                  onClick={() => setCartItems((el) => el - 1)}
+                  onClick={() => decrementItem(_id)}
                 >
                   <IndeterminateCheckBoxIcon></IndeterminateCheckBoxIcon>
                 </IconButton>
@@ -51,7 +60,7 @@ export default function CartItem(props) {
             <div className="flex justify-end text-2xl ">
               <section>
                 <span
-                  onClick={() => deleteProduct(id)}
+                  onClick={() => removeFromCart(_id)}
                   className={styles.sampah}
                 >
                   <span></span>

@@ -9,6 +9,9 @@ import "./Home.css";
 const isMobile = () => window.innerWidth <= 660;
 
 const Home = () => {
+  // const Token =
+  //   "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2MzU5ZTJhNTUwZmYzNjg1NTkwNWZhYSIsImlzQWRtaW4iOiJ1c2VyIiwiaWF0IjoxNzE0NzkwNjU4LCJleHAiOjE3MTQ4NzcwNTh9.q9jDJDp5ZLlVjMQI5ZcVp2IFnP1F50H2bNT8brszLa4";
+
   const isScrolled = useRef({});
   const [mobile, setMobile] = useState(isMobile());
   const [sections, setAnimatedSections] = useState(
@@ -27,6 +30,7 @@ const Home = () => {
   );
 
   useEffect(() => {
+    // localStorage.setItem("token", Token);
     const handleResize = () => {
       const isMobileView = isMobile();
       setMobile(isMobileView);

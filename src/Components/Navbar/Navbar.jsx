@@ -13,11 +13,25 @@ import { Badge, Menu, MenuItem } from "@mui/material";
 import styles from "./NavBar.module.css";
 import MobileNavbar from "../MobileNavbar/MobileNavbar.jsx";
 import { useNavigate } from "react-router-dom";
-import { useState } from "react";
-function NavBar() {
-  const [badge, setBadge] = useState(5);
+import { useEffect, useState } from "react";
+import { getCart } from "../../api/apiFunctions.js";
 
+function NavBar() {
   const navigate = useNavigate();
+
+  const [quantity, setQuantity] = useState(0);
+
+  useEffect(() => {
+    getCart().then((data) => {
+      setQuantity(
+        data?.data?.products?.reduce(
+          (acc, cur) => acc + Number(cur.quantity),
+          0
+        )
+      );
+    });
+  }, [quantity]);
+
   return (
     <div className={styles.navContainer}>
       <AppBar position="static" sx={{ background: "transparent" }}>
@@ -105,7 +119,7 @@ function NavBar() {
             </Box>
             {/* cart */}
             <Badge
-              badgeContent={badge ? badge : "0"}
+              badgeContent={+quantity ? +quantity : "0"}
               className={`${styles.cart} cursor-pointer `}
               onClick={() => navigate("/cart")}
             >

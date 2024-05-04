@@ -38,7 +38,6 @@ const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
       refetchOnWindowFocus: false,
-      staleTime: Infinity,
     },
   },
 });
@@ -67,10 +66,10 @@ function App() {
               {/* Auth Routes */}
               <Route path="/login" element={<LoginPage />} />
               <Route path="/sign-up" element={<Register />} />
-              <Route path="/resetPassword" element={<ResetPassword/>} />
-              <Route path="/resetPasswordUsr" element={<ResetUserPassword/>} />
-              
-              <Route path="/otp" element={<Otp/>} />
+              <Route path="/resetPassword" element={<ResetPassword />} />
+              <Route path="/resetPasswordUsr" element={<ResetUserPassword />} />
+
+              <Route path="/otp" element={<Otp />} />
 
               {/* Protected Dashboard Routes */}
               <Route element={<ProtectedRoute />}>

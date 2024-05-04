@@ -3,9 +3,16 @@ import styles from "./Card.module.css";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import ShoppingBagOutlinedIcon from "@mui/icons-material/ShoppingBagOutlined";
 import { Link } from "react-router-dom";
+import { addItemToCart } from "../../api/apiFunctions";
+import { useQuery } from "react-query";
 
 export default function Card({ product }) {
   // console.log(product, "card");
+  // const { isLoading, isError, data, error, refetch } = useQuery(
+  //   ["cart"],
+  //   addItemToCart
+  // );
+  // console.log("data", data);
 
   return (
     <>
@@ -34,7 +41,12 @@ export default function Card({ product }) {
           </button>
 
           <button>
-            <ShoppingBagOutlinedIcon />
+            <ShoppingBagOutlinedIcon
+              onClick={() => {
+                console.log("product._id", product._id);
+                return addItemToCart(product._id);
+              }}
+            />
           </button>
         </div>
       </div>

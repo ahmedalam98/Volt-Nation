@@ -1,40 +1,53 @@
 import React, { useEffect, useState } from "react";
 import CartItem from "./CartItem.jsx";
 import { useNavigate } from "react-router-dom";
-import { getProducts } from "../../api/apiFunctions";
+import { getProducts, getCart } from "../../api/apiFunctions";
 import { useQuery } from "react-query";
 import styles from "./Cart.module.css";
 import PayPal from "../PayPal/PayPal.jsx";
+import axios from "axios";
 
 export default function Cart() {
-  const navigate = useNavigate();
-  const { isLoading, isError, data, error, refetch } = useQuery(
-    ["products"],
-    getProducts
-  );
+  // const navigate = useNavigate();
+  // const { isLoading, isError, data, error, refetch } = useQuery(
+  //   ["products"],
+  //   getProducts
+  // );
+  // const { isLoading, isError, data, error, refetch } = useQuery(
+  //   ["cart"],
+  //   getCart
+  // );
+  // console.log("data", data);
 
   // let totalAmount = 10;
   const [checkout, setCheckout] = useState(false);
   const [products, setProducts] = useState([]);
+  const [quantity, setQuantity] = useState(0);
 
   useEffect(() => {
-    if (data && data.data) {
-      setProducts(data.data.slice(6, 11));
-    }
-  }, [data]);
+    getCart().then((data) => {
+      setProducts(data?.data?.products);
+      setQuantity(
+        data?.data?.products?.reduce(
+          (acc, cur) => acc + Number(cur.quantity),
+          0
+        )
+      );
+    });
+  }, [quantity]);
 
   function deleteProduct(id) {
-    setProducts(products.filter((product) => product.id !== id));
+    setProducts(products.filter((product) => product.product.id !== id));
   }
 
-  if (isLoading)
-    return (
-      <div>
-        <div className="loader-container">
-          <div className="loader"></div>
-        </div>
-      </div>
-    );
+  // if (isLoading)
+  //   return (
+  //     <div>
+  //       <div className="loader-container">
+  //         <div className="loader"></div>
+  //       </div>
+  //     </div>
+  //   );
 
   if (products.length === 0)
     return (
@@ -55,9 +68,10 @@ export default function Cart() {
             {products?.map((product) => {
               return (
                 <CartItem
-                  key={product.id}
+                  key={product.product.id}
                   deleteProduct={deleteProduct}
-                  {...product}
+                  quantity={product.quantity}
+                  {...product.product}
                 />
               );
             })}
@@ -70,14 +84,15 @@ export default function Cart() {
               <div className="mb-10 text-xl font-semibold ">SUBTOTAL</div>
               <div className="flex justify-around mb-3">
                 <div> Items </div>
-                <div> {products.length} </div>
+                <div> {quantity} </div>
               </div>
               <div className="flex justify-around mb-3">
                 <div> Total price </div>
                 <div>
                   $&nbsp;
                   {products.reduce(
-                    (acc, cur) => acc + Number(cur.price.replace("$", "")),
+                    (acc, cur) =>
+                      acc + Number(cur.product.price.replace("$", "")),
                     0
                   )}
                 </div>
@@ -98,8 +113,9 @@ export default function Cart() {
               {checkout && (
                 <div className="flex items-center self-center justify-center w-1/2 lg:w-4/5">
                   <PayPal
-                    price={products.reduce(
-                      (acc, cur) => acc + Number(cur.price.replace("$", "")),
+                    price={products?.reduce(
+                      (acc, cur) =>
+                        acc + Number(cur.product.price.replace("$", "")),
                       0
                     )}
                   />
