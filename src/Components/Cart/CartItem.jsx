@@ -6,8 +6,7 @@ import AddBoxIcon from "@mui/icons-material/AddBox";
 
 export default function CartItem(props) {
   console.log(props);
-  const { id, pName, price, images, brand, features, colors, deleteProduct } =
-    props;
+  const { id, pName, price, images, brand, deleteProduct } = props;
   const [cartItems, setCartItems] = useState(1);
 
   if (cartItems < 1) {

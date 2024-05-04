@@ -8,7 +8,7 @@ import SearchIcon from "@mui/icons-material/Search";
 
 // cart
 import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
-import { Badge, Menu, MenuItem } from "@mui/material";
+import { Badge } from "@mui/material";
 
 import styles from "./NavBar.module.css";
 import MobileNavbar from "../MobileNavbar/MobileNavbar.jsx";
@@ -19,6 +19,8 @@ import { useEffect, useRef, useState } from "react";
 
 function NavBar() {
   const [badge, setBadge] = useState(5);
+
+  console.log(setBadge);
 
   const navigate = useNavigate();
   const [searchQuery, setSearchQuery] = useState("");

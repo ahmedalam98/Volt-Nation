@@ -8,8 +8,8 @@ import FormControl from "@mui/material/FormControl";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import styles from "./SignUpForm.module.css";
-import { useDispatch, useSelector } from "react-redux";
-import { registerUser } from "../../Store/authSlice";
+import { useSelector } from "react-redux";
+// import { registerUser } from "../../Store/authSlice";
 import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 
@@ -19,10 +19,13 @@ const SignUpForm = () => {
     register,
     handleSubmit,
     formState: { errors },
-    watch,
+    // watch,
     getValues,
   } = useForm();
+
   const [user, setUser] = useState({});
+
+  console.log(user, "USER");
 
   const [showPassword, setShowPassword] = React.useState(false);
   const handleClickShowPassword = () => setShowPassword((show) => !show);
@@ -30,7 +33,8 @@ const SignUpForm = () => {
     event.preventDefault();
   };
 
-  const formHasErrors = Object.keys(errors).length > 0;
+  // const formHasErrors = Object.keys(errors).length > 0;
+
   const onSubmit = (data) => {
     //Data of the user if it is validated
     setUser(data);
@@ -46,16 +50,16 @@ const SignUpForm = () => {
   if (isRegistered) {
     navigate("/login");
   }
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
 
-  const handleRegisterClick = (event) => {
-    //ASK AML
-    if (formHasErrors) {
-      event.preventDefault();
-    } else {
-      // dispatch(registerUser(user));
-    }
-  };
+  // const handleRegisterClick = (event) => {
+  //   //ASK AML
+  //   if (formHasErrors) {
+  //     event.preventDefault();
+  //   } else {
+  //     // dispatch(registerUser(user));
+  //   }
+  // };
 
   return (
     <div className={styles.formContainer}>
@@ -70,9 +74,8 @@ const SignUpForm = () => {
               variant="outlined"
               fullWidth
               InputLabelProps={{
-                style: { color: "white",borderColor: "white" },
+                style: { color: "white", borderColor: "white" },
               }}
-             
               {...register("firstName", {
                 required: "name is required",
                 minLength: {

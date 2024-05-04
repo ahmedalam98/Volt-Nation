@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { TextField, Button } from "@mui/material";
 import InputLabel from "@mui/material/InputLabel";
 import IconButton from "@mui/material/IconButton";
@@ -8,8 +8,8 @@ import FormControl from "@mui/material/FormControl";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import styles from "./LoginForm.module.css";
-import { useDispatch, useSelector } from "react-redux";
-import { logInUser } from "../../Store/authSlice";
+import { useSelector } from "react-redux";
+// import { logInUser } from "../../Store/authSlice";
 import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 
@@ -19,11 +19,9 @@ function LoginForm() {
     register,
     handleSubmit,
     formState: { errors },
-    watch,
-    getValues,
   } = useForm();
 
-  const formHasErrors = Object.keys(errors).length > 0;
+  // const formHasErrors = Object.keys(errors).length > 0;
 
   const onSubmit = (data) => {
     //Data of the user if it is validated
@@ -36,7 +34,9 @@ function LoginForm() {
     password: "",
   });
 
-  const [showPassword, setShowPassword] = React.useState(false);
+  console.log(user);
+
+  const [showPassword, setShowPassword] = useState(false);
   const handleClickShowPassword = () => setShowPassword((show) => !show);
   const handleMouseDownPassword = (event) => {
     event.preventDefault();
@@ -51,12 +51,13 @@ function LoginForm() {
   if (isLoggedIn) {
     navigate("/");
   }
-  const dispatch = useDispatch();
-  const handleLogInClick = (event) => {
-    // event.preventDefault();
-    dispatch(logInUser(user));
-    console.log("Action dispatched");
-  };
+  // const dispatch = useDispatch();
+
+  // const handleLogInClick = (event) => {
+  //   // event.preventDefault();
+  //   dispatch(logInUser(user));
+  //   console.log("Action dispatched");
+  // };
 
   //Validation
   const handelForm = (event) => {};
@@ -85,7 +86,10 @@ function LoginForm() {
         </div>
         <div className="password">
           <FormControl variant="outlined" className={styles.passwordInput}>
-            <InputLabel htmlFor="outlined-adornment-password" style={{ color: "white" }}>
+            <InputLabel
+              htmlFor="outlined-adornment-password"
+              style={{ color: "white" }}
+            >
               Password
             </InputLabel>
             <OutlinedInput

@@ -1,17 +1,15 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import CartItem from "./CartItem.jsx";
-import { useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
 import { getProducts } from "../../api/apiFunctions";
 import { useQuery } from "react-query";
 import styles from "./Cart.module.css";
 import PayPal from "../PayPal/PayPal.jsx";
 
 export default function Cart() {
-  const navigate = useNavigate();
-  const { isLoading, isError, data, error, refetch } = useQuery(
-    ["products"],
-    getProducts
-  );
+  // const navigate = useNavigate();
+
+  const { isLoading, data } = useQuery(["products"], getProducts);
 
   // let totalAmount = 10;
   const [checkout, setCheckout] = useState(false);

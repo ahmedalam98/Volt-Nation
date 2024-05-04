@@ -5,10 +5,7 @@ import { getProducts } from "../../api/apiFunctions";
 import Card from "../Card/Card.jsx";
 
 export default function BestSellers() {
-  const { isLoading, isError, data, error, refetch } = useQuery(
-    ["products"],
-    getProducts
-  );
+  const { isLoading, data } = useQuery(["products"], getProducts);
 
   // console.log(data?.data);
 
