@@ -31,10 +31,15 @@ const SignUpForm = () => {
   };
 
   const formHasErrors = Object.keys(errors).length > 0;
-  const onSubmit = (data) => {
+  const onSubmit = async (data) => {
+    delete data.repassword;
     console.log(data);
-    //Data of the user if it is validated
-    setUser(data);
+
+    // Update user state
+    await setUser(data);
+
+    // Now user state has been updated, dispatch registerUser action
+    dispatch(registerUser(data));
   };
 
   //////////////////////////////////
@@ -140,7 +145,7 @@ const SignUpForm = () => {
                   value:
                     /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*]).{8,}$/,
                   message:
-                    "Password must contain at least one uppercase letter, one lowercase letter, one digit, and one special character",
+                    "Password must be at least 8 characters contains at least one uppercase letter, one lowercase letter, one digit, and one special character",
                 },
               })}
               type={showPassword ? "text" : "password"}
@@ -202,14 +207,14 @@ const SignUpForm = () => {
             </small>
           </FormControl>
         </div>
-        <div className="mobile">
+        <div className="phone">
           <TextField
             label="Mobile Number"
-            inputProps={{ inputMode: "numeric", pattern: "[0-9]*"  }}
+            inputProps={{ inputMode: "numeric", pattern: "[0-9]*" }}
             InputLabelProps={{
               style: { color: "white" },
             }}
-            {...register("mobile", {
+            {...register("phone", {
               required: "Mobile number is required",
               pattern: {
                 value: /^(010|011|012|015)\d{8,9}$/,
