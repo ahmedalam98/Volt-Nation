@@ -2,3 +2,11 @@
   box-shadow: 0px 0px 7px 0px #0e2629;
   padding: 15px;
 }
+.noProducts {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  color: var(--color-var1);
+  font-size: 20px;
+}
