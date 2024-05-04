@@ -36,7 +36,7 @@ const SideBar = ({ isOpen, onToggle }) => {
     <div className={styles.page}>
       <div className={`${styles.sidebar} ${isOpen ? styles.sideOpen : ""}`}>
         <div
-          className={`${styles.trigger} hidden md:flex`}
+          className={`${styles.trigger} hidden md:flex md:justify-end md:items-center`}
           onClick={handleTrigger}
         >
           <FontAwesomeIcon icon={isOpen ? faArrowLeft : faBars} />
