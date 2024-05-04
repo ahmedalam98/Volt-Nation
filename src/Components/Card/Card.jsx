@@ -3,10 +3,15 @@ import styles from "./Card.module.css";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import ShoppingBagOutlinedIcon from "@mui/icons-material/ShoppingBagOutlined";
 import { Link } from "react-router-dom";
+import { addItemToCart } from "../../Store/cartSlice.js";
+import { useDispatch } from "react-redux";
 
 export default function Card({ product }) {
-  // console.log(product, "card");
+  const dispatch = useDispatch();
 
+  const handelIncrease = (id) => {
+    dispatch(addItemToCart(id));
+  };
   return (
     <>
       <div className={styles.card}>
@@ -18,7 +23,6 @@ export default function Card({ product }) {
         <div className={styles.content}>
           <div className={styles.name}>
             <Link to={`/products/${product.id}`}>
-              {" "}
               {product?.pName?.slice(0, 29)}
             </Link>
           </div>
@@ -34,24 +38,12 @@ export default function Card({ product }) {
           </button>
 
           <button>
-            <ShoppingBagOutlinedIcon />
+            <ShoppingBagOutlinedIcon
+              onClick={() => handelIncrease(product._id)}
+            />
           </button>
         </div>
       </div>
-      {/* <div className={styles.card}>
-        <div className={styles.imgBx}>
-          <img src={product.images[0]} alt />
-        </div>
-        <div className={styles.contextBx}>
-          <h3>Wireless Headphone</h3>
-          <h2 className={styles.price}>
-            $245<small>.22</small>
-          </h2>
-          <a href="#" className={styles.buy}>
-            Buy now
-          </a>
-        </div>
-      </div> */}
     </>
   );
 }

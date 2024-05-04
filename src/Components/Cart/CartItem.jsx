@@ -1,17 +1,40 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./Cart.module.css";
 import { IconButton } from "@mui/material";
 import IndeterminateCheckBoxIcon from "@mui/icons-material/IndeterminateCheckBox";
 import AddBoxIcon from "@mui/icons-material/AddBox";
+import { useDispatch } from "react-redux";
+import {
+  addItemToCart,
+  decrementItem,
+  removeFromCart,
+} from "../../Store/cartSlice.js";
 
 export default function CartItem(props) {
-  console.log(props);
-  const { id, pName, price, images, brand, deleteProduct } = props;
-  const [cartItems, setCartItems] = useState(1);
+  const { _id, id, pName, price, images, brand, quantity } = props;
+  const [cartItems, setCartItems] = useState(quantity);
 
-  if (cartItems < 1) {
-    deleteProduct(id);
-  }
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    //  set cart quantity
+    setCartItems(quantity);
+  }, [quantity]);
+
+  // handle increase  quantity
+  const handelIncrease = (id) => {
+    dispatch(addItemToCart(id));
+  };
+
+  // handle  decrease quantity
+  const handelDecrease = (id) => {
+    dispatch(decrementItem(id));
+  };
+
+  // handle delete item from cart
+  const handleDelete = (id) => {
+    dispatch(removeFromCart(id));
+  };
 
   return (
     <div
@@ -30,7 +53,7 @@ export default function CartItem(props) {
           <div className="flex items-center sm:gap-10 ">
             <div className="flex justify-end text-2xl ">
               <div className="counter   sm:m-[-2px] m-[-5px] ">
-                <IconButton onClick={() => setCartItems((el) => el + 1)}>
+                <IconButton onClick={() => handelIncrease(_id)}>
                   <AddBoxIcon
                     style={{
                       color: "white",
@@ -41,7 +64,7 @@ export default function CartItem(props) {
 
                 <IconButton
                   sx={{ color: "white" }}
-                  onClick={() => setCartItems((el) => el - 1)}
+                  onClick={() => handelDecrease(_id)}
                 >
                   <IndeterminateCheckBoxIcon></IndeterminateCheckBoxIcon>
                 </IconButton>
@@ -50,7 +73,7 @@ export default function CartItem(props) {
             <div className="flex justify-end text-2xl ">
               <section>
                 <span
-                  onClick={() => deleteProduct(id)}
+                  onClick={() => handleDelete(_id)}
                   className={styles.sampah}
                 >
                   <span></span>

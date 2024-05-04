@@ -16,17 +16,22 @@ import { Link, useNavigate } from "react-router-dom";
 import { useQuery } from "react-query";
 import { getProducts } from "./../../api/apiFunctions";
 import { useEffect, useRef, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { getCart } from "../../Store/cartSlice.js";
 
 function NavBar() {
-  const [badge, setBadge] = useState(5);
-
-  console.log(setBadge);
-
   const navigate = useNavigate();
+
   const [searchQuery, setSearchQuery] = useState("");
   const [showResults, setShowResults] = useState(false);
   const searchContainerRef = useRef(null);
 
+  // fetch cart
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(getCart());
+  }, [dispatch]);
+  const products = useSelector((state) => state.cart.products);
   //fetch data
   const { data } = useQuery(["products"], getProducts);
 
@@ -173,7 +178,10 @@ function NavBar() {
             </Box>
             {/* cart */}
             <Badge
-              badgeContent={badge ? badge : "0"}
+              badgeContent={
+                products?.reduce((acc, cur) => acc + Number(cur.quantity), 0) ||
+                "0"
+              }
               className={`${styles.cart} cursor-pointer `}
               onClick={() => navigate("/cart")}
             >
