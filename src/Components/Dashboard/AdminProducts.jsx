@@ -101,11 +101,11 @@ const AdminProducts = () => {
   });
 
   if (isLoading) {
-    return <div>Loading...</div>;
-  }
-
-  if (error) {
-    return <div>Error loading products: {error.message}</div>;
+    return (
+      <div className="spinner-container">
+        <div className="spinner"></div>
+      </div>
+    );
   }
 
   return (
