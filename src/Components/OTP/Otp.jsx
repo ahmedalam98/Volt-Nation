@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import { useState, useRef } from "react";
 import { useLocation, Link, useNavigate } from "react-router-dom";
 import { Button, TextField } from "@mui/material";
 import styles from "./Otp.module.css";
@@ -8,11 +8,13 @@ function Otp() {
   const navigate = useNavigate();
   const [otp, setOtp] = useState("");
   let otpFromFront = location.state.otp.join("");
-  console.log(otpFromFront);
+
+  // console.log(otpFromFront);
+
   //Data From The Inputs
   const [inputs, setInputs] = useState(["", "", "", ""]);
   const inputRefs = [useRef(), useRef(), useRef(), useRef()];
-  const [showerErr, setShowErr] = useState(false);
+  // const [showerErr, setShowErr] = useState(false);
 
   const handleInputChange = (index, value) => {
     const newInputs = [...inputs];
@@ -29,6 +31,7 @@ function Otp() {
       inputRefs[index - 1].current.focus();
     }
   };
+
   const clearInputs = () => {
     setInputs(["", "", "", ""]);
     setOtp("");

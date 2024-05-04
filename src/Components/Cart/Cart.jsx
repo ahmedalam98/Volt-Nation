@@ -1,7 +1,9 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import CartItem from "./CartItem.jsx";
+
 import { useNavigate } from "react-router-dom";
 // import { getProducts, getCart } from "../../api/apiFunctions";
+
 import { useQuery } from "react-query";
 import styles from "./Cart.module.css";
 import PayPal from "../PayPal/PayPal.jsx";
@@ -10,6 +12,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getCart } from "../../Store/cartSlice.js";
 
 export default function Cart() {
+
   const [checkout, setCheckout] = useState(false);
   const [quantity, setQuantity] = useState(0);
   const dispatch = useDispatch();
@@ -27,6 +30,7 @@ export default function Cart() {
   //   getCart
   // );
   // console.log("data", data);
+
 
   // let totalAmount = 10;
 

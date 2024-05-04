@@ -1,8 +1,7 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import styles from "./ResetPassword.module.css";
 import { TextField, Button } from "@mui/material";
-import { Link  } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const ResetPassword = () => {
   const [userEmail, setUserEmail] = useState("");
@@ -27,7 +26,7 @@ const ResetPassword = () => {
 
   function generateRandomNumbers() {
     const numbers = [];
-    for (let i = 0; i <4; i++) {
+    for (let i = 0; i < 4; i++) {
       numbers.push(Math.floor(Math.random() * 9) + 1);
     }
     return numbers;
@@ -39,7 +38,7 @@ const ResetPassword = () => {
     console.log(otp);
     //Send OTP number to user's email through BACKEND Ya AMAAAAALLLLLL
     //go to OTP page and compare
-    navigate('/OTP', { state: { otp:otp }})
+    navigate("/OTP", { state: { otp: otp } });
   };
 
   return (
@@ -50,6 +49,7 @@ const ResetPassword = () => {
             <img
               className={styles.icon}
               src="public/forgot-password.png"
+              alt="forget"
             />
             <div className="my-5">
               <h1 className={styles.header}>Reset your password</h1>
@@ -65,7 +65,7 @@ const ResetPassword = () => {
                 borderRadius: "3px",
               }}
               InputLabelProps={{
-                style: { color: "white",borderColor: "white" },
+                style: { color: "white", borderColor: "white" },
               }}
               className="my-5"
               onChange={(e) => handelValidation(e)}
@@ -80,7 +80,7 @@ const ResetPassword = () => {
               <Button
                 variant="contained"
                 className={styles.btn}
-                disabled={err != ""}
+                disabled={err !== ""}
                 onClick={() => handelResetPassword()}
               >
                 Send Instructions

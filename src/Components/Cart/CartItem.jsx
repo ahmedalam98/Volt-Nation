@@ -17,6 +17,7 @@ import {
 
 export default function CartItem(props) {
   console.log(props);
+
   const { _id, id, pName, price, images, brand, deleteProduct, quantity } =
     props;
   const [cartItems, setCartItems] = useState(quantity);
@@ -24,6 +25,7 @@ export default function CartItem(props) {
   useEffect(() => {
     setCartItems(quantity);
   }, [quantity]);
+
 
   if (quantity < 1) {
     deleteProduct(id);

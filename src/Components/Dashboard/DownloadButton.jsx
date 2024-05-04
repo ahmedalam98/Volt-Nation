@@ -15,8 +15,7 @@ const DownloadButton = ({ data = [], fileName = "data" }) => {
   return (
     <div>
       <button
-        className=" flex justify-center items-center gap-2 rounded border-green-600 bg-green-600 text-white font-semibold tracking-wider p-3 hover:bg-green-800 hover:border-green-800 me-4 md:me-0"
-        style={{ transition: "all 0.3s" }}
+        className="flex justify-center items-center gap-2 rounded border-green-600 bg-green-600 text-white font-semibold tracking-wider p-3 hover:bg-green-800 hover:border-green-800 me-4 md:me-0 duration-300"
         onClick={handleDownloadSheet}
       >
         <span>Download Data</span>
