@@ -3,18 +3,24 @@ import styles from "./Cart.module.css";
 import { IconButton } from "@mui/material";
 import IndeterminateCheckBoxIcon from "@mui/icons-material/IndeterminateCheckBox";
 import AddBoxIcon from "@mui/icons-material/AddBox";
+// import {
+//   addItemToCart,
+//   decrementItem,
+//   removeFromCart,
+// } from "../../api/apiFunctions";
+import { useDispatch, useSelector } from "react-redux";
 import {
   addItemToCart,
   decrementItem,
   removeFromCart,
-} from "../../api/apiFunctions";
+} from "../../Store/cartSlice.js";
 
 export default function CartItem(props) {
   console.log(props);
   const { _id, id, pName, price, images, brand, deleteProduct, quantity } =
     props;
   const [cartItems, setCartItems] = useState(quantity);
-
+  const dispatch = useDispatch();
   useEffect(() => {
     setCartItems(quantity);
   }, [quantity]);
@@ -22,6 +28,16 @@ export default function CartItem(props) {
   if (quantity < 1) {
     deleteProduct(id);
   }
+
+  const handelDecrease = (id) => {
+    dispatch(decrementItem(id));
+  };
+  const handelIncrease = (id) => {
+    dispatch(addItemToCart(id));
+  };
+  const handleDelete = (id) => {
+    dispatch(removeFromCart(id));
+  };
 
   return (
     <div
@@ -40,7 +56,7 @@ export default function CartItem(props) {
           <div className="flex items-center sm:gap-10 ">
             <div className="flex justify-end text-2xl ">
               <div className="counter   sm:m-[-2px] m-[-5px] ">
-                <IconButton onClick={() => addItemToCart(_id)}>
+                <IconButton onClick={() => handelIncrease(_id)}>
                   <AddBoxIcon
                     style={{
                       color: "white",
@@ -51,7 +67,7 @@ export default function CartItem(props) {
 
                 <IconButton
                   sx={{ color: "white" }}
-                  onClick={() => decrementItem(_id)}
+                  onClick={() => handelDecrease(_id)}
                 >
                   <IndeterminateCheckBoxIcon></IndeterminateCheckBoxIcon>
                 </IconButton>
@@ -60,7 +76,7 @@ export default function CartItem(props) {
             <div className="flex justify-end text-2xl ">
               <section>
                 <span
-                  onClick={() => removeFromCart(_id)}
+                  onClick={() => handleDelete(_id)}
                   className={styles.sampah}
                 >
                   <span></span>

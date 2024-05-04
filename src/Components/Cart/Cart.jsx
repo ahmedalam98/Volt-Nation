@@ -1,13 +1,22 @@
 import React, { useEffect, useState } from "react";
 import CartItem from "./CartItem.jsx";
 import { useNavigate } from "react-router-dom";
-import { getProducts, getCart } from "../../api/apiFunctions";
+// import { getProducts, getCart } from "../../api/apiFunctions";
 import { useQuery } from "react-query";
 import styles from "./Cart.module.css";
 import PayPal from "../PayPal/PayPal.jsx";
 import axios from "axios";
+import { useDispatch, useSelector } from "react-redux";
+import { getCart } from "../../Store/cartSlice.js";
 
 export default function Cart() {
+  const [checkout, setCheckout] = useState(false);
+  const [quantity, setQuantity] = useState(0);
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(getCart());
+  }, [dispatch]);
+  const products = useSelector((state) => state.cart.products);
   // const navigate = useNavigate();
   // const { isLoading, isError, data, error, refetch } = useQuery(
   //   ["products"],
@@ -20,24 +29,22 @@ export default function Cart() {
   // console.log("data", data);
 
   // let totalAmount = 10;
-  const [checkout, setCheckout] = useState(false);
-  const [products, setProducts] = useState([]);
-  const [quantity, setQuantity] = useState(0);
 
-  useEffect(() => {
-    getCart().then((data) => {
-      setProducts(data?.data?.products);
-      setQuantity(
-        data?.data?.products?.reduce(
-          (acc, cur) => acc + Number(cur.quantity),
-          0
-        )
-      );
-    });
-  }, [quantity]);
+  // useEffect(() => {
+  //   getCart().then((data) => {
+  //     setProducts(data?.data?.products);
+  //     setQuantity(
+  //       data?.data?.products?.reduce(
+  //         (acc, cur) => acc + Number(cur.quantity),
+  //         0
+  //       )
+  //     );
+  //   });
+  //   console.log(products);
+  // }, [quantity]);
 
   function deleteProduct(id) {
-    setProducts(products.filter((product) => product.product.id !== id));
+    // setProducts(products.filter((product) => product.product.id !== id));
   }
 
   // if (isLoading)
@@ -84,7 +91,12 @@ export default function Cart() {
               <div className="mb-10 text-xl font-semibold ">SUBTOTAL</div>
               <div className="flex justify-around mb-3">
                 <div> Items </div>
-                <div> {quantity} </div>
+                <div>
+                  {products.reduce(
+                    (acc, cur) => acc + Number(+cur.quantity),
+                    0
+                  )}
+                </div>
               </div>
               <div className="flex justify-around mb-3">
                 <div> Total price </div>
@@ -92,7 +104,8 @@ export default function Cart() {
                   $&nbsp;
                   {products.reduce(
                     (acc, cur) =>
-                      acc + Number(cur.product.price.replace("$", "")),
+                      acc +
+                      Number(cur.product.price.replace("$", "") * cur.quantity),
                     0
                   )}
                 </div>

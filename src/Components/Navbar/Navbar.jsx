@@ -14,23 +14,30 @@ import styles from "./NavBar.module.css";
 import MobileNavbar from "../MobileNavbar/MobileNavbar.jsx";
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { getCart } from "../../api/apiFunctions.js";
+// import { getCart } from "../../api/apiFunctions.js";
+import { useDispatch, useSelector } from "react-redux";
+import { getCart } from "../../Store/cartSlice.js";
 
 function NavBar() {
   const navigate = useNavigate();
 
-  const [quantity, setQuantity] = useState(0);
-
+  // const [quantity, setQuantity] = useState(0);
+  const dispatch = useDispatch();
   useEffect(() => {
-    getCart().then((data) => {
-      setQuantity(
-        data?.data?.products?.reduce(
-          (acc, cur) => acc + Number(cur.quantity),
-          0
-        )
-      );
-    });
-  }, [quantity]);
+    dispatch(getCart());
+  }, [dispatch]);
+  const products = useSelector((state) => state.cart.products);
+
+  // useEffect(() => {
+  //   getCart().then((data) => {
+  //     setQuantity(
+  //       data?.data?.products?.reduce(
+  //         (acc, cur) => acc + Number(cur.quantity),
+  //         0
+  //       )
+  //     );
+  //   });
+  // }, [quantity]);
 
   return (
     <div className={styles.navContainer}>
@@ -119,7 +126,10 @@ function NavBar() {
             </Box>
             {/* cart */}
             <Badge
-              badgeContent={+quantity ? +quantity : "0"}
+              badgeContent={
+                products?.reduce((acc, cur) => acc + Number(cur.quantity), 0) ||
+                "0"
+              }
               className={`${styles.cart} cursor-pointer `}
               onClick={() => navigate("/cart")}
             >

@@ -1,10 +1,16 @@
 import React, { useEffect, useRef, useState } from "react";
-import { checkout } from "../../api/apiFunctions";
+import { checkout } from "../../Store/cartSlice";
 import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 
 export default function PayPal({ price }) {
   const navigate = useNavigate();
   const paypal = useRef();
+  const dispatch = useDispatch();
+  const handleCheckout = () => {
+    dispatch(checkout());
+    navigate("/");
+  };
 
   useEffect(() => {
     let paypalButton = window.paypal.Buttons({
@@ -25,8 +31,7 @@ export default function PayPal({ price }) {
       onApprove: async (data, actions) => {
         const order = await actions.order.capture();
         console.log(order);
-        checkout();
-        navigate("/");
+        handleCheckout();
       },
       onError: (err) => {
         console.log(err);
