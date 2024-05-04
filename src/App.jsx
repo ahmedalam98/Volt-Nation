@@ -35,7 +35,8 @@ const Admins = lazy(() => import("./Components/Dashboard/Admins.jsx"));
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
-      refetchOnWindowFocus: false,
+      staleTime: 1000 * 60 * 5,
+      cacheTime: 1000 * 60 * 30,
     },
   },
 });

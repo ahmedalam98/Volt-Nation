@@ -5,7 +5,7 @@ const Pulse = () => {
   return (
     <>
       <div className="grid grid-cols-1 md:grid-cols-[1fr_1fr] bg-[#EDEDED] h-[1100px] md:h-[800px] lg:h-[700px] xl:h-[550px]">
-        <div className="mt-12 md:mt-0 flex flex-col justify-start md:justify-center items-center gap-10 px-8">
+        <div className="ms-0 md:ms-8 mt-12 md:mt-0 flex flex-col justify-start md:justify-center items-center gap-10 px-8">
           <h2 className="text-4xl md:text-5xl font-bold leading-snug md:leading-tight self-start text-[#1B1B1B]">
             DOLBY ATMOS <br /> SOUND FEATURE
           </h2>
