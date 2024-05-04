@@ -1,6 +1,16 @@
 import React, { useEffect, useRef } from "react";
+import { checkout } from "../../Store/cartSlice";
+import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
 
 export default function PayPal({ price }) {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const handleCheckout = () => {
+    dispatch(checkout());
+    navigate("/");
+  };
+
   const paypal = useRef();
   useEffect(() => {
     window.paypal
@@ -21,6 +31,7 @@ export default function PayPal({ price }) {
         },
         onApprove: async (data, actions) => {
           const order = await actions.order.capture();
+          handleCheckout();
           console.log(order);
         },
         onError: (err) => {
@@ -28,7 +39,8 @@ export default function PayPal({ price }) {
         },
       })
       .render(paypal.current);
-  });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
   return (
     <div className="w-full mt-5">
       <div ref={paypal}></div>
