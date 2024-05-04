@@ -12,8 +12,13 @@ import { useSelector } from "react-redux";
 // import { logInUser } from "../../Store/authSlice";
 import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
+import axios from "axios";
 
 function LoginForm() {
+  const [user, setUser] = useState({
+    email: "",
+    password: "",
+  });
   //React Hook Froms
   const {
     register,
@@ -23,20 +28,9 @@ function LoginForm() {
 
   // const formHasErrors = Object.keys(errors).length > 0;
 
-  const onSubmit = (data) => {
-    //Data of the user if it is validated
-    console.log(data, "DATA");
-    setUser(data);
-  };
 
-  const [user, setUser] = useState({
-    email: "",
-    password: "",
-  });
+  const [showPassword, setShowPassword] = React.useState(false);
 
-  console.log(user);
-
-  const [showPassword, setShowPassword] = useState(false);
   const handleClickShowPassword = () => setShowPassword((show) => !show);
   const handleMouseDownPassword = (event) => {
     event.preventDefault();
@@ -44,27 +38,47 @@ function LoginForm() {
 
   ///////////////////////////////////////////
   const navigate = useNavigate();
-
   const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
   const logInError = useSelector((state) => state.auth.logInError);
 
   if (isLoggedIn) {
     navigate("/");
   }
-  // const dispatch = useDispatch();
 
-  // const handleLogInClick = (event) => {
-  //   // event.preventDefault();
-  //   dispatch(logInUser(user));
-  //   console.log("Action dispatched");
-  // };
+  const dispatch = useDispatch();
+  const onSubmit = async (data) => {
+    await setUser(data);
+    console.log("user is ", user);
+    dispatch(logInUser(user));
+    console.log("Action dispatched with ", user);
+  };
+  const registerUser = async (email, password) => {
+    try {
+      const response = await axios.post(
+        "https://volt-nation.up.railway.app/user/login",
+        {
+          email: email,
+          password: password,
+        }
+      );
+
+      console.log(response.data);
+    } catch (error) {
+      console.error("Error registering user:", error);
+    }
+  };
+
+  const handleLogInClick = (event) => {
+    event.preventDefault();
+    registerUser(user.email, user.password);
+  };
 
   //Validation
   const handelForm = (event) => {};
 
   return (
     <>
-      <form>
+      <form onSubmit={handleLogInClick}>
         <div className="email">
           <TextField
             fullWidth
@@ -136,7 +150,6 @@ function LoginForm() {
             variant="contained"
             type="submit"
             onClick={handleSubmit(onSubmit)}
-            //onClick={(ev) => handleLogInClick(ev)}
             className={styles.submitBtn}
           >
             Log In
