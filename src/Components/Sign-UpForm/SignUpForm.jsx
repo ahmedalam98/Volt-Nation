@@ -19,7 +19,6 @@ const SignUpForm = () => {
     register,
     handleSubmit,
     formState: { errors },
-    watch,
     getValues,
   } = useForm();
   const [user, setUser] = useState({});
@@ -54,14 +53,14 @@ const SignUpForm = () => {
   }
   const dispatch = useDispatch();
 
-  const handleRegisterClick = (event) => {
-    //ASK AML
-    if (formHasErrors) {
-      event.preventDefault();
-    } else {
-      // dispatch(registerUser(user));
-    }
-  };
+  // const handleRegisterClick = (event) => {
+  //   //ASK AML
+  //   if (formHasErrors) {
+  //     event.preventDefault();
+  //   } else {
+  //     // dispatch(registerUser(user));
+  //   }
+  // };
 
   return (
     <div className={styles.formContainer}>

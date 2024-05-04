@@ -24,8 +24,6 @@ function LoginForm() {
     register,
     handleSubmit,
     formState: { errors },
-    watch,
-    getValues,
   } = useForm();
 
   const formHasErrors = Object.keys(errors).length > 0;
