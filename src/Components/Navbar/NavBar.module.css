@@ -104,13 +104,40 @@
   visibility: hidden;
   transform: scale(0.5);
 }
-
+/* .search:not(.focus) + .resContainer {
+  display: none;
+} */
 .tabs {
   display: flex;
   align-items: center;
   position: relative;
 }
 
-.cart :global(.MuiBadge-badge) {
-  background-color: var(--color-var1) !important;
+ .resContainer {
+  display: flex;
+  position: absolute;
+  top: 60px;
+  left: 0;
+  overflow-y: auto;
+  width: 400px;
+  height: 250px;
+  z-index: 1;
+  flex-direction: column;
+  background-color: var(--color-var3);
+  border: 1px solid var(--color-var1);
 }
+.result {
+  box-shadow: 0px 0px 7px 0px #0e2629;
+  padding: 15px;
+  font-size: 12px;
+}
+.noProducts {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  color: var(--color-var1);
+  font-size: 20px;
+ .cart :global(.MuiBadge-badge) {
+  background-color: var(--color-var1) !important;
+ }
