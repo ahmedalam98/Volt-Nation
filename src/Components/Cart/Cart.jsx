@@ -14,7 +14,7 @@ export default function Cart() {
   // let totalAmount = 10;
   const [checkout, setCheckout] = useState(false);
   const [products, setProducts] = useState([]);
-
+  console.log("products", products);
   useEffect(() => {
     if (data && data.data) {
       setProducts(data.data.slice(6, 11));
@@ -74,10 +74,7 @@ export default function Cart() {
                 <div> Total price </div>
                 <div>
                   $&nbsp;
-                  {products.reduce(
-                    (acc, cur) => acc + Number(cur.price.replace("$", "")),
-                    0
-                  )}
+                  {products?.reduce((acc, cur) => acc + Number(cur?.price), 0)}
                 </div>
               </div>
               <hr className="w-4/5 mx-auto my-0" />
@@ -96,8 +93,8 @@ export default function Cart() {
               {checkout && (
                 <div className="flex items-center self-center justify-center w-1/2 lg:w-4/5">
                   <PayPal
-                    price={products.reduce(
-                      (acc, cur) => acc + Number(cur.price.replace("$", "")),
+                    price={products?.reduce(
+                      (acc, cur) => acc + Number(cur?.price?.replace("$", "")),
                       0
                     )}
                   />
