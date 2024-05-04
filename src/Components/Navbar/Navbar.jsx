@@ -12,14 +12,12 @@ import { Badge, Menu, MenuItem } from "@mui/material";
 
 import styles from "./NavBar.module.css";
 import MobileNavbar from "../MobileNavbar/MobileNavbar.jsx";
- import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useQuery } from "react-query";
 import { getProducts } from "./../../api/apiFunctions";
 import { useEffect, useRef, useState } from "react";
- 
-import { useNavigate } from "react-router-dom";
-import { useState } from "react";
- function NavBar() {
+
+function NavBar() {
   const [badge, setBadge] = useState(5);
 
   const navigate = useNavigate();
