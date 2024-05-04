@@ -5,10 +5,7 @@ import { getProducts } from "../../api/apiFunctions";
 import Card from "../Card/Card.jsx";
 
 export default function BestSellers() {
-  const { isLoading, isError, data, error, refetch } = useQuery(
-    ["products"],
-    getProducts
-  );
+  const { isLoading, data } = useQuery(["products"], getProducts);
 
   // console.log(data?.data);
 
@@ -67,8 +64,10 @@ export default function BestSellers() {
         Our Best Sellers
       </h2>
 
-      <Slider {...settings} className={styles.slider}>
-        {data?.data?.slice(20, 30).map((el) => (
+      {isLoading && <div className="text-white text-4xl mt-16">Loading...</div>}
+
+      <Slider {...settings} className={styles.swiper}>
+        {data?.data?.slice(0, 15).map((el) => (
           <Card key={el.id} product={el} />
         ))}
       </Slider>

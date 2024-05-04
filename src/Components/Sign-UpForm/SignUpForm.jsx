@@ -8,8 +8,8 @@ import FormControl from "@mui/material/FormControl";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import styles from "./SignUpForm.module.css";
-import { useDispatch, useSelector } from "react-redux";
-import { registerUser } from "../../Store/authSlice";
+import { useSelector } from "react-redux";
+// import { registerUser } from "../../Store/authSlice";
 import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 
@@ -21,7 +21,10 @@ const SignUpForm = () => {
     formState: { errors },
     getValues,
   } = useForm();
+
   const [user, setUser] = useState({});
+
+  console.log(user, "USER");
 
   const [showPassword, setShowPassword] = React.useState(false);
   const handleClickShowPassword = () => setShowPassword((show) => !show);
@@ -29,11 +32,11 @@ const SignUpForm = () => {
     event.preventDefault();
   };
 
+
   const formHasErrors = Object.keys(errors).length > 0;
   const onSubmit = async (data) => {
     delete data.repassword;
     console.log(data);
-
     // Update user state
     await setUser(data);
 
@@ -51,7 +54,7 @@ const SignUpForm = () => {
   if (isRegistered) {
     navigate("/login");
   }
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
 
   // const handleRegisterClick = (event) => {
   //   //ASK AML

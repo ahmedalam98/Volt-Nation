@@ -1,17 +1,17 @@
-:global(.slick-track) {
+.swiper :global(.slick-track) {
   display: flex !important;
 }
-:global(.slick-slide) {
+.swiper :global(.slick-slide) {
   margin: 40px 15px !important;
   height: inherit !important;
 }
-:global(.slick-slide) > div:first-child {
+.swiper :global(.slick-slide) > div:first-child {
   height: 100% !important;
 }
-.slider {
+.swiper {
   padding: 0 50px;
 }
-.slider :global(.slick-next) {
+.swiper :global(.slick-next) {
   right: 20px !important;
   border: 1px solid var(--color-var2) !important;
   padding: 5px 12px !important;
@@ -19,7 +19,7 @@
   height: 35px !important;
   border-radius: 1px !important;
 }
-.slider :global(.slick-prev) {
+.swiper :global(.slick-prev) {
   left: 20px !important;
   border: 1px solid var(--color-var2) !important;
   padding: 5px 12px !important;
@@ -28,40 +28,40 @@
   z-index: 2 !important;
   border-radius: 1px !important;
 }
-.slider :global(.slick-prev:before) {
+.swiper :global(.slick-prev:before) {
   content: "<" !important;
   color: var(--color-var1) !important;
   font-size: 20px !important;
   margin-inline-end: -38px !important;
   transition: all 0.3s ease-in-out !important;
 }
-.slider :global(.slick-prev:hover:before) {
+.swiper :global(.slick-prev:hover:before) {
   margin-inline-end: 0 !important;
 }
-.slider :global(.slick-next:before) {
+.swiper :global(.slick-next:before) {
   content: ">" !important;
   color: var(--color-var1) !important;
   font-size: 20px !important;
   margin-inline-start: -38px !important;
   transition: all 0.3s ease-in-out !important;
 }
-.slider :global(.slick-next:hover:before) {
+.swiper :global(.slick-next:hover:before) {
   margin-inline-start: 0 !important;
 }
 
 @media (max-width: 500px) {
-  .slider :global(.slick-next) {
+  .swiper :global(.slick-next) {
     display: none !important;
   }
-  .slider :global(.slick-prev) {
+  .swiper :global(.slick-prev) {
     display: none !important;
   }
-  .slider :global(.respns) {
+  .swiper :global(.respns) {
     transform: scale(1) !important;
   }
 }
 @media (max-width: 500px) {
-  .slider {
+  .swiper {
     padding: 0;
   }
 }

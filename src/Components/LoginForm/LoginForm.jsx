@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { TextField, Button } from "@mui/material";
 import InputLabel from "@mui/material/InputLabel";
 import IconButton from "@mui/material/IconButton";
@@ -8,8 +8,8 @@ import FormControl from "@mui/material/FormControl";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import styles from "./LoginForm.module.css";
-import { useDispatch, useSelector } from "react-redux";
-import { logInUser } from "../../Store/authSlice";
+import { useSelector } from "react-redux";
+// import { logInUser } from "../../Store/authSlice";
 import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import axios from "axios";
@@ -26,9 +26,11 @@ function LoginForm() {
     formState: { errors },
   } = useForm();
 
-  const formHasErrors = Object.keys(errors).length > 0;
+  // const formHasErrors = Object.keys(errors).length > 0;
+
 
   const [showPassword, setShowPassword] = React.useState(false);
+
   const handleClickShowPassword = () => setShowPassword((show) => !show);
   const handleMouseDownPassword = (event) => {
     event.preventDefault();
@@ -42,6 +44,7 @@ function LoginForm() {
   if (isLoggedIn) {
     navigate("/");
   }
+
   const dispatch = useDispatch();
   const onSubmit = async (data) => {
     await setUser(data);

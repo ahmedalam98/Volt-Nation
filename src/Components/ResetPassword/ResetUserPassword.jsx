@@ -1,35 +1,33 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import styles from "./ResetPassword.module.css";
 import {
-  TextField,
   Button,
   FormControl,
   InputLabel,
   OutlinedInput,
   IconButton,
 } from "@mui/material";
-import { Link } from "react-router-dom";
 import InputAdornment from "@mui/material/InputAdornment";
-import { useNavigate } from "react-router-dom";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
+// import { Link, useNavigate } from "react-router-dom";
 
 const ResetUserPassword = () => {
   const [password, setPassword] = useState("");
-  const [rePassword, setRePassword] = useState("");
+  // const [rePassword, setRePassword] = useState("");
   const [errPassword, setErrPassword] = useState("");
   const [errRePassword, setErrRePassword] = useState("");
 
-  const [showPassword, setShowPassword] = React.useState(false);
-  const [showPassword2, setShowPassword2] = React.useState(false);
+  const [showPassword, setShowPassword] = useState(false);
+  const [showPassword2, setShowPassword2] = useState(false);
   const handleClickShowPassword = () => setShowPassword((show) => !show);
   const handleClickShowPassword2 = () => setShowPassword2((show) => !show);
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
   const handelResetPassword = (event) => {
-    if(errPassword==""&&errRePassword==""){
-      console.log('OK');
-    }else{
+    if (errPassword === "" && errRePassword === "") {
+      console.log("OK");
+    } else {
       event.preventDefault();
     }
   };
@@ -53,7 +51,7 @@ const ResetUserPassword = () => {
         }
         break;
       case "repassword":
-        if (event.target.value == password) {
+        if (event.target.value === password) {
           setErrRePassword("");
           console.log("Passwords match");
         } else {
@@ -73,6 +71,7 @@ const ResetUserPassword = () => {
             <img
               className={styles.icon}
               src="public/forgot-password (2).png"
+              alt="forget password"
             />
             <div className="my-5">
               <h1 className={styles.header}>Reset your password</h1>
@@ -91,7 +90,10 @@ const ResetUserPassword = () => {
                 }}
                 variant="outlined"
               >
-                <InputLabel htmlFor="outlined-adornment-password" style={{color:'white'}}>
+                <InputLabel
+                  htmlFor="outlined-adornment-password"
+                  style={{ color: "white" }}
+                >
                   Password
                 </InputLabel>
                 <OutlinedInput
@@ -106,7 +108,7 @@ const ResetUserPassword = () => {
                         onClick={handleClickShowPassword}
                         onMouseDown={handleMouseDownPassword}
                         edge="end"
-                        style={{color:'white'}}
+                        style={{ color: "white" }}
                       >
                         {showPassword ? <VisibilityOff /> : <Visibility />}
                       </IconButton>
@@ -128,7 +130,10 @@ const ResetUserPassword = () => {
                 }}
                 variant="outlined"
               >
-                <InputLabel htmlFor="outlined-adornment-password" style={{color:'white'}}>
+                <InputLabel
+                  htmlFor="outlined-adornment-password"
+                  style={{ color: "white" }}
+                >
                   Re-Password
                 </InputLabel>
                 <OutlinedInput
@@ -143,7 +148,7 @@ const ResetUserPassword = () => {
                         onClick={handleClickShowPassword2}
                         onMouseDown={handleMouseDownPassword}
                         edge="end"
-                        style={{color:'white'}}
+                        style={{ color: "white" }}
                       >
                         {showPassword2 ? <VisibilityOff /> : <Visibility />}
                       </IconButton>
@@ -162,7 +167,6 @@ const ResetUserPassword = () => {
                 onClick={(event) => {
                   handelResetPassword(event);
                 }}
-               
               >
                 Save New Password
               </Button>
