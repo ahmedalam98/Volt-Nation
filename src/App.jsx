@@ -4,15 +4,11 @@ import { Suspense, lazy } from "react";
 import store from "./Store/store";
 import Layout from "./Layout/Layout.jsx";
 import { QueryClient, QueryClientProvider } from "react-query";
+import ResetPassword from "./Components/ResetPassword/ResetPassword.jsx";
+import Otp from "./Components/OTP/Otp.jsx";
+import ResetUserPassword from "./Components/ResetPassword/ResetUserPassword.jsx";
 // import { ReactQueryDevtools } from "react-query/devtools";
-
-import Dashboard from "./Components/Dashboard/Dashboard.jsx";
-import Overview from "./Components/Dashboard/Overview.jsx";
-import AdminProducts from "./Components/Dashboard/AdminProducts.jsx";
-import AdminOrders from "./Components/Dashboard/AdminOrders.jsx";
-import AdminCategories from "./Components/Dashboard/AdminCategories.jsx";
 import ProtectedRoute from "./Utils/ProtectedRoute.jsx";
-import Admins from "./Components/Dashboard/Admins.jsx";
 
 const Home = lazy(() => import("./Pages/Home/Home.jsx"));
 const Products = lazy(() => import("./Pages/Products/Products.jsx"));
@@ -20,10 +16,23 @@ const ProductDetails = lazy(
   () => import("./Pages/ProductDetails/ProductDetails.jsx")
 );
 const Profile = lazy(() => import("./Pages/Profile/Profile.jsx"));
-const Cart = lazy(() => import("./Pages/Cart/Cart.jsx"));
+// const Cart = lazy(() => import("./Pages/Cart/Cart.jsx"));
+const Cart = lazy(() => import("./Components/Cart/Cart.jsx"));
 const NotFound = lazy(() => import("./Pages/NotFound/NotFound.jsx"));
 const LoginPage = lazy(() => import("./Pages/Login/LoginPage.jsx"));
 const Register = lazy(() => import("./Pages/Registartion/Register.jsx"));
+const Dashboard = lazy(() => import("./Components/Dashboard/Dashboard.jsx"));
+const Overview = lazy(() => import("./Components/Dashboard/Overview.jsx"));
+const AdminProducts = lazy(
+  () => import("./Components/Dashboard/AdminProducts.jsx")
+);
+const AdminOrders = lazy(
+  () => import("./Components/Dashboard/AdminOrders.jsx")
+);
+const AdminCategories = lazy(
+  () => import("./Components/Dashboard/AdminCategories.jsx")
+);
+const Admins = lazy(() => import("./Components/Dashboard/Admins.jsx"));
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -52,13 +61,16 @@ function App() {
                 <Route path="/" element={<Home />} />
                 <Route path="/products" element={<Products />} />
                 <Route path="/products/:id" element={<ProductDetails />} />
-                <Route path="/profile" element={<Profile />} />
                 <Route path="/cart" element={<Cart />} />
               </Route>
 
               {/* Auth Routes */}
               <Route path="/login" element={<LoginPage />} />
               <Route path="/sign-up" element={<Register />} />
+              <Route path="/resetPassword" element={<ResetPassword/>} />
+              <Route path="/resetPasswordUsr" element={<ResetUserPassword/>} />
+              
+              <Route path="/otp" element={<Otp/>} />
 
               {/* Protected Dashboard Routes */}
               <Route element={<ProtectedRoute />}>
@@ -75,6 +87,10 @@ function App() {
                   <Route path="/dashboard/orders" element={<AdminOrders />} />
                   <Route path="/dashboard/admins" element={<Admins />} />
                 </Route>
+              </Route>
+
+              <Route element={<ProtectedRoute />}>
+                <Route path="/profile" element={<Profile />} />
               </Route>
 
               {/* 404 Route */}

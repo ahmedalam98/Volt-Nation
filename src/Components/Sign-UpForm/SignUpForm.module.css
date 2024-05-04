@@ -1,12 +1,54 @@
-.formContainer {
+:global(& label.Mui-focused) {
   color: white !important;
-  border-color: white !important;
+}
+:global(.MuiInputBase-input) {
+  color: white !important;
+}
+
+:global(& .MuiOutlinedInput-root) {
+  :global(& fieldset) {
+    border-color: white !important;
+  }
+
+  :global(&:hover fieldset) {
+    border-color: white !important;
+    color: white !important;
+  }
+
+  :global(&.Mui-focused fieldset) {
+    border-color: var(--color1) !important;
+    color: white !important;
+  }
+}
+.nameInputContainer {
+  display: flex;
+  width: 100%;
 }
 
 .errorMsg {
   color: red !important;
 }
 
+
 .form {
   font-size: smaller !important;
+}
+.inputName{
+  width: 50% ;
+  border-radius: 5px;
+  margin: 2.5px;
+}
+.formInput {
+  width: 98% !important;
+  border-radius: 5px !important;
+  margin: 5px !important;
+}
+.submitBtnContainer {
+  margin-top: 5%;
+}
+.submitBtn {
+  background-color: #8dff7a !important;
+  width: 90% !important;
+  margin-left: 5% !important;
+  color:black !important;
 }

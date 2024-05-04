@@ -1,0 +1,137 @@
+.linear {
+  /* background-color: #1e3446; */
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' version='1.1' xmlns:xlink='http://www.w3.org/1999/xlink' xmlns:svgjs='http://svgjs.dev/svgjs' width='1440' height='560' preserveAspectRatio='none' viewBox='0 0 1440 560'%3e%3cg mask='url(%26quot%3b%23SvgjsMask1000%26quot%3b)' fill='none'%3e%3crect width='1440' height='560' x='0' y='0' fill='%230e2a47'%3e%3c/rect%3e%3cpath d='M0%2c566.877C117.035%2c560.377%2c237.137%2c584.089%2c342.911%2c533.58C455.888%2c479.632%2c567.993%2c396.148%2c606.806%2c277.119C644.872%2c160.381%2c586.553%2c36.57%2c542.326%2c-77.975C505.778%2c-172.631%2c448.543%2c-255.127%2c374.509%2c-324.514C306.23%2c-388.507%2c222.539%2c-426.684%2c134.992%2c-459.739C40.803%2c-495.302%2c-53.241%2c-527.361%2c-153.864%2c-524.012C-277.074%2c-519.911%2c-414.207%2c-520.753%2c-505.949%2c-438.407C-599.756%2c-354.208%2c-648.129%2c-216.867%2c-635.821%2c-91.417C-624.149%2c27.55%2c-487.727%2c91.46%2c-443.083%2c202.349C-395.028%2c321.711%2c-467.662%2c491.331%2c-368.296%2c573.08C-271.518%2c652.7%2c-125.128%2c573.826%2c0%2c566.877' fill='%230b2239'%3e%3c/path%3e%3cpath d='M1440 1049.719C1532.967 1054.278 1621.467 1014.53 1699.984 964.5419999999999 1778.745 914.399 1849.954 849.8589999999999 1887.912 764.5550000000001 1925.6779999999999 679.683 1934.203 582.12 1910.067 492.415 1887.287 407.752 1816.662 349.623 1758.594 283.936 1701.146 218.95 1657.406 125.805 1572.1 110.10700000000003 1486.843 94.418 1417.249 175.66500000000002 1336.113 206.192 1262.685 233.81900000000002 1175.688 227.82 1117.98 280.968 1057.868 336.33000000000004 1017.13 417.58500000000004 1017.8530000000001 499.304 1018.547 577.807 1092.315 632.562 1121.733 705.348 1153.087 782.922 1139.112 878.3779999999999 1195.902 939.825 1257.718 1006.711 1349.033 1045.258 1440 1049.719' fill='%23113255'%3e%3c/path%3e%3c/g%3e%3cdefs%3e%3cmask id='SvgjsMask1000'%3e%3crect width='1440' height='560' fill='white'%3e%3c/rect%3e%3c/mask%3e%3c/defs%3e%3c/svg%3e");
+}
+
+/*  */
+.checkout_btn {
+  background-color: var(--color-var4);
+  border-radius: 8px;
+  padding: 12px;
+  color: white;
+  border: none;
+  margin: 20px;
+  transition: all 0.5s;
+}
+.checkout_btn:hover {
+  background-color: var(--color-var2);
+}
+
+/*   Trash icon   */
+
+@keyframes disposeTrash {
+  from {
+    top: -30px;
+  }
+
+  to {
+    top: 20px;
+  }
+}
+
+section {
+  position: relative;
+  /* width: fit-content; */
+  /* height: fit-content; */
+  /* margin: 200px auto; */
+}
+
+.sampah {
+  background: white;
+  width: 66px;
+  height: 80px;
+  display: inline-block;
+  margin: 0 auto;
+  z-index: 20;
+  top: 5px;
+  position: relative;
+  transform: scale(0.3);
+  cursor: pointer;
+  -webkit-border-bottom-right-radius: 6px;
+  -webkit-border-bottom-left-radius: 6px;
+  -moz-border-radius-bottomright: 6px;
+  -moz-border-radius-bottomleft: 6px;
+  border-bottom-right-radius: 6px;
+  border-bottom-left-radius: 6px;
+}
+
+.sampah span {
+  position: absolute;
+  height: 12px;
+  background: white;
+  top: -19px;
+  left: -10px;
+  right: -10px;
+
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  transform: rotate(0deg);
+  transition: transform 250ms;
+  transform-origin: 19% 100%;
+}
+.sampah span:after {
+  content: "";
+  position: absolute;
+  width: 27px;
+  height: 7px;
+  background: var(--color-var4);
+  top: -10px;
+
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  transform: rotate(0deg);
+  transition: transform 250ms;
+  transform-origin: 19% 100%;
+  left: 27px;
+}
+
+.sampah i {
+  position: relative;
+  width: 5px;
+  height: 50px;
+  background: var(--color-var4);
+  display: block;
+  margin: 14px auto;
+  border-radius: 5px;
+}
+.sampah i:after {
+  content: "";
+  width: 5px;
+  height: 50px;
+  background: var(--color-var4);
+  position: absolute;
+  left: -18px;
+  border-radius: 5px;
+}
+.sampah i:before {
+  content: "";
+  width: 5px;
+  height: 50px;
+  background: var(--color-var4);
+  position: absolute;
+  right: -18px;
+  border-radius: 5px;
+}
+
+.sampah:hover span {
+  transform: rotate(-90deg);
+  transition: transform 250ms;
+}
+
+.sampah:hover ~ .image {
+  opacity: 1;
+  animation-play-state: running;
+  animation: disposeTrash 1.5s forwards;
+}
+
+.image {
+  opacity: 0;
+  position: absolute;
+  width: 17px;
+  height: auto;
+  top: -500px;
+  left: 24px;
+  animation-duration: 500ms;
+  animation-play-state: paused;
+  z-index: 1;
+}

@@ -1,0 +1,23 @@
+
+.showPasswordIcon {
+  color: white !important;
+}
+.submitBtn {
+  color: black !important;
+  background-color: #8dff7a !important;
+  width: 90% !important;
+  margin-left: 5% !important;
+}
+.errorMsg{
+  color: red;
+}
+.passwordInput , .textField{
+  width: 98% !important;
+  border-radius: 5px !important;
+  margin: 5px !important;
+}
+
+
+
+
+

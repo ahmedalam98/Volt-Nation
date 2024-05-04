@@ -55,7 +55,6 @@ const authSlice = createSlice({
     logInError: null,
   },
   reducers: {},
-
   extraReducers: (builder) => {
     builder.addCase(registerUser.pending, (state) => {
       state.isRegistering = true;
@@ -95,5 +94,4 @@ const authSlice = createSlice({
   },
 });
 
-export const { demoLogIn, demoLogOut } = authSlice.actions;
 export default authSlice.reducer;

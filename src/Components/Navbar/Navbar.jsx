@@ -6,13 +6,22 @@ import Container from "@mui/material/Container";
 import Button from "@mui/material/Button";
 import SearchIcon from "@mui/icons-material/Search";
 
+// cart
+import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
+import { Badge, Menu, MenuItem } from "@mui/material";
+
 import styles from "./NavBar.module.css";
 import MobileNavbar from "../MobileNavbar/MobileNavbar.jsx";
-import { Link, useNavigate } from "react-router-dom";
+ import { Link, useNavigate } from "react-router-dom";
 import { useQuery } from "react-query";
 import { getProducts } from "./../../api/apiFunctions";
 import { useEffect, useRef, useState } from "react";
-function NavBar() {
+ 
+import { useNavigate } from "react-router-dom";
+import { useState } from "react";
+ function NavBar() {
+  const [badge, setBadge] = useState(5);
+
   const navigate = useNavigate();
   const [searchQuery, setSearchQuery] = useState("");
   const [showResults, setShowResults] = useState(false);
@@ -71,6 +80,7 @@ function NavBar() {
                 fontWeight: 700,
                 fontSize: { xs: "20px", md: "30px" },
                 display: { xs: "none", md: "flex" },
+                cursor: "pointer",
               }}
               onClick={() => navigate("/")}
             >
@@ -161,6 +171,20 @@ function NavBar() {
                 </label>
               </div>
             </Box>
+            {/* cart */}
+            <Badge
+              badgeContent={badge ? badge : "0"}
+              className={`${styles.cart} cursor-pointer `}
+              onClick={() => navigate("/cart")}
+            >
+              <ShoppingCartOutlinedIcon
+                sx={{
+                  color: "#fff",
+                  width: "30px",
+                  height: "30px",
+                }}
+              />
+            </Badge>
 
             <Box
               sx={{
