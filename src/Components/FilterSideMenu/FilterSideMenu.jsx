@@ -1,6 +1,5 @@
 import {
   Box,
-  Button,
   Checkbox,
   Drawer,
   FormControl,

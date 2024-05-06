@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { TextField, Button } from "@mui/material";
 import InputLabel from "@mui/material/InputLabel";
 import IconButton from "@mui/material/IconButton";
@@ -8,62 +8,70 @@ import FormControl from "@mui/material/FormControl";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import styles from "./LoginForm.module.css";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { logInUser } from "../../Store/authSlice";
 import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
+import axios from "axios";
 
 function LoginForm() {
-  //React Hook Froms
+  const [user, setUser] = useState(5);
   const {
     register,
     handleSubmit,
     formState: { errors },
-    watch,
-    getValues,
   } = useForm();
-
-  const formHasErrors = Object.keys(errors).length > 0;
-
-  const onSubmit = (data) => {
-    //Data of the user if it is validated
-    console.log(data, "DATA");
-    setUser(data);
-  };
-
-  const [user, setUser] = useState({
-    email: "",
-    password: "",
-  });
-
-  const [showPassword, setShowPassword] = React.useState(false);
+  const [showPassword, setShowPassword] = useState(false);
   const handleClickShowPassword = () => setShowPassword((show) => !show);
   const handleMouseDownPassword = (event) => {
     event.preventDefault();
   };
-
-  ///////////////////////////////////////////
   const navigate = useNavigate();
-
+  const dispatch = useDispatch();
   const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
   const logInError = useSelector((state) => state.auth.logInError);
 
   if (isLoggedIn) {
     navigate("/");
   }
-  const dispatch = useDispatch();
-  const handleLogInClick = (event) => {
-    // event.preventDefault();
-    dispatch(logInUser(user));
-    console.log("Action dispatched");
-  };
 
-  //Validation
-  const handelForm = (event) => {};
+  // const registerUser = async (email, password) => {
+  //   try {
+  //     const response = await axios.post(
+  //       "https://volt-nation.up.railway.app/user/login",
+  //       {
+  //         email: email,
+  //         password: password,
+  //       }
+  //     );
+
+  //     console.log(response.data);
+  //   } catch (error) {
+  //     console.error("Error registering user:", error.message);
+  //   }
+  // };
+
+  const handelUserState = (data) => {
+    if (data) {
+      console.log("user is ", data);
+      dispatch(logInUser(data));
+      console.log('user is logged',data) 
+    } else {
+      console.log("user is null ", data);
+    }
+  };
 
   return (
     <>
-      <form>
+      <form
+        onSubmit={handleSubmit((data) => {
+          setUser(data, () => {
+            console.log(user);
+          });
+          console.log(user);
+          handelUserState(data);
+        })}
+      >
         <div className="email">
           <TextField
             fullWidth
@@ -85,7 +93,10 @@ function LoginForm() {
         </div>
         <div className="password">
           <FormControl variant="outlined" className={styles.passwordInput}>
-            <InputLabel htmlFor="outlined-adornment-password" style={{ color: "white" }}>
+            <InputLabel
+              htmlFor="outlined-adornment-password"
+              style={{ color: "white" }}
+            >
               Password
             </InputLabel>
             <OutlinedInput
@@ -104,7 +115,6 @@ function LoginForm() {
                 },
               })}
               type={showPassword ? "text" : "password"}
-              onChange={(e) => handelForm(e)}
               endAdornment={
                 <InputAdornment position="end">
                   <IconButton
@@ -131,8 +141,6 @@ function LoginForm() {
           <Button
             variant="contained"
             type="submit"
-            onClick={handleSubmit(onSubmit)}
-            //onClick={(ev) => handleLogInClick(ev)}
             className={styles.submitBtn}
           >
             Log In

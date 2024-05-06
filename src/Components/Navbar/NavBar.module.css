@@ -113,7 +113,7 @@
   position: relative;
 }
 
-.resContainer {
+ .resContainer {
   display: flex;
   position: absolute;
   top: 60px;

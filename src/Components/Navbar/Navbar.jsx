@@ -8,7 +8,7 @@ import SearchIcon from "@mui/icons-material/Search";
 
 // cart
 import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
-import { Badge, Menu, MenuItem } from "@mui/material";
+import { Badge } from "@mui/material";
 
 import styles from "./NavBar.module.css";
 import MobileNavbar from "../MobileNavbar/MobileNavbar.jsx";
@@ -16,21 +16,28 @@ import { Link, useNavigate } from "react-router-dom";
 import { useQuery } from "react-query";
 import { getProducts } from "./../../api/apiFunctions";
 import { useEffect, useRef, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { getCart } from "../../Store/cartSlice.js";
 
 function NavBar() {
-  const [badge, setBadge] = useState(5);
-
   const navigate = useNavigate();
+
   const [searchQuery, setSearchQuery] = useState("");
   const [showResults, setShowResults] = useState(false);
   const searchContainerRef = useRef(null);
 
+  // fetch cart
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(getCart());
+  }, [dispatch]);
+  const products = useSelector((state) => state.cart.products);
   //fetch data
   const { data } = useQuery(["products"], getProducts);
 
   //filter data
   const filteredData = data?.data?.filter((el) =>
-    el?.pName?.toLowerCase().includes(searchQuery?.toLowerCase())
+    el?.name?.toLowerCase().includes(searchQuery?.toLowerCase())
   );
 
   //handle open and close of search box
@@ -114,7 +121,7 @@ function NavBar() {
                         to={`/products/${el.id}`}
                         onClick={handleResultClick}
                       >
-                        <div className={styles.result}>{el.pName}</div>
+                        <div className={styles.result}>{el.name}</div>
                       </Link>
                     ))}
                   </div>
@@ -171,7 +178,10 @@ function NavBar() {
             </Box>
             {/* cart */}
             <Badge
-              badgeContent={badge ? badge : "0"}
+              badgeContent={
+                products?.reduce((acc, cur) => acc + Number(cur.quantity), 0) ||
+                "0"
+              }
               className={`${styles.cart} cursor-pointer `}
               onClick={() => navigate("/cart")}
             >

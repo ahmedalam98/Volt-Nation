@@ -7,7 +7,6 @@ import { QueryClient, QueryClientProvider } from "react-query";
 import ResetPassword from "./Components/ResetPassword/ResetPassword.jsx";
 import Otp from "./Components/OTP/Otp.jsx";
 import ResetUserPassword from "./Components/ResetPassword/ResetUserPassword.jsx";
-// import { ReactQueryDevtools } from "react-query/devtools";
 import ProtectedRoute from "./Utils/ProtectedRoute.jsx";
 
 const Home = lazy(() => import("./Pages/Home/Home.jsx"));
@@ -16,7 +15,6 @@ const ProductDetails = lazy(
   () => import("./Pages/ProductDetails/ProductDetails.jsx")
 );
 const Profile = lazy(() => import("./Pages/Profile/Profile.jsx"));
-// const Cart = lazy(() => import("./Pages/Cart/Cart.jsx"));
 const Cart = lazy(() => import("./Components/Cart/Cart.jsx"));
 const NotFound = lazy(() => import("./Pages/NotFound/NotFound.jsx"));
 const LoginPage = lazy(() => import("./Pages/Login/LoginPage.jsx"));
@@ -37,8 +35,8 @@ const Admins = lazy(() => import("./Components/Dashboard/Admins.jsx"));
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
-      refetchOnWindowFocus: false,
-      staleTime: Infinity,
+      staleTime: 1000 * 60 * 5,
+      cacheTime: 1000 * 60 * 30,
     },
   },
 });
@@ -61,16 +59,18 @@ function App() {
                 <Route path="/" element={<Home />} />
                 <Route path="/products" element={<Products />} />
                 <Route path="/products/:id" element={<ProductDetails />} />
-                <Route path="/cart" element={<Cart />} />
+                <Route element={<ProtectedRoute />}>
+                  <Route path="/cart" element={<Cart />} />
+                </Route>
               </Route>
 
               {/* Auth Routes */}
               <Route path="/login" element={<LoginPage />} />
               <Route path="/sign-up" element={<Register />} />
-              <Route path="/resetPassword" element={<ResetPassword/>} />
-              <Route path="/resetPasswordUsr" element={<ResetUserPassword/>} />
-              
-              <Route path="/otp" element={<Otp/>} />
+              <Route path="/resetPassword" element={<ResetPassword />} />
+              <Route path="/resetPasswordUsr" element={<ResetUserPassword />} />
+
+              <Route path="/otp" element={<Otp />} />
 
               {/* Protected Dashboard Routes */}
               <Route element={<ProtectedRoute />}>

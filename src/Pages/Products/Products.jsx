@@ -119,7 +119,7 @@ export default function Products() {
       .slice(-1)
       .some(([key, value]) => {
         const [minPrice, maxPrice] = value;
-        const productPrice = Number(product.price.replace("$", ""));
+        const productPrice = Number(product.price);
 
         return (
           value[1] !== 0 && productPrice >= minPrice && productPrice <= maxPrice
@@ -168,7 +168,7 @@ export default function Products() {
               filters={filters}
             />
           </div>
-          <div className="grid grid-cols-12 px-2 gap-5">
+          <div className="grid grid-cols-12 gap-5 px-2">
             <div className="xl:col-span-2 lg:col-span-3 lg:block xs:hidden ">
               {/* categories */}
               <div className={styles.filters}>
@@ -238,7 +238,7 @@ export default function Products() {
                   <div>No products found</div>
                 </div>
               ) : (
-                <div className="grid xl:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 gap-5">
+                <div className="grid gap-5 xl:grid-cols-4 md:grid-cols-3 sm:grid-cols-2">
                   {paginatedProducts?.map((el) => (
                     <Card key={el.id} product={el} />
                   ))}

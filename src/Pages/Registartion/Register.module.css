@@ -22,7 +22,7 @@ body {
 }
 .container {
   width: 60vw;
-  min-height: 88vh;
+  min-height: 80vh;
   max-height: 95vh;
   display: flex;
   border-radius: 25px;

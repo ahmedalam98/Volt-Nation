@@ -1,5 +1,5 @@
-// import { useQuery } from "react-query";
-// import { getProducts } from "../../api/apiFunctions";
+import { useQuery } from "react-query";
+import { getProducts } from "../../api/apiFunctions";
 import {
   createColumnHelper,
   flexRender,
@@ -8,7 +8,6 @@ import {
   getPaginationRowModel,
   getFilteredRowModel,
 } from "@tanstack/react-table";
-import { data } from "./Dummy/data.js";
 
 import EditNoteIcon from "@mui/icons-material/EditNote";
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
@@ -17,14 +16,9 @@ import SearchProduct from "./SearchProduct.jsx";
 import { useState } from "react";
 
 const AdminProducts = () => {
-  // const { isLoading, isError, data, error, refetch } = useQuery(
-  //   ["products"],
-  //   getProducts
-  // );
+  const { data, error, isLoading } = useQuery("products", getProducts);
 
-  // console.log(data);
-
-  const [productData, setProductData] = useState(data);
+  console.log("Data:", data);
 
   const columnHelper = createColumnHelper();
 
@@ -33,14 +27,13 @@ const AdminProducts = () => {
   };
 
   const handleDelete = (row) => {
-    const updatedData = productData.filter((item) => item.id !== row.id);
-    setProductData(updatedData);
+    console.log("Delete button clicked for row:", row);
   };
 
   const columns = [
     columnHelper.accessor("images", {
       cell: (info) => {
-        const images = info.getValue();
+        const images = info.getValue() || [];
         const firstImage = images && images.length > 0 ? images[0] : "";
         return (
           <img
@@ -53,7 +46,6 @@ const AdminProducts = () => {
       header: "Product",
     }),
     columnHelper.accessor("name", {
-      id: "name",
       cell: (info) => <span>{info.getValue()}</span>,
       header: "Name",
       size: 150,
@@ -64,7 +56,7 @@ const AdminProducts = () => {
       size: 100,
     }),
     columnHelper.accessor("price", {
-      cell: (info) => <span>{info.getValue()}</span>,
+      cell: (info) => <span>$ {info.getValue()}</span>,
       header: "Price",
       size: 100,
     }),
@@ -75,13 +67,13 @@ const AdminProducts = () => {
         return (
           <div className="flex items-center gap-6">
             <button
-              className="bg-blue-500 text-white p-2 rounded"
+              className="bg-blue-500 hover:bg-blue-800 duration-300 text-white p-2 rounded"
               onClick={() => handleEdit(row)}
             >
               <EditNoteIcon />
             </button>
             <button
-              className="bg-red-500 text-white p-2 rounded"
+              className="bg-red-500 hover:bg-red-800 duration-300 text-white p-2 rounded"
               onClick={() => handleDelete(row)}
             >
               <DeleteOutlineIcon />
@@ -95,10 +87,10 @@ const AdminProducts = () => {
   ];
 
   const [globalFilter, setGlobalFilter] = useState("");
+  const products = data?.data || [];
 
   const table = useReactTable({
-    // data: data?.data.slice(20, 60),
-    data: productData,
+    data: products,
     columns,
     state: {
       globalFilter,
@@ -107,6 +99,14 @@ const AdminProducts = () => {
     getCoreRowModel: getCoreRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
   });
+
+  if (isLoading) {
+    return (
+      <div className="spinner-container">
+        <div className="spinner"></div>
+      </div>
+    );
+  }
 
   return (
     <div className="p-4">
@@ -122,7 +122,7 @@ const AdminProducts = () => {
             className="p-2 bg-transparent outline-none border-b-2 w-1/5 focus:w-1/3 duration-300 border-[var(--color-var1)]"
           />
 
-          <DownloadButton data={productData} fileName={"Products"} />
+          <DownloadButton data={products} fileName={"Products"} />
         </div>
 
         <table className="border border-gray-700 w-full text-left min-w-[800px] overflow-x-auto md:overflow-x-hidden">

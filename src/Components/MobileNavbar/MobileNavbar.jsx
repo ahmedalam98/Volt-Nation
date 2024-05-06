@@ -19,7 +19,7 @@ export default function MobileNavbar({ data }) {
   const [searchQueryMob, setSearchQueryMob] = useState("");
 
   const filteredData = data?.filter((el) =>
-    el?.pName?.toLowerCase().includes(searchQueryMob?.toLowerCase())
+    el?.name?.toLowerCase().includes(searchQueryMob?.toLowerCase())
   );
 
   const toggleDrawer = (newOpen) => () => {
@@ -141,7 +141,7 @@ export default function MobileNavbar({ data }) {
               searchQueryMob !== "" &&
               filteredData?.map((el) => (
                 <div className={styles.result} key={el.id}>
-                  {el.pName}
+                  {el.name}
                 </div>
               ))}
           </Box>

@@ -3,10 +3,15 @@ import styles from "./Card.module.css";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import ShoppingBagOutlinedIcon from "@mui/icons-material/ShoppingBagOutlined";
 import { Link } from "react-router-dom";
+import { addItemToCart } from "../../Store/cartSlice.js";
+import { useDispatch } from "react-redux";
 
 export default function Card({ product }) {
-  // console.log(product, "card");
+  const dispatch = useDispatch();
 
+  const handelIncrease = (id) => {
+    dispatch(addItemToCart(id));
+  };
   return (
     <>
       <div className={styles.card}>
@@ -18,14 +23,13 @@ export default function Card({ product }) {
         <div className={styles.content}>
           <div className={styles.name}>
             <Link to={`/products/${product.id}`}>
-              {" "}
-              {product?.pName?.slice(0, 29)}
+              {product?.name?.slice(0, 29)}
             </Link>
           </div>
           <div className={styles.rating}>
             <Rating name="read-only" value={product.rating} readOnly />
           </div>
-          <div className={styles.price}>{product.price}</div>
+          <div className={styles.price}>{+product.price}</div>
         </div>
 
         <div className={styles.icons}>
@@ -34,7 +38,9 @@ export default function Card({ product }) {
           </button>
 
           <button>
-            <ShoppingBagOutlinedIcon />
+            <ShoppingBagOutlinedIcon
+              onClick={() => handelIncrease(product._id)}
+            />
           </button>
         </div>
       </div>
