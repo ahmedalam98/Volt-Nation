@@ -24,9 +24,7 @@ const SignUpForm = () => {
 
   const dispatch = useDispatch();
 
-  const [user, setUser] = useState({});
 
-  console.log(user, "USER");
 
   const [showPassword, setShowPassword] = React.useState(false);
   const handleClickShowPassword = () => setShowPassword((show) => !show);
@@ -34,14 +32,9 @@ const SignUpForm = () => {
     event.preventDefault();
   };
 
-  const formHasErrors = Object.keys(errors).length > 0;
-  const onSubmit = async (data) => {
+  const onSubmit =  (data) => {
     delete data.repassword;
     console.log(data);
-    // Update user state
-    await setUser(data);
-
-    // Now user state has been updated, dispatch registerUser action
     dispatch(registerUser(data));
   };
 
@@ -55,16 +48,7 @@ const SignUpForm = () => {
   if (isRegistered) {
     navigate("/login");
   }
-  // const dispatch = useDispatch();
-
-  // const handleRegisterClick = (event) => {
-  //   //ASK AML
-  //   if (formHasErrors) {
-  //     event.preventDefault();
-  //   } else {
-  //     // dispatch(registerUser(user));
-  //   }
-  // };
+  
 
   return (
     <div className={styles.formContainer}>
@@ -236,7 +220,6 @@ const SignUpForm = () => {
             variant="contained"
             type="submit"
             className={styles.submitBtn}
-            //onClick={handleRegisterClick}
             onClick={handleSubmit(onSubmit)}
           >
             Create Account
