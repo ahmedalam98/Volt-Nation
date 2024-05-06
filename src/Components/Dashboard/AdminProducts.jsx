@@ -1,5 +1,7 @@
+import { useState } from "react";
 import { useQuery } from "react-query";
 import { getProducts } from "../../api/apiFunctions";
+import { useForm } from "react-hook-form"; // React Hook Form for form management
 import {
   createColumnHelper,
   flexRender,
@@ -13,28 +15,56 @@ import EditNoteIcon from "@mui/icons-material/EditNote";
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 import DownloadButton from "./DownloadButton.jsx";
 import SearchProduct from "./SearchProduct.jsx";
-import { useState } from "react";
 
 const AdminProducts = () => {
   const { data, error, isLoading } = useQuery("products", getProducts);
+  const products = data?.data || [];
 
-  console.log("Data:", data);
+  const [globalFilter, setGlobalFilter] = useState("");
+  const [editingProduct, setEditingProduct] = useState(null);
+  const [selectedFiles, setSelectedFiles] = useState([]);
 
+  // Column setup for the table
   const columnHelper = createColumnHelper();
 
   const handleEdit = (row) => {
+    // Set the editing product when clicking the Edit button
     console.log("Edit button clicked for row:", row);
+    setEditingProduct(row);
   };
 
   const handleDelete = (row) => {
     console.log("Delete button clicked for row:", row);
   };
 
+  const {
+    register,
+    handleSubmit,
+    setValue,
+    reset,
+    formState: { errors },
+  } = useForm();
+
+  const handleFileChange = (e) => {
+    const files = Array.from(e.target.files);
+    setSelectedFiles(files);
+  };
+
+  const onSubmit = (data) => {
+    console.log("Form submitted:", data);
+    console.log("Files to upload:", selectedFiles);
+    setEditingProduct(null); // Return to the product table after form submission
+  };
+
+  const cancelEdit = () => {
+    setEditingProduct(null); // Return to the product table on cancel
+  };
+
   const columns = [
     columnHelper.accessor("images", {
       cell: (info) => {
         const images = info.getValue() || [];
-        const firstImage = images && images.length > 0 ? images[0] : "";
+        const firstImage = images.length > 0 ? images[0] : "";
         return (
           <img
             src={firstImage}
@@ -48,17 +78,14 @@ const AdminProducts = () => {
     columnHelper.accessor("name", {
       cell: (info) => <span>{info.getValue()}</span>,
       header: "Name",
-      size: 150,
     }),
     columnHelper.accessor("category", {
       cell: (info) => <span>{info.getValue()}</span>,
       header: "Category",
-      size: 100,
     }),
     columnHelper.accessor("price", {
       cell: (info) => <span>$ {info.getValue()}</span>,
       header: "Price",
-      size: 100,
     }),
     {
       id: "actions",
@@ -82,12 +109,8 @@ const AdminProducts = () => {
         );
       },
       header: "Actions",
-      size: 50,
     },
   ];
-
-  const [globalFilter, setGlobalFilter] = useState("");
-  const products = data?.data || [];
 
   const table = useReactTable({
     data: products,
@@ -100,6 +123,117 @@ const AdminProducts = () => {
     getPaginationRowModel: getPaginationRowModel(),
   });
 
+  if (editingProduct) {
+    const excludedFields = [
+      "_id",
+      "id",
+      "reviews",
+      "quantity",
+      "rating",
+      "salesNum",
+      "images",
+    ];
+    const productProperties = Object.keys(editingProduct).filter(
+      (property) => !excludedFields.includes(property)
+    );
+
+    return (
+      <div className="p-4">
+        <h2 className="text-4xl mb-10 md:mx-[8.4rem] border-s-4 border-[var(--color-var1)] ps-4">
+          Edit Product
+        </h2>
+
+        <form onSubmit={handleSubmit(onSubmit)} className="w-[400px] md:w-auto">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 place-items-center">
+            {productProperties.map((property) => {
+              if (property === "description" || property === "features") {
+                return (
+                  <div key={property} className="flex flex-col w-[400px]">
+                    <label className="capitalize mb-2">
+                      {property.replace(/([a-z])([A-Z])/g, "$1 $2")}
+                    </label>
+                    <textarea
+                      defaultValue={editingProduct[property]}
+                      {...register(property, {
+                        required: property === "description",
+                      })}
+                      className="border rounded p-3 outline-none bg-[var(--color-var2)] border-[var(--color-var2)] text-white w-[250px] md:w-auto"
+                      style={{ height: 80 }}
+                    />
+                    {errors[property] && (
+                      <span className="text-red-500">Required</span>
+                    )}
+                  </div>
+                );
+              }
+
+              return (
+                <div key={property} className="flex flex-col w-[400px]">
+                  <label className="capitalize mb-2">
+                    {property.replace(/([a-z])([A-Z])/g, "$1 $2")}
+                  </label>
+                  <input
+                    type="text"
+                    defaultValue={editingProduct[property]}
+                    {...register(property, {
+                      required: property === "name" || property === "category",
+                    })}
+                    className="border rounded p-3 outline-none bg-[var(--color-var2)] border-[var(--color-var2)] text-white w-[250px] md:w-auto"
+                  />
+                  {errors[property] && (
+                    <span className="text-red-500">Required</span>
+                  )}
+                </div>
+              );
+            })}
+          </div>
+
+          {/* File input for images */}
+          <div className="flex flex-col md:flex-row justify-between md:items-center md:mx-[9.3rem]">
+            <div className="flex flex-col justify-center col-span-3 mt-6">
+              <label className="mb-2 capitalize">Product Images</label>
+              <input
+                type="file"
+                multiple
+                onChange={handleFileChange}
+                className="border rounded p-2 bg-[var(--color-var2)] border-[var(--color-var2)] text-white w-[250px] md:w-auto"
+              />
+
+              <div className="flex gap-4 mt-2">
+                {editingProduct.images.map((img, index) => (
+                  <div key={index} className="w-20 h-20">
+                    <img
+                      src={img}
+                      alt={`Product ${index + 1}`}
+                      className="object-cover w-full h-full rounded"
+                    />
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <div className="flex gap-4 mt-12 md:mt-0 justify-center">
+              <button
+                type="submit"
+                className="bg-blue-500 text-white px-4 py-2 rounded h-8"
+              >
+                Save
+              </button>
+              <button
+                type="button"
+                onClick={cancelEdit}
+                className="bg-gray-500 text-white px-4 py-2 rounded h-8"
+              >
+                Cancel
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
+    );
+  }
+
+  // If not editing, show the product table
   if (isLoading) {
     return (
       <div className="spinner-container">
@@ -213,7 +347,7 @@ const AdminProducts = () => {
               className=" bg-transparent p-2 border border-gray-300 outline-none "
             >
               {[5, 10, 20].map((pageSize) => (
-                <option key={pageSize} value={pageSize} className=" text-black">
+                <option key={pageSize} value={pageSize}>
                   Show {pageSize}
                 </option>
               ))}
