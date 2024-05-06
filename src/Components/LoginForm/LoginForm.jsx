@@ -15,28 +15,19 @@ import { useForm } from "react-hook-form";
 import axios from "axios";
 
 function LoginForm() {
-  const [user, setUser] = useState({
-    email: "",
-    password: "",
-  });
-  //React Hook Froms
+  const [user, setUser] = useState(5);
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
-
-  // const formHasErrors = Object.keys(errors).length > 0;
-
   const [showPassword, setShowPassword] = useState(false);
-
   const handleClickShowPassword = () => setShowPassword((show) => !show);
   const handleMouseDownPassword = (event) => {
     event.preventDefault();
   };
-
-  ///////////////////////////////////////////
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
   const logInError = useSelector((state) => state.auth.logInError);
 
@@ -44,40 +35,43 @@ function LoginForm() {
     navigate("/");
   }
 
-  const dispatch = useDispatch();
-  const onSubmit = async (data) => {
-    await setUser(data);
-    console.log("user is ", user);
-    dispatch(logInUser(user));
-    console.log("Action dispatched with ", user);
-  };
-  const registerUser = async (email, password) => {
-    try {
-      const response = await axios.post(
-        "https://volt-nation.up.railway.app/user/login",
-        {
-          email: email,
-          password: password,
-        }
-      );
+  // const registerUser = async (email, password) => {
+  //   try {
+  //     const response = await axios.post(
+  //       "https://volt-nation.up.railway.app/user/login",
+  //       {
+  //         email: email,
+  //         password: password,
+  //       }
+  //     );
 
-      console.log(response.data);
-    } catch (error) {
-      console.error("Error registering user:", error);
+  //     console.log(response.data);
+  //   } catch (error) {
+  //     console.error("Error registering user:", error.message);
+  //   }
+  // };
+
+  const handelUserState = (data) => {
+    if (data) {
+      console.log("user is ", data);
+      dispatch(logInUser(data));
+      console.log('user is logged',data) 
+    } else {
+      console.log("user is null ", data);
     }
   };
 
-  const handleLogInClick = (event) => {
-    event.preventDefault();
-    registerUser(user.email, user.password);
-  };
-
-  //Validation
-  const handelForm = (event) => {};
-
   return (
     <>
-      <form onSubmit={handleLogInClick}>
+      <form
+        onSubmit={handleSubmit((data) => {
+          setUser(data, () => {
+            console.log(user);
+          });
+          console.log(user);
+          handelUserState(data);
+        })}
+      >
         <div className="email">
           <TextField
             fullWidth
@@ -121,7 +115,6 @@ function LoginForm() {
                 },
               })}
               type={showPassword ? "text" : "password"}
-              onChange={(e) => handelForm(e)}
               endAdornment={
                 <InputAdornment position="end">
                   <IconButton
@@ -148,7 +141,6 @@ function LoginForm() {
           <Button
             variant="contained"
             type="submit"
-            onClick={handleSubmit(onSubmit)}
             className={styles.submitBtn}
           >
             Log In
