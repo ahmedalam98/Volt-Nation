@@ -37,7 +37,7 @@ function NavBar() {
 
   //filter data
   const filteredData = data?.data?.filter((el) =>
-    el?.pName?.toLowerCase().includes(searchQuery?.toLowerCase())
+    el?.name?.toLowerCase().includes(searchQuery?.toLowerCase())
   );
 
   //handle open and close of search box
@@ -121,7 +121,7 @@ function NavBar() {
                         to={`/products/${el.id}`}
                         onClick={handleResultClick}
                       >
-                        <div className={styles.result}>{el.pName}</div>
+                        <div className={styles.result}>{el.name}</div>
                       </Link>
                     ))}
                   </div>
