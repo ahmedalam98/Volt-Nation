@@ -11,7 +11,7 @@ import {
 } from "../../Store/cartSlice.js";
 
 export default function CartItem(props) {
-  const { _id, id, pName, price, images, brand, quantity } = props;
+  const { _id, id, name, price, images, brand, quantity } = props;
   const [cartItems, setCartItems] = useState(quantity);
 
   const dispatch = useDispatch();
@@ -46,9 +46,9 @@ export default function CartItem(props) {
         </div>
         <div className=" text-white text-xl flex-wrap  justify-between items-center ml-[20px] flex w-full  mt-2 sm:p-5 ">
           <div className="sm:flex-[2]">
-            <h2>{pName}</h2>
+            <h2>{name}</h2>
             <p className="text-[13px]  "> Brand: {brand}</p>
-            <p className="text-[13px] text-white "> Price: {price} </p>
+            <p className="text-[13px] text-white "> Price: {+price} </p>
           </div>
           <div className="flex items-center sm:gap-10 ">
             <div className="flex justify-end text-2xl ">

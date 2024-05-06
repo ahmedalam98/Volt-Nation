@@ -23,13 +23,13 @@ export default function Card({ product }) {
         <div className={styles.content}>
           <div className={styles.name}>
             <Link to={`/products/${product.id}`}>
-              {product?.pName?.slice(0, 29)}
+              {product?.name?.slice(0, 29)}
             </Link>
           </div>
           <div className={styles.rating}>
             <Rating name="read-only" value={product.rating} readOnly />
           </div>
-          <div className={styles.price}>{product.price}</div>
+          <div className={styles.price}>{+product.price}</div>
         </div>
 
         <div className={styles.icons}>
