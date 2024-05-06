@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { useQuery } from "react-query";
 import { getProducts } from "../../api/apiFunctions";
-import { useForm } from "react-hook-form"; // React Hook Form for form management
 import {
   createColumnHelper,
   flexRender,
@@ -10,11 +9,11 @@ import {
   getPaginationRowModel,
   getFilteredRowModel,
 } from "@tanstack/react-table";
-
 import EditNoteIcon from "@mui/icons-material/EditNote";
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 import DownloadButton from "./DownloadButton.jsx";
 import SearchProduct from "./SearchProduct.jsx";
+import EditProductForm from "./EditProductForm.jsx";
 
 const AdminProducts = () => {
   const { data, error, isLoading } = useQuery("products", getProducts);
@@ -24,26 +23,13 @@ const AdminProducts = () => {
   const [editingProduct, setEditingProduct] = useState(null);
   const [selectedFiles, setSelectedFiles] = useState([]);
 
-  // Column setup for the table
-  const columnHelper = createColumnHelper();
-
   const handleEdit = (row) => {
-    // Set the editing product when clicking the Edit button
-    console.log("Edit button clicked for row:", row);
     setEditingProduct(row);
   };
 
   const handleDelete = (row) => {
     console.log("Delete button clicked for row:", row);
   };
-
-  const {
-    register,
-    handleSubmit,
-    setValue,
-    reset,
-    formState: { errors },
-  } = useForm();
 
   const handleFileChange = (e) => {
     const files = Array.from(e.target.files);
@@ -53,12 +39,14 @@ const AdminProducts = () => {
   const onSubmit = (data) => {
     console.log("Form submitted:", data);
     console.log("Files to upload:", selectedFiles);
-    setEditingProduct(null); // Return to the product table after form submission
+    setEditingProduct(null);
   };
 
   const cancelEdit = () => {
-    setEditingProduct(null); // Return to the product table on cancel
+    setEditingProduct(null);
   };
+
+  const columnHelper = createColumnHelper();
 
   const columns = [
     columnHelper.accessor("images", {
@@ -123,122 +111,22 @@ const AdminProducts = () => {
     getPaginationRowModel: getPaginationRowModel(),
   });
 
-  if (editingProduct) {
-    const excludedFields = [
-      "_id",
-      "id",
-      "reviews",
-      "quantity",
-      "rating",
-      "salesNum",
-      "images",
-    ];
-    const productProperties = Object.keys(editingProduct).filter(
-      (property) => !excludedFields.includes(property)
-    );
-
-    return (
-      <div className="p-4">
-        <h2 className="text-4xl mb-10 md:mx-[8.4rem] border-s-4 border-[var(--color-var1)] ps-4">
-          Edit Product
-        </h2>
-
-        <form onSubmit={handleSubmit(onSubmit)} className="w-[400px] md:w-auto">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 place-items-center">
-            {productProperties.map((property) => {
-              if (property === "description" || property === "features") {
-                return (
-                  <div key={property} className="flex flex-col w-[400px]">
-                    <label className="capitalize mb-2">
-                      {property.replace(/([a-z])([A-Z])/g, "$1 $2")}
-                    </label>
-                    <textarea
-                      defaultValue={editingProduct[property]}
-                      {...register(property, {
-                        required: property === "description",
-                      })}
-                      className="border rounded p-3 outline-none bg-[var(--color-var2)] border-[var(--color-var2)] text-white w-[250px] md:w-auto"
-                      style={{ height: 80 }}
-                    />
-                    {errors[property] && (
-                      <span className="text-red-500">Required</span>
-                    )}
-                  </div>
-                );
-              }
-
-              return (
-                <div key={property} className="flex flex-col w-[400px]">
-                  <label className="capitalize mb-2">
-                    {property.replace(/([a-z])([A-Z])/g, "$1 $2")}
-                  </label>
-                  <input
-                    type="text"
-                    defaultValue={editingProduct[property]}
-                    {...register(property, {
-                      required: property === "name" || property === "category",
-                    })}
-                    className="border rounded p-3 outline-none bg-[var(--color-var2)] border-[var(--color-var2)] text-white w-[250px] md:w-auto"
-                  />
-                  {errors[property] && (
-                    <span className="text-red-500">Required</span>
-                  )}
-                </div>
-              );
-            })}
-          </div>
-
-          {/* File input for images */}
-          <div className="flex flex-col md:flex-row justify-between md:items-center md:mx-[9.3rem]">
-            <div className="flex flex-col justify-center col-span-3 mt-6">
-              <label className="mb-2 capitalize">Product Images</label>
-              <input
-                type="file"
-                multiple
-                onChange={handleFileChange}
-                className="border rounded p-2 bg-[var(--color-var2)] border-[var(--color-var2)] text-white w-[250px] md:w-auto"
-              />
-
-              <div className="flex gap-4 mt-2">
-                {editingProduct.images.map((img, index) => (
-                  <div key={index} className="w-20 h-20">
-                    <img
-                      src={img}
-                      alt={`Product ${index + 1}`}
-                      className="object-cover w-full h-full rounded"
-                    />
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            <div className="flex gap-4 mt-12 md:mt-0 justify-center">
-              <button
-                type="submit"
-                className="bg-blue-500 text-white px-4 py-2 rounded h-8"
-              >
-                Save
-              </button>
-              <button
-                type="button"
-                onClick={cancelEdit}
-                className="bg-gray-500 text-white px-4 py-2 rounded h-8"
-              >
-                Cancel
-              </button>
-            </div>
-          </div>
-        </form>
-      </div>
-    );
-  }
-
-  // If not editing, show the product table
   if (isLoading) {
     return (
       <div className="spinner-container">
         <div className="spinner"></div>
       </div>
+    );
+  }
+
+  if (editingProduct) {
+    return (
+      <EditProductForm
+        product={editingProduct}
+        onSubmit={onSubmit}
+        onCancel={cancelEdit}
+        handleFileChange={handleFileChange}
+      />
     );
   }
 
@@ -307,7 +195,7 @@ const AdminProducts = () => {
         </table>
 
         {/* Pagination */}
-        <div className="flex items-center justify-center mt-4 gap-12">
+        <div className="flex items-center justify-center mt-4 gap-8">
           <div className="flex items-center justify-center">
             <button
               onClick={() => {
@@ -335,6 +223,21 @@ const AdminProducts = () => {
                 {table.getState().pagination.pageIndex + 1} of{" "}
                 {table.getPageCount()}
               </strong>
+            </span>
+          </div>
+
+          <div>
+            <span className="flex items-center gap-1 ">
+              <div>Go to page:</div>
+              <input
+                type="number"
+                defaultValue={table.getState().pagination.pageIndex}
+                className="border border-gray-300 bg-transparent p-1 w-16 outline-none"
+                onChange={(e) => {
+                  const page = e.target.value ? Number(e.target.value) - 1 : 0;
+                  table.setPageIndex(page);
+                }}
+              />
             </span>
           </div>
 
