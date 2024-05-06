@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { TextField, Button } from "@mui/material";
 import InputLabel from "@mui/material/InputLabel";
 import IconButton from "@mui/material/IconButton";
@@ -52,9 +52,7 @@ const SignUpForm = () => {
 
   return (
     <div className={styles.formContainer}>
-      <form
-      //onSubmit={handleSubmit(onSubmit)}
-      >
+      <form>
         <div className={styles.nameInputContainer}>
           <div className={`${styles.inputName} `}>
             <TextField
@@ -213,7 +211,7 @@ const SignUpForm = () => {
           <small className={styles.errorMsg}>{errors.mobile?.message}</small>
         </div>
 
-        {registrationError ? <div>{registrationError}</div> : null}
+        {registrationError ? <div>{alert(registrationError)}</div> : null}
 
         <div className={styles.submitBtnContainer}>
           <Button

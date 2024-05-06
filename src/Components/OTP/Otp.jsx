@@ -8,6 +8,7 @@ function Otp() {
   const navigate = useNavigate();
   const [otp, setOtp] = useState("");
   let otpFromFront = location.state.otp.join("");
+  let userEmail=location.state.email;
 
   // console.log(otpFromFront);
 
@@ -40,7 +41,7 @@ function Otp() {
 
   const handleVerify = () => {
     if (otpFromFront === otp) {
-      navigate("/resetPasswordUsr");
+      navigate("/resetPasswordUsr",{ state: { email:userEmail } });
     } else {
       alert("not correct please try again");
       clearInputs();
