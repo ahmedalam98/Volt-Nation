@@ -11,15 +11,15 @@ import {
 } from "../../Store/cartSlice.js";
 
 export default function CartItem(props) {
-  const { _id, id, name, price, images, brand, quantity } = props;
-  const [cartItems, setCartItems] = useState(quantity);
+  const { _id, id, name, price, images, brand, pNumbers } = props;
+  const [cartItems, setCartItems] = useState(0);
 
   const dispatch = useDispatch();
-
+  console.log(props);
   useEffect(() => {
     //  set cart quantity
-    setCartItems(quantity);
-  }, [quantity]);
+    setCartItems(pNumbers);
+  }, [pNumbers]);
 
   // handle increase  quantity
   const handelIncrease = (id) => {
