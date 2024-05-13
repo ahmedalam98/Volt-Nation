@@ -25,7 +25,9 @@ const SignUpForm = () => {
   const dispatch = useDispatch();
 
   const [showPassword, setShowPassword] = React.useState(false);
+  const [showPassword2, setShowPassword2] = React.useState(false);
   const handleClickShowPassword = () => setShowPassword((show) => !show);
+  const handleClickShowPassword2 = () => setShowPassword2((show) => !show);
   const handleMouseDownPassword = (event) => {
     event.preventDefault();
   };
@@ -167,18 +169,18 @@ const SignUpForm = () => {
                 validate: (value) =>
                   value === getValues("password") || "Passwords do not match",
               })}
-              type={showPassword ? "text" : "password"}
+              type={showPassword2 ? "text" : "password"}
               onChange={(e) => handleSubmit(e)}
               endAdornment={
                 <InputAdornment position="end">
                   <IconButton
                     aria-label="toggle password visibility"
-                    onClick={handleClickShowPassword}
+                    onClick={handleClickShowPassword2}
                     onMouseDown={handleMouseDownPassword}
                     edge="end"
                     style={{ color: "white" }}
                   >
-                    {showPassword ? <VisibilityOff /> : <Visibility />}
+                    {showPassword2 ? <VisibilityOff /> : <Visibility />}
                   </IconButton>
                 </InputAdornment>
               }
@@ -208,7 +210,7 @@ const SignUpForm = () => {
           <small className={styles.errorMsg}>{errors.mobile?.message}</small>
         </div>
 
-        {registrationError ? <div>{alert(registrationError)}</div> : null}
+        {registrationError ? <div className={styles.errorMsg}>{registrationError}</div> : null}
 
         <div className={styles.submitBtnContainer}>
           <Button

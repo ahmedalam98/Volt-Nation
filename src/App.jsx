@@ -8,6 +8,7 @@ import ResetPassword from "./Components/ResetPassword/ResetPassword.jsx";
 import Otp from "./Components/OTP/Otp.jsx";
 import ResetUserPassword from "./Components/ResetPassword/ResetUserPassword.jsx";
 import ProtectedRoute from "./Utils/ProtectedRoute.jsx";
+import UnderConstruction from "./Pages/UnderConstruction/UnderConstruction.jsx";
 
 const Home = lazy(() => import("./Pages/Home/Home.jsx"));
 const Products = lazy(() => import("./Pages/Products/Products.jsx"));
@@ -63,6 +64,8 @@ function App() {
                   <Route path="/cart" element={<Cart />} />
                   <Route path="/profile" element={<Profile />} />
                 </Route>
+                <Route path="/under-construction" element={<UnderConstruction/>} />
+                
               </Route>
 
               {/* Auth Routes */}
@@ -72,6 +75,8 @@ function App() {
               <Route path="/resetPasswordUsr" element={<ResetUserPassword />} />
 
               <Route path="/otp" element={<Otp />} />
+              
+             
 
               {/* Protected Routes */}
               <Route element={<ProtectedRoute />}>

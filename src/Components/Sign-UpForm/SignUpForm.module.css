@@ -47,8 +47,10 @@
   margin-top: 5%;
 }
 .submitBtn {
-  background-color: #8dff7a !important;
-  width: 90% !important;
-  margin-left: 5% !important;
-  color:black !important;
+  background-color: var(--color-var1) !important;
+  width: 40% !important;
+  margin-left: 30% !important;
+}
+.submitBtn:hover{
+  background-color: var(--color-var2) !important;
 }

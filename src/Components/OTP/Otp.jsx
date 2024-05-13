@@ -5,6 +5,7 @@ import styles from "./Otp.module.css";
 
 function Otp() {
   const location = useLocation();
+  const divRef = useRef(null);
   const navigate = useNavigate();
   const [otp, setOtp] = useState("");
   let otpFromFront = location.state.otp.join("");
@@ -43,7 +44,8 @@ function Otp() {
     if (otpFromFront === otp) {
       navigate("/resetPasswordUsr",{ state: { email:userEmail } });
     } else {
-      alert("not correct please try again");
+      // alert("not correct please try again");
+      divRef.current.innerText="not correct please try again"
       clearInputs();
     }
   };
@@ -73,6 +75,9 @@ function Otp() {
             />
           ))}
         </div>
+        <small ref={divRef} className={styles.errorMsg}>
+
+        </small>
         <div className={styles.btns}>
           <Link to="/login" className={styles.link}>
             <Button variant="contained" className={styles.btnBack}>

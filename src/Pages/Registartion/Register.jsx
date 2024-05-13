@@ -7,6 +7,9 @@ import { Button } from "@mui/material";
 const Register = () => {
   const [loaded, setLoaded] = useState(false);
   const navigate = useNavigate();
+  let goToHome=()=>{
+    navigate('/')
+  }
   const [isSignUpClicked, setIsSignUpClicked] = useState(false);
 
   const handleSignUpClick = () => {
@@ -81,7 +84,7 @@ const Register = () => {
           <div className={`${styles.form} ${loaded ? styles.loaded : ""}  `}>
             <div className={styles.containerForDetails}>
               <div>
-                <p className={styles.header}>Create Account</p>
+                <p className={styles.header} onClick={goToHome}>Create Account</p>
               </div>
             </div>
             <hr style={{ width: "70%", marginLeft: "15%", marginTop: "5%" }} />
@@ -101,19 +104,14 @@ const Register = () => {
               </div>
               <div style={{ marginTop: "3%" }}>
                 <div className={styles.conOfOptions}>
-                  <div className="google mx-3 my-2">
-                    <Button className={styles.Button}>
-                      <img src="6.png" alt="google" className={styles.icon} />
-                      Sign Up With Google
-                    </Button>
-                  </div>
+                 
                 </div>
                 <div
                   style={{
                     marginTop: "2%",
                     textAlign: "center",
-                    color: "blue",
-                    textDecoration: "underLine",
+                    color: "white",
+                    fontWeight:'bold'
                   }}
                 >
                   <Link onClick={handleSignUpClick} className="text-sm">

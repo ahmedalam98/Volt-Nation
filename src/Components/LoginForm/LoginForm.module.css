@@ -3,10 +3,13 @@
   color: white !important;
 }
 .submitBtn {
-  color: black !important;
-  background-color: #8dff7a !important;
-  width: 90% !important;
-  margin-left: 5% !important;
+  
+  background-color: var(--color-var1) !important;
+  width: 41% !important;
+  margin-left: 29% !important;
+}
+.submitBtn:hover{
+  background-color: var(--color-var2) !important;
 }
 .errorMsg{
   color: red;

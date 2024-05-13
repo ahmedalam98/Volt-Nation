@@ -1,0 +1,135 @@
+
+.container {
+  color: white;
+  width: 98vw;
+  height: 88vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+}
+.header .p {
+  font-size: 50px;
+  font-weight: 600;
+}
+.header .p2 {
+  font-size: 20px;
+  font-weight: 100;
+  margin: 3%;
+}
+.header {
+  text-align: center;
+}
+.img img {
+  width: 10vw;
+  height: 25vh;
+}
+.img {
+  margin-bottom: 3%;
+}
+.iconsContainer {
+  width: 25%;
+  height: 15%;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 5%;
+}
+.icon {
+  width: 100%;
+  height: 100%;
+  margin: 10px;
+  border: 2px solid #08cff6;
+  border-radius: 3px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+  transition: all 0.7s;
+  cursor: pointer;
+}
+.icon:hover{
+    background-color:var(--color-var2);
+}
+.icon img{
+width:40%;
+height:50%;
+}
+
+/* Extra small devices (phones, 600px and down) */
+@media only screen and (max-width: 600px) {
+    .container {
+        width: 95vw;
+      }
+      .header .p {
+        font-size: 35px;
+        font-weight: 600;
+      }
+      .iconsContainer {
+        width: 80%;
+      }
+      .img img {
+        width: 50vw;
+        height: 25vh;
+      }
+}
+
+/* Small devices (portrait tablets and large phones, 600px and up) */
+@media only screen and (min-width: 600px) {
+    .container {
+        width: 95vw;
+      }
+      .header .p {
+        font-size: 40px;
+        font-weight: 600;
+      }
+      .iconsContainer {
+        width: 60%;
+      }
+      .img img {
+        width: 40vw;
+        height: 25vh;
+      }
+}
+
+/* Medium devices (landscape tablets, 768px and up) */
+@media only screen and (min-width: 768px) {
+  .container {
+    width: 96vw;
+  }
+  .header .p {
+    font-size: 50px;
+    font-weight: 600;
+  }
+  .iconsContainer {
+    width: 50%;
+  }
+  .img img {
+    width: 30vw;
+    height: 30vh;
+  }
+}
+
+/* Large devices (laptops/desktops, 992px and up) */
+@media only screen and (min-width: 992px) {
+    .container {
+        width: 97vw;
+      }
+      .header .p {
+        font-size: 50px;
+        font-weight: 600;
+      }
+      .iconsContainer {
+        width: 40%;
+      }
+      .img img {
+        width: 20vw;
+        height: 30vh;
+      }
+}
+
+/* Extra large devices (large laptops and desktops, 1200px and up) */
+@media only screen and (min-width: 1200px) {
+    .iconsContainer {
+        width: 25%;
+      }
+}

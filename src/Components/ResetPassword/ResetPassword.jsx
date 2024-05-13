@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState,useRef } from "react";
 import styles from "./ResetPassword.module.css";
 import { TextField, Button } from "@mui/material";
 import { Link, useNavigate } from "react-router-dom";
@@ -7,6 +7,7 @@ import { userHasEmail } from "../../Store/authSlice";
 
 const ResetPassword = () => {
   const [userEmail, setUserEmail] = useState("");
+  const divRef = useRef(null);
   const [err, setErr] = useState("");
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -81,6 +82,7 @@ const ResetPassword = () => {
               onChange={(e) => handelValidation(e)}
             />
             <small className={styles.errMsg}>{err}</small>
+            <small className={styles.errMsg} ref={divRef}></small>
             <div className={styles.btnContainer}>
               <Link to={"/login"}>
                 <Button variant="contained" className={styles.btnBack}>
@@ -93,7 +95,7 @@ const ResetPassword = () => {
                 disabled={err !== ""}
                 onClick={() => handelResetPassword()}
               >
-                Send Instructions
+                Send OTP
               </Button>
             </div>
           </div>
