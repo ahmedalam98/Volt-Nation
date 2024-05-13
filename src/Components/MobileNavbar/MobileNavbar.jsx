@@ -13,9 +13,14 @@ import SideMenu from "../SideMenu/SideMenu.jsx";
 import styles from "./MobileNavbar.module.css";
 import { Link } from "react-router-dom";
 
-export default function MobileNavbar() {
+export default function MobileNavbar({ data }) {
   const [open, setOpen] = useState(false);
   const [openModal, setOpenModal] = useState(false);
+  const [searchQueryMob, setSearchQueryMob] = useState("");
+
+  const filteredData = data?.filter((el) =>
+    el?.name?.toLowerCase().includes(searchQueryMob?.toLowerCase())
+  );
 
   const toggleDrawer = (newOpen) => () => {
     setOpen(newOpen);
@@ -97,6 +102,8 @@ export default function MobileNavbar() {
           <Typography id="modal-modal-title" variant="h6" component="h2">
             <Input
               id="input-with-icon-adornment"
+              value={searchQueryMob}
+              onChange={(e) => setSearchQueryMob(e.target.value)}
               sx={{
                 borderBottom: "1px solid var(--color-var1)",
                 width: "100%",
@@ -118,13 +125,25 @@ export default function MobileNavbar() {
           </Typography>
           <Box
             id="modal-modal-description"
-            sx={{ mt: 2, color: "var(--color-var5)", fontSize: "16px" }}
+            sx={{
+              mt: 2,
+              color: "var(--color-var5)",
+              fontSize: "16px",
+              height: "200px",
+              overflowY: "scroll",
+            }}
           >
-            {["res1", "res2", "res3"].map((el) => (
-              <div className={styles.result} key={el}>
-                {el}
-              </div>
-            ))}{" "}
+            {filteredData?.length === 0 ||
+              (searchQueryMob === "" && (
+                <div className={styles.noProducts}>No products found</div>
+              ))}
+            {filteredData?.length !== 0 &&
+              searchQueryMob !== "" &&
+              filteredData?.map((el) => (
+                <div className={styles.result} key={el.id}>
+                  {el.name}
+                </div>
+              ))}
           </Box>
         </Box>
       </Modal>

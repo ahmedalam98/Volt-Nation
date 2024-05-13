@@ -8,7 +8,7 @@ import FormControl from "@mui/material/FormControl";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import styles from "./SignUpForm.module.css";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { registerUser } from "../../Store/authSlice";
 import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
@@ -19,10 +19,12 @@ const SignUpForm = () => {
     register,
     handleSubmit,
     formState: { errors },
-    watch,
     getValues,
   } = useForm();
-  const [user, setUser] = useState({});
+
+  const dispatch = useDispatch();
+
+
 
   const [showPassword, setShowPassword] = React.useState(false);
   const handleClickShowPassword = () => setShowPassword((show) => !show);
@@ -30,10 +32,10 @@ const SignUpForm = () => {
     event.preventDefault();
   };
 
-  const formHasErrors = Object.keys(errors).length > 0;
-  const onSubmit = (data) => {
-    //Data of the user if it is validated
-    setUser(data);
+  const onSubmit =  (data) => {
+    delete data.repassword;
+    console.log(data);
+    dispatch(registerUser(data));
   };
 
   //////////////////////////////////
@@ -46,16 +48,7 @@ const SignUpForm = () => {
   if (isRegistered) {
     navigate("/login");
   }
-  const dispatch = useDispatch();
-
-  const handleRegisterClick = (event) => {
-    //ASK AML
-    if (formHasErrors) {
-      event.preventDefault();
-    } else {
-      // dispatch(registerUser(user));
-    }
-  };
+  
 
   return (
     <div className={styles.formContainer}>
@@ -70,9 +63,8 @@ const SignUpForm = () => {
               variant="outlined"
               fullWidth
               InputLabelProps={{
-                style: { color: "white",borderColor: "white" },
+                style: { color: "white", borderColor: "white" },
               }}
-             
               {...register("firstName", {
                 required: "name is required",
                 minLength: {
@@ -140,7 +132,7 @@ const SignUpForm = () => {
                   value:
                     /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*]).{8,}$/,
                   message:
-                    "Password must contain at least one uppercase letter, one lowercase letter, one digit, and one special character",
+                    "Password must be at least 8 characters contains at least one uppercase letter, one lowercase letter, one digit, and one special character",
                 },
               })}
               type={showPassword ? "text" : "password"}
@@ -202,6 +194,25 @@ const SignUpForm = () => {
             </small>
           </FormControl>
         </div>
+        <div className="phone">
+          <TextField
+            label="Mobile Number"
+            inputProps={{ inputMode: "numeric", pattern: "[0-9]*" }}
+            InputLabelProps={{
+              style: { color: "white" },
+            }}
+            {...register("phone", {
+              required: "Mobile number is required",
+              pattern: {
+                value: /^(010|011|012|015)\d{8,9}$/,
+                message: "Invalid mobile number",
+              },
+            })}
+            className={styles.formInput}
+          />
+          <small className={styles.errorMsg}>{errors.mobile?.message}</small>
+        </div>
+
         {registrationError ? <div>{registrationError}</div> : null}
 
         <div className={styles.submitBtnContainer}>
@@ -209,7 +220,6 @@ const SignUpForm = () => {
             variant="contained"
             type="submit"
             className={styles.submitBtn}
-            //onClick={handleRegisterClick}
             onClick={handleSubmit(onSubmit)}
           >
             Create Account
