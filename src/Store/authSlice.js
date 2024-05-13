@@ -1,4 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import { jwtDecode } from "jwt-decode";
 
 export const registerUser = createAsyncThunk(
   "auth/registerUser",
@@ -93,10 +94,9 @@ export const updatePassword = createAsyncThunk(
 const authSlice = createSlice({
   name: "auth",
   initialState: {
+    isAdmin: false,
     isLoggedIn: false,
-    isLoggingIn: false,
     isRegistered: false,
-    isRegistering: false,
     registrationError: null,
     logInError: null,
     doesUserHasEmail: false,
@@ -115,32 +115,28 @@ const authSlice = createSlice({
     },
   },
   extraReducers: (builder) => {
-    builder.addCase(registerUser.pending, (state) => {
-      state.isRegistering = true;
-      state.registrationError = null;
-    });
+
     builder.addCase(registerUser.fulfilled, (state, action) => {
       if (action.payload.res) {
-        state.isRegistering = false;
         state.isRegistered = true;
       } else {
         state.registrationError = action.payload.message;
       }
     });
     builder.addCase(registerUser.rejected, (state, action) => {
-      state.isRegistering = false;
       state.registrationError = action.payload;
     });
 
     // Extra reducers for logInUser asyncthunk
-    builder.addCase(logInUser.pending, (state) => {
-      state.isLoggingIn = true;
-      state.logInError = null;
-    });
+
     builder.addCase(logInUser.fulfilled, (state, action) => {
       if (action.payload.token) {
         localStorage.setItem("token", action.payload.token);
-        state.isLoggingIn = false;
+
+        const decodedToken = jwtDecode(action.payload.token);
+        if (decodedToken.isAdmin === "admin") {
+          state.isAdmin = true;
+        }
         state.isLoggedIn = true;
       } else {
         state.logInError = action.payload.message;

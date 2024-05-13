@@ -12,6 +12,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { logInUser } from "../../Store/authSlice";
 import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
+import { jwtDecode } from "jwt-decode";
 
 function LoginForm() {
   const [user, setUser] = useState(5);
@@ -29,12 +30,13 @@ function LoginForm() {
   const dispatch = useDispatch();
   const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
   const logInError = useSelector((state) => state.auth.logInError);
+  const isAdmin = useSelector((state) => state.auth.isAdmin);
 
-  if (isLoggedIn) {
+  if (isLoggedIn && isAdmin) {
+    navigate("/dashboard");
+  } else if (isLoggedIn) {
     navigate("/");
   }
-
-  
 
   const handelUserState = (data) => {
     if (data) {
