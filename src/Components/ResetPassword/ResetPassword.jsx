@@ -48,7 +48,6 @@ const ResetPassword = () => {
           navigate("/OTP", { state: { otp: otp,email:userEmail } });
           console.log(otp);
         }else {
-          // alert("Email is not found , please sign up");
           divRef.current.innerText="Email is not found , please sign up";
         }
       })
@@ -100,7 +99,7 @@ const ResetPassword = () => {
                 disabled={err !== ""}
                 onClick={() => handelResetPassword()}
               >
-                Send Instructions
+                Send OTP
               </Button>
             </div>
           </div>
