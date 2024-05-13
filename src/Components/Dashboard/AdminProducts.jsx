@@ -52,7 +52,7 @@ const AdminProducts = () => {
     columnHelper.accessor("images", {
       cell: (info) => {
         const images = info.getValue() || [];
-        const firstImage = images.length > 0 ? images[0] : "";
+        const firstImage = images?.length > 0 ? images[0] : "";
         return (
           <img
             src={firstImage}
@@ -168,7 +168,7 @@ const AdminProducts = () => {
           </thead>
 
           <tbody>
-            {table.getRowModel().rows.length > 0 ? (
+            {table.getRowModel().rows?.length > 0 ? (
               table.getRowModel().rows.map((row, i) => (
                 <tr
                   key={row.id}
