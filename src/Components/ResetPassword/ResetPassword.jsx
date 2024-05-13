@@ -14,8 +14,6 @@ const ResetPassword = () => {
   // Email Validation
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   const handelValidation = (eve) => {
-    
-
     if (emailRegex.test(eve.target.value)) {
       setErr("");
       setUserEmail(eve.target.value);
@@ -43,16 +41,14 @@ const ResetPassword = () => {
     );
     returnPromise
       .then((res) => {
-        if(res.payload.message==='reset mail sent successfully'){
-          navigate("/OTP", { state: { otp: otp,email:userEmail } });
-          console.log(otp);
-        }else {
+        if (res.payload.message === "reset mail sent successfully") {
+          navigate("/OTP", { state: { otp: otp, email: userEmail } });
+          // console.log(otp);
+        } else {
           alert("Email is not found , please sign up");
         }
       })
       .catch((err) => console.log(err.message));
-   
-    
   };
 
   return (

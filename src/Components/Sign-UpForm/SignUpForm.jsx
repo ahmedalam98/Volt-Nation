@@ -24,15 +24,13 @@ const SignUpForm = () => {
 
   const dispatch = useDispatch();
 
-
-
   const [showPassword, setShowPassword] = React.useState(false);
   const handleClickShowPassword = () => setShowPassword((show) => !show);
   const handleMouseDownPassword = (event) => {
     event.preventDefault();
   };
 
-  const onSubmit =  (data) => {
+  const onSubmit = (data) => {
     delete data.repassword;
     // console.log(data);
     dispatch(registerUser(data));
@@ -48,7 +46,6 @@ const SignUpForm = () => {
   if (isRegistered) {
     navigate("/login");
   }
-  
 
   return (
     <div className={styles.formContainer}>

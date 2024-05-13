@@ -28,7 +28,7 @@ const AdminProducts = () => {
   };
 
   const handleDelete = (row) => {
-    console.log("Delete button clicked for row:", row);
+    // console.log("Delete button clicked for row:", row);
   };
 
   const handleFileChange = (e) => {
@@ -37,8 +37,8 @@ const AdminProducts = () => {
   };
 
   const onSubmit = (data) => {
-    console.log("Form submitted:", data);
-    console.log("Files to upload:", selectedFiles);
+    // console.log("Form submitted:", data);
+    // console.log("Files to upload:", selectedFiles);
     setEditingProduct(null);
   };
 

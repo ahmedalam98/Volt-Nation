@@ -15,7 +15,7 @@ export default function CartItem(props) {
   const [cartItems, setCartItems] = useState(0);
 
   const dispatch = useDispatch();
-  console.log(props);
+  // console.log(props);
   useEffect(() => {
     //  set cart quantity
     setCartItems(pNumbers);

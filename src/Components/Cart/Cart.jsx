@@ -79,7 +79,7 @@ export default function Cart() {
                   className={`${styles.checkout_btn} `}
                   onClick={() => {
                     setCheckout(!checkout);
-                    console.log("checkout");
+                    // console.log("checkout");
                   }}
                 >
                   Checkout
