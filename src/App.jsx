@@ -59,9 +59,6 @@ function App() {
                 <Route path="/" element={<Home />} />
                 <Route path="/products" element={<Products />} />
                 <Route path="/products/:id" element={<ProductDetails />} />
-                <Route element={<ProtectedRoute />}>
-                  <Route path="/cart" element={<Cart />} />
-                </Route>
               </Route>
 
               {/* Auth Routes */}
@@ -72,7 +69,7 @@ function App() {
 
               <Route path="/otp" element={<Otp />} />
 
-              {/* Protected Dashboard Routes */}
+              {/* Protected Routes */}
               <Route element={<ProtectedRoute />}>
                 <Route path="/dashboard" element={<Dashboard />}>
                   <Route index element={<Overview />} />
@@ -87,9 +84,7 @@ function App() {
                   <Route path="/dashboard/orders" element={<AdminOrders />} />
                   <Route path="/dashboard/admins" element={<Admins />} />
                 </Route>
-              </Route>
-
-              <Route element={<ProtectedRoute />}>
+                <Route path="/cart" element={<Cart />} />
                 <Route path="/profile" element={<Profile />} />
               </Route>
 

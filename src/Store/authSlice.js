@@ -1,4 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import { jwtDecode } from "jwt-decode";
 
 export const registerUser = createAsyncThunk(
   "auth/registerUser",
@@ -82,7 +83,7 @@ export const updatePassword = createAsyncThunk(
           body: JSON.stringify(userData),
         }
       );
-     
+
       return await response.json();
     } catch (error) {
       return rejectWithValue(error.message);
@@ -93,43 +94,49 @@ export const updatePassword = createAsyncThunk(
 const authSlice = createSlice({
   name: "auth",
   initialState: {
+    isAdmin: false,
     isLoggedIn: false,
-    isLoggingIn: false,
     isRegistered: false,
-    isRegistering: false,
     registrationError: null,
     logInError: null,
     doesUserHasEmail: false,
-    doesUserUpdatedPassword:false
+    doesUserUpdatedPassword: false
   },
-  reducers: {},
+  reducers: {
+    logout: (state) => {
+      localStorage.removeItem("token");
+      return {
+        isLoggedIn: false,
+        isAdmin: false,
+        isRegistered: false,
+        registrationError: null,
+        logInError: null,
+      };
+    },
+  },
   extraReducers: (builder) => {
-    builder.addCase(registerUser.pending, (state) => {
-      state.isRegistering = true;
-      state.registrationError = null;
-    });
+
     builder.addCase(registerUser.fulfilled, (state, action) => {
       if (action.payload.res) {
-        state.isRegistering = false;
         state.isRegistered = true;
       } else {
         state.registrationError = action.payload.message;
       }
     });
     builder.addCase(registerUser.rejected, (state, action) => {
-      state.isRegistering = false;
       state.registrationError = action.payload;
     });
 
     // Extra reducers for logInUser asyncthunk
-    builder.addCase(logInUser.pending, (state) => {
-      state.isLoggingIn = true;
-      state.logInError = null;
-    });
+
     builder.addCase(logInUser.fulfilled, (state, action) => {
       if (action.payload.token) {
         localStorage.setItem("token", action.payload.token);
-        state.isLoggingIn = false;
+
+        const decodedToken = jwtDecode(action.payload.token);
+        if (decodedToken.isAdmin === "admin") {
+          state.isAdmin = true;
+        }
         state.isLoggedIn = true;
       } else {
         state.logInError = action.payload.message;
@@ -143,15 +150,15 @@ const authSlice = createSlice({
     // Extra reducers for UserHasEmail asyncthunk
     builder.addCase(userHasEmail.pending, (state) => {
       state.doesUserHasEmail = null;
-     
+
     });
     builder.addCase(userHasEmail.fulfilled, (state) => {
-     
+
       // state.doesUserHasEmail = true;
     });
     builder.addCase(userHasEmail.rejected, (state) => {
       state.doesUserHasEmail = false;
-      
+
     });
 
     // Extra reducers for update password asyncthunk
@@ -167,5 +174,5 @@ const authSlice = createSlice({
     });
   },
 });
-
+export const { logout } = authSlice.actions;
 export default authSlice.reducer;
