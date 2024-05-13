@@ -12,7 +12,6 @@ import { useSelector, useDispatch } from "react-redux";
 import { logInUser } from "../../Store/authSlice";
 import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
-import axios from "axios";
 
 function LoginForm() {
   const [user, setUser] = useState(5);
@@ -35,27 +34,11 @@ function LoginForm() {
     navigate("/");
   }
 
-  // const registerUser = async (email, password) => {
-  //   try {
-  //     const response = await axios.post(
-  //       "https://volt-nation.up.railway.app/user/login",
-  //       {
-  //         email: email,
-  //         password: password,
-  //       }
-  //     );
-
-  //     console.log(response.data);
-  //   } catch (error) {
-  //     console.error("Error registering user:", error.message);
-  //   }
-  // };
+  
 
   const handelUserState = (data) => {
     if (data) {
-      console.log("user is ", data);
       dispatch(logInUser(data));
-      console.log('user is logged',data) 
     } else {
       console.log("user is null ", data);
     }
@@ -136,7 +119,7 @@ function LoginForm() {
             </small>
           </FormControl>
         </div>
-        {logInError ? <div>{logInError}</div> : null}
+        {logInError ? <div>{alert(logInError)}</div> : null}
         <div className="mt-5">
           <Button
             variant="contained"

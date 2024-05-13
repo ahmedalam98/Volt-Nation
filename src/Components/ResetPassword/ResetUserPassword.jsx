@@ -10,23 +10,32 @@ import {
 import InputAdornment from "@mui/material/InputAdornment";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
+import { useDispatch, useSelector } from "react-redux";
+import { updatePassword } from "../../Store/authSlice";
+import { useLocation, useNavigate } from "react-router-dom";
 // import { Link, useNavigate } from "react-router-dom";
 
 const ResetUserPassword = () => {
+  
   const [password, setPassword] = useState("");
-  // const [rePassword, setRePassword] = useState("");
   const [errPassword, setErrPassword] = useState("");
   const [errRePassword, setErrRePassword] = useState("");
-
+  const dispatch = useDispatch();
+  const doesUserUpdatedPassword = useSelector(
+    (state) => state.auth.doesUserUpdatedPassword
+  );
+  const location = useLocation();
+  let userEmail = location.state.email;
   const [showPassword, setShowPassword] = useState(false);
   const [showPassword2, setShowPassword2] = useState(false);
   const handleClickShowPassword = () => setShowPassword((show) => !show);
   const handleClickShowPassword2 = () => setShowPassword2((show) => !show);
-  // const navigate = useNavigate();
+   const navigate = useNavigate();
 
   const handelResetPassword = (event) => {
     if (errPassword === "" && errRePassword === "") {
-      console.log("OK");
+      dispatch(updatePassword({email:userEmail,password:password}))
+      navigate('/login');
     } else {
       event.preventDefault();
     }
@@ -35,7 +44,7 @@ const ResetUserPassword = () => {
     event.preventDefault();
   };
 
-  let passwordREGEX = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
+  let passwordREGEX = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*]).{8,}$/;
 
   //Validation
   const handelValidation = (event) => {
@@ -46,7 +55,7 @@ const ResetUserPassword = () => {
           setErrPassword("");
         } else {
           setErrPassword(
-            "Password must be at least 8 characters long and contain at least one letter and one number."
+            "Password must contain at least one uppercase letter, one lowercase letter, one digit, and one special character."
           );
         }
         break;

@@ -2,11 +2,15 @@ import { useState } from "react";
 import styles from "./ResetPassword.module.css";
 import { TextField, Button } from "@mui/material";
 import { Link, useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { userHasEmail } from "../../Store/authSlice";
 
 const ResetPassword = () => {
   const [userEmail, setUserEmail] = useState("");
   const [err, setErr] = useState("");
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  // const doesUserHasEmail = useSelector((state) => state.auth.doesUserHasEmail);
   // Email Validation
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   const handelValidation = (eve) => {
@@ -33,12 +37,22 @@ const ResetPassword = () => {
   }
 
   const handelResetPassword = () => {
-    //generate OTP random number
-    const otp = generateRandomNumbers();
-    console.log(otp);
-    //Send OTP number to user's email through BACKEND Ya AMAAAAALLLLLL
-    //go to OTP page and compare
-    navigate("/OTP", { state: { otp: otp } });
+    let otp = generateRandomNumbers();
+    let returnPromise = dispatch(
+      userHasEmail({ email: userEmail, otp: Number(otp.join("")) })
+    );
+    returnPromise
+      .then((res) => {
+        if(res.payload.message==='reset mail sent successfully'){
+          navigate("/OTP", { state: { otp: otp,email:userEmail } });
+          console.log(otp);
+        }else {
+          alert("Email is not found , please sign up");
+        }
+      })
+      .catch((err) => console.log(err.message));
+   
+    
   };
 
   return (
