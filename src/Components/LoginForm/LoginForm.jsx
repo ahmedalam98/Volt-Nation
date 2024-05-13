@@ -49,9 +49,9 @@ function LoginForm() {
       <form
         onSubmit={handleSubmit((data) => {
           setUser(data, () => {
-            console.log(user);
+            // console.log(user);
           });
-          console.log(user);
+          // console.log(user);
           handelUserState(data);
         })}
       >

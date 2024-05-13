@@ -34,7 +34,7 @@ const SignUpForm = () => {
 
   const onSubmit =  (data) => {
     delete data.repassword;
-    console.log(data);
+    // console.log(data);
     dispatch(registerUser(data));
   };
 

@@ -14,7 +14,7 @@ const ResetPassword = () => {
   // Email Validation
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   const handelValidation = (eve) => {
-    console.log(userEmail);
+    
 
     if (emailRegex.test(eve.target.value)) {
       setErr("");
