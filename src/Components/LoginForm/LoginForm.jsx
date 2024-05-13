@@ -94,7 +94,7 @@ function LoginForm() {
                   value:
                     /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*]).{8,}$/,
                   message:
-                    "Password must contain at least one uppercase letter, one lowercase letter, one digit, and one special character",
+                    "Invalid Password",
                 },
               })}
               type={showPassword ? "text" : "password"}
