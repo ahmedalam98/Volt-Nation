@@ -59,6 +59,10 @@ function App() {
                 <Route path="/" element={<Home />} />
                 <Route path="/products" element={<Products />} />
                 <Route path="/products/:id" element={<ProductDetails />} />
+                <Route element={<ProtectedRoute />}>
+                  <Route path="/cart" element={<Cart />} />
+                  <Route path="/profile" element={<Profile />} />
+                </Route>
               </Route>
 
               {/* Auth Routes */}
@@ -84,8 +88,6 @@ function App() {
                   <Route path="/dashboard/orders" element={<AdminOrders />} />
                   <Route path="/dashboard/admins" element={<Admins />} />
                 </Route>
-                <Route path="/cart" element={<Cart />} />
-                <Route path="/profile" element={<Profile />} />
               </Route>
 
               {/* 404 Route */}
