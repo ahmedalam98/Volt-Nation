@@ -100,7 +100,7 @@ const authSlice = createSlice({
     registrationError: null,
     logInError: null,
     doesUserHasEmail: false,
-    doesUserUpdatedPassword: false
+    doesUserUpdatedPassword: false,
   },
   reducers: {
     logout: (state) => {
@@ -115,7 +115,6 @@ const authSlice = createSlice({
     },
   },
   extraReducers: (builder) => {
-
     builder.addCase(registerUser.fulfilled, (state, action) => {
       if (action.payload.res) {
         state.isRegistered = true;
@@ -150,15 +149,12 @@ const authSlice = createSlice({
     // Extra reducers for UserHasEmail asyncthunk
     builder.addCase(userHasEmail.pending, (state) => {
       state.doesUserHasEmail = null;
-
     });
     builder.addCase(userHasEmail.fulfilled, (state) => {
-
       // state.doesUserHasEmail = true;
     });
     builder.addCase(userHasEmail.rejected, (state) => {
       state.doesUserHasEmail = false;
-
     });
 
     // Extra reducers for update password asyncthunk
