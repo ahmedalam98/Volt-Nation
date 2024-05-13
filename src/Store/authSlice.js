@@ -44,6 +44,52 @@ export const logInUser = createAsyncThunk(
   }
 );
 
+//action for check if the user has email or not
+export const userHasEmail = createAsyncThunk(
+  "auth/resetPasswordMail",
+  async (userEmailwithOtp, { rejectWithValue }) => {
+    try {
+      const response = await fetch(
+        "https://volt-nation.up.railway.app/user/reset-password-mail",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(userEmailwithOtp),
+        }
+      );
+
+      return await response.json();
+    } catch (error) {
+      return rejectWithValue(error.message);
+    }
+  }
+);
+
+//action for update user's password
+export const updatePassword = createAsyncThunk(
+  "auth/updatePassword",
+  async (userData, { rejectWithValue }) => {
+    try {
+      const response = await fetch(
+        "https://volt-nation.up.railway.app/user/update-password",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(userData),
+        }
+      );
+     
+      return await response.json();
+    } catch (error) {
+      return rejectWithValue(error.message);
+    }
+  }
+);
+
 const authSlice = createSlice({
   name: "auth",
   initialState: {
@@ -53,6 +99,8 @@ const authSlice = createSlice({
     isRegistering: false,
     registrationError: null,
     logInError: null,
+    doesUserHasEmail: false,
+    doesUserUpdatedPassword:false
   },
   reducers: {},
   extraReducers: (builder) => {
@@ -90,6 +138,32 @@ const authSlice = createSlice({
     builder.addCase(logInUser.rejected, (state, action) => {
       state.isLoggingIn = false;
       state.logInError = action.payload;
+    });
+
+    // Extra reducers for UserHasEmail asyncthunk
+    builder.addCase(userHasEmail.pending, (state) => {
+      state.doesUserHasEmail = null;
+     
+    });
+    builder.addCase(userHasEmail.fulfilled, (state) => {
+     
+      // state.doesUserHasEmail = true;
+    });
+    builder.addCase(userHasEmail.rejected, (state) => {
+      state.doesUserHasEmail = false;
+      
+    });
+
+    // Extra reducers for update password asyncthunk
+    builder.addCase(updatePassword.pending, (state) => {
+      state.isLoggingIn = true;
+      state.logInError = null;
+    });
+    builder.addCase(updatePassword.fulfilled, (state) => {
+      state.doesUserUpdatedPassword = true;
+    });
+    builder.addCase(updatePassword.rejected, (state) => {
+      state.doesUserUpdatedPassword = false;
     });
   },
 });

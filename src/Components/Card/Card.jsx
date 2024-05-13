@@ -29,7 +29,7 @@ export default function Card({ product }) {
           <div className={styles.rating}>
             <Rating name="read-only" value={product.rating} readOnly />
           </div>
-          <div className={styles.price}>{+product.price}</div>
+          <div className={styles.price}>{+product.price} EGP</div>
         </div>
 
         <div className={styles.icons}>
