@@ -1,5 +1,13 @@
+import { useNavigate } from "react-router-dom";
 import styles from "./UnderContruction.module.css";
 function UnderConstruction() {
+  let navigate=useNavigate()
+  let goToHome=()=>{
+    navigate('/')
+  }
+  let goToPrds=()=>{
+    navigate('/products')
+  }
   return (
     <>
       <div className={styles.container}>
@@ -14,11 +22,11 @@ function UnderConstruction() {
           </p>
         </div>
         <div className={styles.iconsContainer}>
-          <div className={styles.icon}>
+          <div className={styles.icon} onClick={goToHome}>
             <img src="public/web-page.png" alt="home page icon" />
             <p>Explore Home</p>
           </div>
-          <div className={styles.icon}>
+          <div className={styles.icon} onClick={goToPrds}>
             <img src="public/web-page.png" alt="products page icon" />
             <p>Explore Products</p>
           </div>
