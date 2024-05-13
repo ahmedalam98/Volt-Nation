@@ -17,17 +17,7 @@ export default function Cart() {
 
   // Get cart items from the store
   const products = useSelector((state) => state.cart.products);
-  const loading = useSelector((state) => state.cart.loading);
-
-  // If the cart is empty, display a spinner
-  if (loading)
-    return (
-      <div>
-        <div className="loader-container">
-          <div className="loader"></div>
-        </div>
-      </div>
-    );
+  console.log(products);
 
   // If the cart is empty, display a message
   if (products.length === 0)
@@ -52,7 +42,7 @@ export default function Cart() {
               return (
                 <CartItem
                   key={product.product.id}
-                  quantity={product.quantity}
+                  pNumbers={product.quantity}
                   {...product.product}
                 />
               );
@@ -68,10 +58,7 @@ export default function Cart() {
               <div className="flex justify-around mb-3">
                 <div> Items </div>
                 <div>
-                  {products.reduce(
-                    (acc, cur) => acc + Number(+cur.quantity),
-                    0
-                  )}
+                  {products.reduce((acc, cur) => acc + Number(cur.quantity), 0)}
                 </div>
               </div>
               <div className="flex justify-around mb-3">
@@ -92,7 +79,7 @@ export default function Cart() {
                   className={`${styles.checkout_btn} `}
                   onClick={() => {
                     setCheckout(!checkout);
-                    console.log("checkout");
+                    // console.log("checkout");
                   }}
                 >
                   Checkout

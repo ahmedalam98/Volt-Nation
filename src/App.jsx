@@ -62,6 +62,7 @@ function App() {
                 <Route path="/products/:id" element={<ProductDetails />} />
                 <Route element={<ProtectedRoute />}>
                   <Route path="/cart" element={<Cart />} />
+                  <Route path="/profile" element={<Profile />} />
                 </Route>
                 <Route path="/under-construction" element={<UnderConstruction/>} />
                 
@@ -77,7 +78,7 @@ function App() {
               
              
 
-              {/* Protected Dashboard Routes */}
+              {/* Protected Routes */}
               <Route element={<ProtectedRoute />}>
                 <Route path="/dashboard" element={<Dashboard />}>
                   <Route index element={<Overview />} />
@@ -92,10 +93,6 @@ function App() {
                   <Route path="/dashboard/orders" element={<AdminOrders />} />
                   <Route path="/dashboard/admins" element={<Admins />} />
                 </Route>
-              </Route>
-
-              <Route element={<ProtectedRoute />}>
-                <Route path="/profile" element={<Profile />} />
               </Route>
 
               {/* 404 Route */}

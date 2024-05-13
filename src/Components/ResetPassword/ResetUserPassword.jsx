@@ -16,7 +16,6 @@ import { useLocation, useNavigate } from "react-router-dom";
 // import { Link, useNavigate } from "react-router-dom";
 
 const ResetUserPassword = () => {
-  
   const [password, setPassword] = useState("");
   const [errPassword, setErrPassword] = useState("");
   const [errRePassword, setErrRePassword] = useState("");
@@ -30,12 +29,12 @@ const ResetUserPassword = () => {
   const [showPassword2, setShowPassword2] = useState(false);
   const handleClickShowPassword = () => setShowPassword((show) => !show);
   const handleClickShowPassword2 = () => setShowPassword2((show) => !show);
-   const navigate = useNavigate();
+  const navigate = useNavigate();
 
   const handelResetPassword = (event) => {
     if (errPassword === "" && errRePassword === "") {
-      dispatch(updatePassword({email:userEmail,password:password}))
-      navigate('/login');
+      dispatch(updatePassword({ email: userEmail, password: password }));
+      navigate("/login");
     } else {
       event.preventDefault();
     }
@@ -62,7 +61,7 @@ const ResetUserPassword = () => {
       case "repassword":
         if (event.target.value === password) {
           setErrRePassword("");
-          console.log("Passwords match");
+          // console.log("Passwords match");
         } else {
           setErrRePassword("Passwords do not match");
         }

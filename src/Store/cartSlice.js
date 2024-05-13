@@ -1,13 +1,13 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import api from "../api/index";
 
-// functions
-
+// get cart from api
 export const getCart = createAsyncThunk("cart/getCart", async () => {
   const response = await api.get("/cart");
   return response.data;
 });
 
+// add item to cart
 export const addItemToCart = createAsyncThunk(
   "cart/addItemToCart",
   async (productId) => {
@@ -16,6 +16,7 @@ export const addItemToCart = createAsyncThunk(
   }
 );
 
+// decrement item from cart
 export const decrementItem = createAsyncThunk(
   "cart/decrementItem",
   async (productId) => {
@@ -24,6 +25,7 @@ export const decrementItem = createAsyncThunk(
   }
 );
 
+// remove item from cart
 export const removeFromCart = createAsyncThunk(
   "cart/removeFromCart",
   async (productId) => {
@@ -32,12 +34,13 @@ export const removeFromCart = createAsyncThunk(
   }
 );
 
+// checkout
 export const checkout = createAsyncThunk("cart/checkout", async () => {
   const response = await api.post("/cart/check-out");
   return response.data;
 });
 
-//  slice
+//  slice for cart
 
 const cartSlice = createSlice({
   name: "cart",
@@ -49,69 +52,45 @@ const cartSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder
-      .addCase(getCart.pending, (state) => {
-        state.loading = true;
-      })
+      // get cart
       .addCase(getCart.fulfilled, (state, action) => {
-        state.loading = false;
         state.products = action.payload.products;
       })
       .addCase(getCart.rejected, (state, action) => {
-        state.loading = false;
         state.error = action.error.message;
       });
     //  increament
     builder
-      .addCase(addItemToCart.pending, (state) => {
-        state.loading = true;
-      })
       .addCase(addItemToCart.fulfilled, (state, action) => {
-        state.loading = false;
         state.products = action.payload.products;
       })
       .addCase(addItemToCart.rejected, (state, action) => {
-        state.loading = false;
         state.error = action.error.message;
       });
 
     // decrement
     builder
-      .addCase(decrementItem.pending, (state) => {
-        state.loading = true;
-      })
       .addCase(decrementItem.fulfilled, (state, action) => {
-        state.loading = false;
         state.products = action.payload.products;
       })
       .addCase(decrementItem.rejected, (state, action) => {
-        state.loading = false;
         state.error = action.error.message;
       });
 
     // remove
     builder
-      .addCase(removeFromCart.pending, (state) => {
-        state.loading = true;
-      })
       .addCase(removeFromCart.fulfilled, (state, action) => {
-        state.loading = false;
         state.products = action.payload.products;
       })
       .addCase(removeFromCart.rejected, (state, action) => {
-        state.loading = false;
         state.error = action.error.message;
       });
     // checkout
     builder
-      .addCase(checkout.pending, (state) => {
-        state.loading = true;
-      })
       .addCase(checkout.fulfilled, (state) => {
-        state.loading = false;
         state.products = [];
       })
       .addCase(checkout.rejected, (state, action) => {
-        state.loading = false;
         state.error = action.error.message;
       });
   },

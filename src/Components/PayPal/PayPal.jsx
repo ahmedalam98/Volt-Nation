@@ -32,10 +32,10 @@ export default function PayPal({ price }) {
         onApprove: async (data, actions) => {
           const order = await actions.order.capture();
           handleCheckout();
-          console.log(order);
+          // console.log(order);
         },
         onError: (err) => {
-          console.log(err);
+          // console.log(err);
         },
       })
       .render(paypal.current);
