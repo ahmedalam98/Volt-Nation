@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { useQuery } from "react-query";
 import { getProducts } from "../../api/apiFunctions";
 import {
@@ -8,33 +9,50 @@ import {
   getPaginationRowModel,
   getFilteredRowModel,
 } from "@tanstack/react-table";
-
 import EditNoteIcon from "@mui/icons-material/EditNote";
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 import DownloadButton from "./DownloadButton.jsx";
 import SearchProduct from "./SearchProduct.jsx";
-import { useState } from "react";
+import EditProductForm from "./EditProductForm.jsx";
 
 const AdminProducts = () => {
   const { data, error, isLoading } = useQuery("products", getProducts);
+  const products = data?.data || [];
 
-  console.log("Data:", data);
-
-  const columnHelper = createColumnHelper();
+  const [globalFilter, setGlobalFilter] = useState("");
+  const [editingProduct, setEditingProduct] = useState(null);
+  const [selectedFiles, setSelectedFiles] = useState([]);
 
   const handleEdit = (row) => {
-    console.log("Edit button clicked for row:", row);
+    setEditingProduct(row);
   };
 
   const handleDelete = (row) => {
     console.log("Delete button clicked for row:", row);
   };
 
+  const handleFileChange = (e) => {
+    const files = Array.from(e.target.files);
+    setSelectedFiles(files);
+  };
+
+  const onSubmit = (data) => {
+    console.log("Form submitted:", data);
+    console.log("Files to upload:", selectedFiles);
+    setEditingProduct(null);
+  };
+
+  const cancelEdit = () => {
+    setEditingProduct(null);
+  };
+
+  const columnHelper = createColumnHelper();
+
   const columns = [
     columnHelper.accessor("images", {
       cell: (info) => {
         const images = info.getValue() || [];
-        const firstImage = images && images.length > 0 ? images[0] : "";
+        const firstImage = images?.length > 0 ? images[0] : "";
         return (
           <img
             src={firstImage}
@@ -48,17 +66,14 @@ const AdminProducts = () => {
     columnHelper.accessor("name", {
       cell: (info) => <span>{info.getValue()}</span>,
       header: "Name",
-      size: 150,
     }),
     columnHelper.accessor("category", {
       cell: (info) => <span>{info.getValue()}</span>,
       header: "Category",
-      size: 100,
     }),
     columnHelper.accessor("price", {
       cell: (info) => <span>$ {info.getValue()}</span>,
       header: "Price",
-      size: 100,
     }),
     {
       id: "actions",
@@ -82,12 +97,8 @@ const AdminProducts = () => {
         );
       },
       header: "Actions",
-      size: 50,
     },
   ];
-
-  const [globalFilter, setGlobalFilter] = useState("");
-  const products = data?.data || [];
 
   const table = useReactTable({
     data: products,
@@ -105,6 +116,17 @@ const AdminProducts = () => {
       <div className="spinner-container">
         <div className="spinner"></div>
       </div>
+    );
+  }
+
+  if (editingProduct) {
+    return (
+      <EditProductForm
+        product={editingProduct}
+        onSubmit={onSubmit}
+        onCancel={cancelEdit}
+        handleFileChange={handleFileChange}
+      />
     );
   }
 
@@ -146,7 +168,7 @@ const AdminProducts = () => {
           </thead>
 
           <tbody>
-            {table.getRowModel().rows.length > 0 ? (
+            {table.getRowModel().rows?.length > 0 ? (
               table.getRowModel().rows.map((row, i) => (
                 <tr
                   key={row.id}
@@ -173,7 +195,7 @@ const AdminProducts = () => {
         </table>
 
         {/* Pagination */}
-        <div className="flex items-center justify-center mt-4 gap-12">
+        <div className="flex items-center justify-center mt-4 gap-8">
           <div className="flex items-center justify-center">
             <button
               onClick={() => {
@@ -205,6 +227,21 @@ const AdminProducts = () => {
           </div>
 
           <div>
+            <span className="flex items-center gap-1 ">
+              <div>Go to page:</div>
+              <input
+                type="number"
+                defaultValue={table.getState().pagination.pageIndex}
+                className="border border-gray-300 bg-transparent p-1 w-16 outline-none"
+                onChange={(e) => {
+                  const page = e.target.value ? Number(e.target.value) - 1 : 0;
+                  table.setPageIndex(page);
+                }}
+              />
+            </span>
+          </div>
+
+          <div>
             <select
               value={table.getState().pagination.pageSize}
               onChange={(e) => {
@@ -213,7 +250,7 @@ const AdminProducts = () => {
               className=" bg-transparent p-2 border border-gray-300 outline-none "
             >
               {[5, 10, 20].map((pageSize) => (
-                <option key={pageSize} value={pageSize} className=" text-black">
+                <option key={pageSize} value={pageSize}>
                   Show {pageSize}
                 </option>
               ))}
