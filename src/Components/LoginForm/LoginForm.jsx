@@ -13,8 +13,10 @@ import { logInUser } from "../../Store/authSlice";
 import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 
+
 function LoginForm() {
   const [user, setUser] = useState(5);
+  
   const {
     register,
     handleSubmit,
@@ -33,8 +35,6 @@ function LoginForm() {
   if (isLoggedIn) {
     navigate("/");
   }
-
-  
 
   const handelUserState = (data) => {
     if (data) {
@@ -119,7 +119,9 @@ function LoginForm() {
             </small>
           </FormControl>
         </div>
-        {logInError ? <div>{alert(logInError)}</div> : null}
+        {logInError ? (
+          <div className={styles.errorMsg}>{logInError}</div>
+        ) : null}
         <div className="mt-5">
           <Button
             variant="contained"
@@ -128,6 +130,10 @@ function LoginForm() {
           >
             Log In
           </Button>
+        </div>
+        <div>
+         
+          
         </div>
       </form>
     </>

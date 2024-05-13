@@ -3,11 +3,17 @@ import LoginForm from "./../../Components/LoginForm/LoginForm.jsx";
 import { Link, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { Button } from "@mui/material";
+import { GoogleLogin } from "@react-oauth/google";
+import { jwtDecode } from "jwt-decode";
 
 const LoginPage = () => {
   const [loaded, setLoaded] = useState(false);
   const navigate = useNavigate();
+  let decodedToken;
   const [isSignUpClicked, setIsSignUpClicked] = useState(false);
+  let goToHome = () => {
+    navigate("/");
+  };
 
   const handleSignUpClick = () => {
     setIsSignUpClicked(true);
@@ -15,9 +21,6 @@ const LoginPage = () => {
       navigate("/sign-up");
     }, 500);
   };
-
-  
-  
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -40,7 +43,9 @@ const LoginPage = () => {
               <div>
                 <div className={`${styles.containerForDetails} `}>
                   <div>
-                    <p className={styles.header}>Login Form</p>
+                    <p className={styles.header} onClick={goToHome}>
+                      Login Form
+                    </p>
                   </div>
                 </div>
 
@@ -61,22 +66,26 @@ const LoginPage = () => {
                     <div>
                       <div className={styles.conOfOptions}>
                         <div className="google mx-3 my-2">
-                          <Button className={styles.Button}>
-                            <img
-                              src="6.png"
-                              alt="google"
-                              className={styles.icon}
-                            />
-                            Login With Google
-                          </Button>
+                          <GoogleLogin
+                            onSuccess={(credentialResponse) => {
+                              decodedToken = jwtDecode(
+                                credentialResponse?.credential
+                              );
+                              console.log(decodedToken);
+                            }}
+                            onError={() => {
+                              console.log("Login Failed");
+                            }}
+                          />
                         </div>
                       </div>
                       <div
                         style={{
                           marginTop: "2%",
                           textAlign: "center",
-                          color: "blue",
-                          textDecoration: "underLine",
+                          color: "white",
+                          fontWeight:'bold'
+                          
                         }}
                       >
                         <Link className="text-sm" onClick={handleSignUpClick}>
@@ -87,11 +96,12 @@ const LoginPage = () => {
                         style={{
                           marginTop: "2%",
                           textAlign: "center",
-                          color: "blue",
-                          textDecoration: "underLine",
+                          color: "white",
+                          fontWeight:'bold'
+                          
                         }}
                       >
-                        <Link to='/resetPassword' className="text-sm" >
+                        <Link to="/resetPassword" className="text-sm">
                           Forgot Password{" "}
                         </Link>
                       </div>
@@ -104,7 +114,7 @@ const LoginPage = () => {
           <div className={`${styles.avatar} ${loaded ? styles.loaded : ""}`}>
             <div className={` ${isSignUpClicked ? styles.slideOutImg : ""} `}>
               <img
-                src="https://ecc-alex.com/pub/media/wysiwyg/nextgen_1.jpg"
+                src="https://images.pexels.com/photos/3563627/pexels-photo-3563627.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
                 alt="login"
               />
             </div>
