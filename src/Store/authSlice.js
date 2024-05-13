@@ -82,7 +82,7 @@ export const updatePassword = createAsyncThunk(
           body: JSON.stringify(userData),
         }
       );
-     
+
       return await response.json();
     } catch (error) {
       return rejectWithValue(error.message);
@@ -100,9 +100,20 @@ const authSlice = createSlice({
     registrationError: null,
     logInError: null,
     doesUserHasEmail: false,
-    doesUserUpdatedPassword:false
+    doesUserUpdatedPassword: false
   },
-  reducers: {},
+  reducers: {
+    logout: (state) => {
+      localStorage.removeItem("token");
+      return {
+        isLoggedIn: false,
+        isAdmin: false,
+        isRegistered: false,
+        registrationError: null,
+        logInError: null,
+      };
+    },
+  },
   extraReducers: (builder) => {
     builder.addCase(registerUser.pending, (state) => {
       state.isRegistering = true;
@@ -143,15 +154,15 @@ const authSlice = createSlice({
     // Extra reducers for UserHasEmail asyncthunk
     builder.addCase(userHasEmail.pending, (state) => {
       state.doesUserHasEmail = null;
-     
+
     });
     builder.addCase(userHasEmail.fulfilled, (state) => {
-     
+
       // state.doesUserHasEmail = true;
     });
     builder.addCase(userHasEmail.rejected, (state) => {
       state.doesUserHasEmail = false;
-      
+
     });
 
     // Extra reducers for update password asyncthunk
@@ -167,5 +178,5 @@ const authSlice = createSlice({
     });
   },
 });
-
+export const { logout } = authSlice.actions;
 export default authSlice.reducer;
