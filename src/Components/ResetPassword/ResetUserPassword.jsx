@@ -20,9 +20,9 @@ const ResetUserPassword = () => {
   const [errPassword, setErrPassword] = useState("");
   const [errRePassword, setErrRePassword] = useState("");
   const dispatch = useDispatch();
-  const doesUserUpdatedPassword = useSelector(
-    (state) => state.auth.doesUserUpdatedPassword
-  );
+  // const doesUserUpdatedPassword = useSelector(
+  //   (state) => state.auth.doesUserUpdatedPassword
+  // );
   const location = useLocation();
   let userEmail = location.state.email;
   const [showPassword, setShowPassword] = useState(false);
@@ -78,7 +78,7 @@ const ResetUserPassword = () => {
           <div className={styles.detailsContainer}>
             <img
               className={styles.icon}
-              src="public/forgot-password (2).png"
+              src="/forgot-password.png"
               alt="forget password"
             />
             <div className="my-5">

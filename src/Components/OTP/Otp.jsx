@@ -9,7 +9,7 @@ function Otp() {
   const navigate = useNavigate();
   const [otp, setOtp] = useState("");
   let otpFromFront = location.state.otp.join("");
-  let userEmail=location.state.email;
+  let userEmail = location.state.email;
 
   // console.log(otpFromFront);
 
@@ -42,10 +42,10 @@ function Otp() {
 
   const handleVerify = () => {
     if (otpFromFront === otp) {
-      navigate("/resetPasswordUsr",{ state: { email:userEmail } });
+      navigate("/resetPasswordUsr", { state: { email: userEmail } });
     } else {
       // alert("not correct please try again");
-      divRef.current.innerText="not correct please try again"
+      divRef.current.innerText = "not correct please try again";
       clearInputs();
     }
   };
@@ -54,7 +54,7 @@ function Otp() {
     <div className={styles.container}>
       <div className={styles.subContainer}>
         <div className={styles.img}>
-          <img src="./../../../public/otp-password.png" alt="Checkmark" />
+          <img src="/otp-password.png" alt="Checkmark" />
         </div>
         <div className={styles.header}>
           <h1>Enter Verification Code</h1>
@@ -75,9 +75,7 @@ function Otp() {
             />
           ))}
         </div>
-        <small ref={divRef} className={styles.errorMsg}>
-
-        </small>
+        <small ref={divRef} className={styles.errorMsg}></small>
         <div className={styles.btns}>
           <Link to="/login" className={styles.link}>
             <Button variant="contained" className={styles.btnBack}>

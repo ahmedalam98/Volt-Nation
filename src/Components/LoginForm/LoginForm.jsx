@@ -12,12 +12,11 @@ import { useSelector, useDispatch } from "react-redux";
 import { logInUser } from "../../Store/authSlice";
 import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
-import { jwtDecode } from "jwt-decode";
-
+// import { jwtDecode } from "jwt-decode";
 
 function LoginForm() {
   const [user, setUser] = useState(5);
-  
+
   const {
     register,
     handleSubmit,
@@ -97,8 +96,7 @@ function LoginForm() {
                 pattern: {
                   value:
                     /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*]).{8,}$/,
-                  message:
-                    "Invalid Password",
+                  message: "Invalid Password",
                 },
               })}
               type={showPassword ? "text" : "password"}
@@ -135,10 +133,7 @@ function LoginForm() {
             Log In
           </Button>
         </div>
-        <div>
-         
-          
-        </div>
+        <div></div>
       </form>
     </>
   );

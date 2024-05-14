@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import SignUpForm from "../../Components/Sign-UpForm/SignUpForm.jsx";
 import styles from "./Register.module.css";
 import { Link, useNavigate } from "react-router-dom";
-import { Button } from "@mui/material";
+// import { Button } from "@mui/material";
 
 const Register = () => {
   const [loaded, setLoaded] = useState(false);

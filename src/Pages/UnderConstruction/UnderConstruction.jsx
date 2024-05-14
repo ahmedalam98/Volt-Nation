@@ -1,18 +1,18 @@
 import { useNavigate } from "react-router-dom";
 import styles from "./UnderContruction.module.css";
 function UnderConstruction() {
-  let navigate=useNavigate()
-  let goToHome=()=>{
-    navigate('/')
-  }
-  let goToPrds=()=>{
-    navigate('/products')
-  }
+  let navigate = useNavigate();
+  let goToHome = () => {
+    navigate("/");
+  };
+  let goToPrds = () => {
+    navigate("/products");
+  };
   return (
     <>
       <div className={styles.container}>
         <div className={styles.img}>
-          <img src="public/work-in-progress.png" alt="work in progresss" />
+          <img src="/work-in-progress.png" alt="work in progresss" />
         </div>
         <div className={styles.header}>
           <p className={styles.p}>THIS PAGE IS UNDER CONSTRUCTION</p>
@@ -23,11 +23,11 @@ function UnderConstruction() {
         </div>
         <div className={styles.iconsContainer}>
           <div className={styles.icon} onClick={goToHome}>
-            <img src="public/web-page.png" alt="home page icon" />
+            <img src="/web-page.png" alt="home page icon" />
             <p>Explore Home</p>
           </div>
           <div className={styles.icon} onClick={goToPrds}>
-            <img src="public/web-page.png" alt="products page icon" />
+            <img src="/web-page.png" alt="products page icon" />
             <p>Explore Products</p>
           </div>
         </div>

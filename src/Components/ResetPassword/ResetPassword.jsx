@@ -59,7 +59,7 @@ const ResetPassword = () => {
           <div className={styles.detailsContainer}>
             <img
               className={styles.icon}
-              src="public/forgot-password.png"
+              src="/forgot-password.png"
               alt="forget"
             />
             <div className="my-5">
