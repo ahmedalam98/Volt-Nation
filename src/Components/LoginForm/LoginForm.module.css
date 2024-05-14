@@ -1,26 +1,36 @@
-
 .showPasswordIcon {
   color: white !important;
 }
 .submitBtn {
-  
   background-color: var(--color-var1) !important;
   width: 41% !important;
   margin-left: 29% !important;
 }
-.submitBtn:hover{
+.submitBtn:hover {
   background-color: var(--color-var2) !important;
 }
-.errorMsg{
+.errorMsg {
   color: red;
 }
-.passwordInput , .textField{
+.passwordInput,
+.textField {
   width: 98% !important;
   border-radius: 5px !important;
   margin: 5px !important;
 }
 
+:global(& .MuiOutlinedInput-root) {
+  :global(& fieldset) {
+    border-color: white !important;
+  }
 
+  :global(&:hover fieldset) {
+    border-color: white !important;
+    color: white !important;
+  }
 
-
-
+  :global(&.Mui-focused fieldset) {
+    border-color: var(--color1) !important;
+    color: white !important;
+  }
+}
