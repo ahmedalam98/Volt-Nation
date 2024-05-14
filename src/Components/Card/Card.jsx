@@ -16,8 +16,18 @@ export default function Card({ product }) {
     <>
       <div className={styles.card}>
         <div className={styles.img}>
-          <img src={product.images[0]} alt="prd1" className={styles.prdImg1} />
-          <img src={product.images[1]} alt="prd2" className={styles.prdImg2} />
+          <img
+            loading="lazy"
+            src={product.images[0]}
+            alt="prd1"
+            className={styles.prdImg1}
+          />
+          <img
+            loading="lazy"
+            src={product.images[1]}
+            alt="prd2"
+            className={styles.prdImg2}
+          />
         </div>
 
         <div className={styles.content}>

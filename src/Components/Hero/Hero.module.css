@@ -248,7 +248,7 @@
   }
 }
 
-@media (max-width: 660px) {
+@media (max-width: 690px) {
   .slider :global(.slick-active) .headline1 {
     /* font-size: 3rem; */
     letter-spacing: 10px;
@@ -284,7 +284,7 @@
   }
 }
 
-@media (max-width: 450px) {
+@media (max-width: 470px) {
   .slider :global(.slick-active) .headline1 {
     font-size: 2.5rem;
   }
@@ -294,7 +294,7 @@
   }
 }
 
-@media (max-width: 376px) {
+@media (max-width: 410px) {
   .slider :global(.slick-active) .headline1 {
     letter-spacing: 0;
 
@@ -302,5 +302,15 @@
   }
   .slider :global(.slick-active) .headline2 {
     font-size: 3.7rem;
+  }
+}
+@media (max-width: 335px) {
+  .slider :global(.slick-active) .headline1 {
+    letter-spacing: 0;
+
+    font-size: 2.2rem;
+  }
+  .slider :global(.slick-active) .headline2 {
+    font-size: 3.6rem;
   }
 }

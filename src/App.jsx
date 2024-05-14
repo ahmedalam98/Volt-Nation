@@ -4,21 +4,26 @@ import { Suspense, lazy } from "react";
 import store from "./Store/store";
 import Layout from "./Layout/Layout.jsx";
 import { QueryClient, QueryClientProvider } from "react-query";
-import ResetPassword from "./Components/ResetPassword/ResetPassword.jsx";
-import Otp from "./Components/OTP/Otp.jsx";
-import ResetUserPassword from "./Components/ResetPassword/ResetUserPassword.jsx";
 import ProtectedRoute from "./Utils/ProtectedRoute.jsx";
+import UnderConstruction from "./Pages/UnderConstruction/UnderConstruction.jsx";
+import Home from "./Pages/Home/Home.jsx";
+import LoginPage from "./Pages/Login/LoginPage.jsx";
+import Register from "./Pages/Registartion/Register.jsx";
 
-const Home = lazy(() => import("./Pages/Home/Home.jsx"));
 const Products = lazy(() => import("./Pages/Products/Products.jsx"));
 const ProductDetails = lazy(
   () => import("./Pages/ProductDetails/ProductDetails.jsx")
 );
+const Otp = lazy(() => import("./Components/OTP/Otp.jsx"));
+const ResetPassword = lazy(
+  () => import("./Components/ResetPassword/ResetPassword.jsx")
+);
+const ResetUserPassword = lazy(
+  () => import("./Components/ResetPassword/ResetUserPassword.jsx")
+);
 const Profile = lazy(() => import("./Pages/Profile/Profile.jsx"));
 const Cart = lazy(() => import("./Components/Cart/Cart.jsx"));
 const NotFound = lazy(() => import("./Pages/NotFound/NotFound.jsx"));
-const LoginPage = lazy(() => import("./Pages/Login/LoginPage.jsx"));
-const Register = lazy(() => import("./Pages/Registartion/Register.jsx"));
 const Dashboard = lazy(() => import("./Components/Dashboard/Dashboard.jsx"));
 const Overview = lazy(() => import("./Components/Dashboard/Overview.jsx"));
 const AdminProducts = lazy(
@@ -61,7 +66,12 @@ function App() {
                 <Route path="/products/:id" element={<ProductDetails />} />
                 <Route element={<ProtectedRoute />}>
                   <Route path="/cart" element={<Cart />} />
+                  <Route path="/profile" element={<Profile />} />
                 </Route>
+                <Route
+                  path="/under-construction"
+                  element={<UnderConstruction />}
+                />
               </Route>
 
               {/* Auth Routes */}
@@ -72,7 +82,7 @@ function App() {
 
               <Route path="/otp" element={<Otp />} />
 
-              {/* Protected Dashboard Routes */}
+              {/* Protected Routes */}
               <Route element={<ProtectedRoute />}>
                 <Route path="/dashboard" element={<Dashboard />}>
                   <Route index element={<Overview />} />
@@ -87,10 +97,6 @@ function App() {
                   <Route path="/dashboard/orders" element={<AdminOrders />} />
                   <Route path="/dashboard/admins" element={<Admins />} />
                 </Route>
-              </Route>
-
-              <Route element={<ProtectedRoute />}>
-                <Route path="/profile" element={<Profile />} />
               </Route>
 
               {/* 404 Route */}

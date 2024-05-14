@@ -52,10 +52,7 @@ export default function Hero() {
             <h1>SmartPhone</h1>
           </div>
           <div className={styles.img}>
-            <img
-              src="https://wpbingosite.com/wordpress/dimita/wp-content/uploads/2020/01/img3-1.png"
-              alt="smartphone"
-            />
+            <img src="/hero3.webp" alt="smartphone" />
           </div>
         </div>
 
@@ -66,10 +63,7 @@ export default function Hero() {
             <h1>airpods</h1>
           </div>
           <div className={styles.img}>
-            <img
-              src="https://wpbingosite.com/wordpress/dimita/wp-content/uploads/2020/01/img2-1.png"
-              alt="airpods"
-            />
+            <img src="/hero2.webp" alt="airpods" />
           </div>
         </div>
         <div className={styles.slide}>

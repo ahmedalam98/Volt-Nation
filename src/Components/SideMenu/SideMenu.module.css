@@ -1,0 +1,7 @@
+.cartMob :global(.MuiBadge-badge) {
+  background-color: var(--color-var1) !important;
+  right: 17px;
+  min-width: 18px;
+  height: 18px;
+  font-size: 0.7rem;
+}

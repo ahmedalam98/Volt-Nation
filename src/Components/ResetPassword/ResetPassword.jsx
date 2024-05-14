@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import styles from "./ResetPassword.module.css";
 import { TextField, Button } from "@mui/material";
 import { Link, useNavigate } from "react-router-dom";
@@ -7,6 +7,7 @@ import { userHasEmail } from "../../Store/authSlice";
 
 const ResetPassword = () => {
   const [userEmail, setUserEmail] = useState("");
+  const divRef = useRef(null);
   const [err, setErr] = useState("");
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -14,8 +15,6 @@ const ResetPassword = () => {
   // Email Validation
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   const handelValidation = (eve) => {
-    
-
     if (emailRegex.test(eve.target.value)) {
       setErr("");
       setUserEmail(eve.target.value);
@@ -43,16 +42,14 @@ const ResetPassword = () => {
     );
     returnPromise
       .then((res) => {
-        if(res.payload.message==='reset mail sent successfully'){
-          navigate("/OTP", { state: { otp: otp,email:userEmail } });
-          console.log(otp);
-        }else {
+        if (res.payload.message === "reset mail sent successfully") {
+          navigate("/OTP", { state: { otp: otp, email: userEmail } });
+          // console.log(otp);
+        } else {
           alert("Email is not found , please sign up");
         }
       })
       .catch((err) => console.log(err.message));
-   
-    
   };
 
   return (
@@ -62,7 +59,7 @@ const ResetPassword = () => {
           <div className={styles.detailsContainer}>
             <img
               className={styles.icon}
-              src="public/forgot-password.png"
+              src="/forgot-password.png"
               alt="forget"
             />
             <div className="my-5">
@@ -85,6 +82,7 @@ const ResetPassword = () => {
               onChange={(e) => handelValidation(e)}
             />
             <small className={styles.errMsg}>{err}</small>
+            <small className={styles.errMsg} ref={divRef}></small>
             <div className={styles.btnContainer}>
               <Link to={"/login"}>
                 <Button variant="contained" className={styles.btnBack}>
@@ -97,7 +95,7 @@ const ResetPassword = () => {
                 disabled={err !== ""}
                 onClick={() => handelResetPassword()}
               >
-                Send Instructions
+                Send OTP
               </Button>
             </div>
           </div>

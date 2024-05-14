@@ -12,9 +12,11 @@ import { useSelector, useDispatch } from "react-redux";
 import { logInUser } from "../../Store/authSlice";
 import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
+// import { jwtDecode } from "jwt-decode";
 
 function LoginForm() {
   const [user, setUser] = useState(5);
+
   const {
     register,
     handleSubmit,
@@ -29,12 +31,13 @@ function LoginForm() {
   const dispatch = useDispatch();
   const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
   const logInError = useSelector((state) => state.auth.logInError);
+  const isAdmin = useSelector((state) => state.auth.isAdmin);
 
-  if (isLoggedIn) {
+  if (isLoggedIn && isAdmin) {
+    navigate("/dashboard");
+  } else if (isLoggedIn) {
     navigate("/");
   }
-
-  
 
   const handelUserState = (data) => {
     if (data) {
@@ -93,8 +96,7 @@ function LoginForm() {
                 pattern: {
                   value:
                     /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*]).{8,}$/,
-                  message:
-                    "Password must contain at least one uppercase letter, one lowercase letter, one digit, and one special character",
+                  message: "Invalid Password",
                 },
               })}
               type={showPassword ? "text" : "password"}
@@ -119,7 +121,9 @@ function LoginForm() {
             </small>
           </FormControl>
         </div>
-        {logInError ? <div>{alert(logInError)}</div> : null}
+        {logInError ? (
+          <div className={styles.errorMsg}>{logInError}</div>
+        ) : null}
         <div className="mt-5">
           <Button
             variant="contained"
@@ -129,6 +133,7 @@ function LoginForm() {
             Log In
           </Button>
         </div>
+        <div></div>
       </form>
     </>
   );

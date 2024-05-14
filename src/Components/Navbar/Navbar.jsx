@@ -8,7 +8,15 @@ import SearchIcon from "@mui/icons-material/Search";
 
 // cart
 import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
-import { Badge } from "@mui/material";
+import {
+  Avatar,
+  Badge,
+  IconButton,
+  ListItemIcon,
+  Menu,
+  MenuItem,
+  Tooltip,
+} from "@mui/material";
 
 import styles from "./NavBar.module.css";
 import MobileNavbar from "../MobileNavbar/MobileNavbar.jsx";
@@ -18,13 +26,31 @@ import { getProducts } from "./../../api/apiFunctions";
 import { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getCart } from "../../Store/cartSlice.js";
+import { Logout } from "@mui/icons-material";
+import { logout } from "../../Store/authSlice.js";
 
 function NavBar() {
   const navigate = useNavigate();
 
   const [searchQuery, setSearchQuery] = useState("");
   const [showResults, setShowResults] = useState(false);
+  const [anchorEl, setAnchorEl] = useState(null);
   const searchContainerRef = useRef(null);
+  const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
+
+  const open = Boolean(anchorEl);
+
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+  const handleLogOut = () => {
+    setAnchorEl(null);
+    dispatch(logout());
+  };
 
   // fetch cart
   const dispatch = useDispatch();
@@ -32,6 +58,7 @@ function NavBar() {
     dispatch(getCart());
   }, [dispatch]);
   const products = useSelector((state) => state.cart.products);
+
   //fetch data
   const { data } = useQuery(["products"], getProducts);
 
@@ -176,46 +203,123 @@ function NavBar() {
                 </label>
               </div>
             </Box>
-            {/* cart */}
-            <Badge
-              badgeContent={
-                products?.reduce((acc, cur) => acc + Number(cur.quantity), 0) ||
-                "0"
-              }
-              className={`${styles.cart} cursor-pointer `}
-              onClick={() => navigate("/cart")}
-            >
-              <ShoppingCartOutlinedIcon
+            {isLoggedIn ? (
+              <Box
                 sx={{
-                  color: "#fff",
-                  width: "30px",
-                  height: "30px",
+                  flexGrow: 0,
+                  flex: 1,
+                  justifyContent: "flex-end",
+                  alignItems: "center",
+                  display: { xs: "none", md: "flex" },
                 }}
-              />
-            </Badge>
+              >
+                <Badge
+                  badgeContent={
+                    products?.reduce(
+                      (acc, cur) => acc + Number(cur.quantity),
+                      0
+                    ) || "0"
+                  }
+                  className={`${styles.cart} cursor-pointer `}
+                  onClick={() => navigate("/cart")}
+                >
+                  <ShoppingCartOutlinedIcon
+                    sx={{
+                      color: "#fff",
+                      width: "30px",
+                      height: "30px",
+                    }}
+                  />
+                </Badge>
+                <Tooltip title="Account settings">
+                  <IconButton
+                    onClick={handleClick}
+                    size="small"
+                    sx={{ ml: 2, marginInlineStart: "35px" }}
+                    aria-controls={open ? "account-menu" : undefined}
+                    aria-haspopup="true"
+                    aria-expanded={open ? "true" : undefined}
+                  >
+                    <Avatar sx={{ width: 32, height: 32 }}>M</Avatar>
+                  </IconButton>
+                </Tooltip>
+              </Box>
+            ) : (
+              <Box
+                sx={{
+                  flexGrow: 0,
+                  flex: 1,
+                  justifyContent: "flex-end",
+                  display: { xs: "none", md: "flex" },
+                }}
+              >
+                <Button
+                  className={styles.authBtn}
+                  onClick={() => navigate("/login")}
+                >
+                  Login
+                </Button>
 
-            <Box
-              sx={{
-                flexGrow: 0,
-                flex: 1,
-                justifyContent: "flex-end",
-                display: { xs: "none", md: "flex" },
+                <Button
+                  className={styles.authBtn}
+                  onClick={() => navigate("/sign-up")}
+                >
+                  Register
+                </Button>
+              </Box>
+            )}
+            <Menu
+              anchorEl={anchorEl}
+              id="account-menu"
+              open={open}
+              onClose={handleClose}
+              onClick={handleClose}
+              PaperProps={{
+                elevation: 0,
+                sx: {
+                  overflow: "visible",
+                  color: "var(--color-var5)",
+                  filter: "drop-shadow(0px 2px 8px rgba(0,0,0,0.32))",
+                  backgroundColor: "var(--color-var3)",
+                  border: "1px solid var(--color-var1)",
+                  mt: 1.5,
+                  "& .MuiAvatar-root": {
+                    width: 32,
+                    height: 32,
+                    ml: -0.5,
+                    mr: 1,
+                  },
+                  "&::before": {
+                    content: '""',
+                    display: "block",
+                    position: "absolute",
+                    top: 0,
+                    right: 14,
+                    width: 10,
+                    height: 10,
+                    bgcolor: "var(--color-var3)",
+                    borderTop: "1px solid var(--color-var1)",
+                    borderLeft: "1px solid var(--color-var1)",
+                    transform: "translateY(-50%) rotate(45deg)",
+                    zIndex: 0,
+                  },
+                },
               }}
+              transformOrigin={{ horizontal: "right", vertical: "top" }}
+              anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
             >
-              <Button
-                className={styles.authBtn}
-                onClick={() => navigate("/login")}
-              >
-                Login
-              </Button>
-
-              <Button
-                className={styles.authBtn}
-                onClick={() => navigate("/sign-up")}
-              >
-                Register
-              </Button>
-            </Box>
+              <MenuItem onClick={handleLogOut}>
+                <ListItemIcon>
+                  <Logout
+                    fontSize="small"
+                    sx={{
+                      color: "var(--color-var5)",
+                    }}
+                  />
+                </ListItemIcon>
+                Logout
+              </MenuItem>
+            </Menu>
 
             {/* start of mobile navbar */}
             <MobileNavbar data={data?.data} />

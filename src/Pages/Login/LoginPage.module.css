@@ -57,8 +57,13 @@
   width: 10%;
   text-align: center;
 }
+.avatar{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 .avatar img {
-  height: 100%;
+  height: 600px !important;
   border-radius: 25px;
 }
 .containerForDetails {
@@ -74,6 +79,9 @@
 .header {
   font-size: 30px;
   font-weight: 500;
+}
+.header:hover{
+  cursor: pointer;
 }
 .Button {
   font-size: 12px !important;
@@ -97,6 +105,7 @@ small a{
   text-decoration: underline;
   cursor: pointer;
 }
+
 
 /* Small devices  */
 @media (max-width: 575.98px) {
