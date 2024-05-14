@@ -7,9 +7,9 @@ import { Button } from "@mui/material";
 const Register = () => {
   const [loaded, setLoaded] = useState(false);
   const navigate = useNavigate();
-  let goToHome=()=>{
-    navigate('/')
-  }
+  let goToHome = () => {
+    navigate("/");
+  };
   const [isSignUpClicked, setIsSignUpClicked] = useState(false);
 
   const handleSignUpClick = () => {
@@ -74,7 +74,10 @@ const Register = () => {
           className={`${styles.avatarContainer} ${isSignUpClicked ? styles.slideOutImg : ""}`}
         >
           <div className={`${styles.avatar} ${loaded ? styles.loaded : ""} `}>
-            <img src="/4.jpg" alt="register" />
+            <img
+              src="https://images.pexels.com/photos/3412313/pexels-photo-3412313.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+              alt="register"
+            />
           </div>
         </div>
 
@@ -84,7 +87,9 @@ const Register = () => {
           <div className={`${styles.form} ${loaded ? styles.loaded : ""}  `}>
             <div className={styles.containerForDetails}>
               <div>
-                <p className={styles.header} onClick={goToHome}>Create Account</p>
+                <p className={styles.header} onClick={goToHome}>
+                  Create Account
+                </p>
               </div>
             </div>
             <hr style={{ width: "70%", marginLeft: "15%", marginTop: "5%" }} />
@@ -99,19 +104,21 @@ const Register = () => {
                 }}
               >
                 <hr style={{ width: "45%" }} />
-                <p style={{ width: "10%", textAlign: "center",color:'white' }}>or</p>
+                <p
+                  style={{ width: "10%", textAlign: "center", color: "white" }}
+                >
+                  or
+                </p>
                 <hr style={{ width: "45%" }} />
               </div>
               <div style={{ marginTop: "3%" }}>
-                <div className={styles.conOfOptions}>
-                 
-                </div>
+                <div className={styles.conOfOptions}></div>
                 <div
                   style={{
                     marginTop: "2%",
                     textAlign: "center",
                     color: "white",
-                    fontWeight:'bold'
+                    fontWeight: "bold",
                   }}
                 >
                   <Link onClick={handleSignUpClick} className="text-sm">

@@ -4,14 +4,12 @@ import { Suspense, lazy } from "react";
 import store from "./Store/store";
 import Layout from "./Layout/Layout.jsx";
 import { QueryClient, QueryClientProvider } from "react-query";
-// import ResetPassword from "./Components/ResetPassword/ResetPassword.jsx";
-// import Otp from "./Components/OTP/Otp.jsx";
-// import ResetUserPassword from "./Components/ResetPassword/ResetUserPassword.jsx";
 import ProtectedRoute from "./Utils/ProtectedRoute.jsx";
 import UnderConstruction from "./Pages/UnderConstruction/UnderConstruction.jsx";
 import Home from "./Pages/Home/Home.jsx";
+import LoginPage from "./Pages/Login/LoginPage.jsx";
+import Register from "./Pages/Registartion/Register.jsx";
 
-// const Home = lazy(() => import("./Pages/Home/Home.jsx"));
 const Products = lazy(() => import("./Pages/Products/Products.jsx"));
 const ProductDetails = lazy(
   () => import("./Pages/ProductDetails/ProductDetails.jsx")
@@ -26,8 +24,6 @@ const ResetUserPassword = lazy(
 const Profile = lazy(() => import("./Pages/Profile/Profile.jsx"));
 const Cart = lazy(() => import("./Components/Cart/Cart.jsx"));
 const NotFound = lazy(() => import("./Pages/NotFound/NotFound.jsx"));
-const LoginPage = lazy(() => import("./Pages/Login/LoginPage.jsx"));
-const Register = lazy(() => import("./Pages/Registartion/Register.jsx"));
 const Dashboard = lazy(() => import("./Components/Dashboard/Dashboard.jsx"));
 const Overview = lazy(() => import("./Components/Dashboard/Overview.jsx"));
 const AdminProducts = lazy(
