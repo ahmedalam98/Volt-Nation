@@ -4,16 +4,24 @@ import { Suspense, lazy } from "react";
 import store from "./Store/store";
 import Layout from "./Layout/Layout.jsx";
 import { QueryClient, QueryClientProvider } from "react-query";
-import ResetPassword from "./Components/ResetPassword/ResetPassword.jsx";
-import Otp from "./Components/OTP/Otp.jsx";
-import ResetUserPassword from "./Components/ResetPassword/ResetUserPassword.jsx";
+// import ResetPassword from "./Components/ResetPassword/ResetPassword.jsx";
+// import Otp from "./Components/OTP/Otp.jsx";
+// import ResetUserPassword from "./Components/ResetPassword/ResetUserPassword.jsx";
 import ProtectedRoute from "./Utils/ProtectedRoute.jsx";
 import UnderConstruction from "./Pages/UnderConstruction/UnderConstruction.jsx";
+import Home from "./Pages/Home/Home.jsx";
 
-const Home = lazy(() => import("./Pages/Home/Home.jsx"));
+// const Home = lazy(() => import("./Pages/Home/Home.jsx"));
 const Products = lazy(() => import("./Pages/Products/Products.jsx"));
 const ProductDetails = lazy(
   () => import("./Pages/ProductDetails/ProductDetails.jsx")
+);
+const Otp = lazy(() => import("./Components/OTP/Otp.jsx"));
+const ResetPassword = lazy(
+  () => import("./Components/ResetPassword/ResetPassword.jsx")
+);
+const ResetUserPassword = lazy(
+  () => import("./Components/ResetPassword/ResetUserPassword.jsx")
 );
 const Profile = lazy(() => import("./Pages/Profile/Profile.jsx"));
 const Cart = lazy(() => import("./Components/Cart/Cart.jsx"));
@@ -64,8 +72,10 @@ function App() {
                   <Route path="/cart" element={<Cart />} />
                   <Route path="/profile" element={<Profile />} />
                 </Route>
-                <Route path="/under-construction" element={<UnderConstruction/>} />
-                
+                <Route
+                  path="/under-construction"
+                  element={<UnderConstruction />}
+                />
               </Route>
 
               {/* Auth Routes */}
@@ -75,8 +85,6 @@ function App() {
               <Route path="/resetPasswordUsr" element={<ResetUserPassword />} />
 
               <Route path="/otp" element={<Otp />} />
-              
-             
 
               {/* Protected Routes */}
               <Route element={<ProtectedRoute />}>

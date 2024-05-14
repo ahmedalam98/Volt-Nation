@@ -1,10 +1,13 @@
 import Hero from "../../Components/Hero/Hero.jsx";
 import GridGallery from "../../Components/HomeGallery/GridGallery/GridGallery.jsx";
-import Pulse from "../../Components/Pulse/Pulse.jsx";
-import Offers from "../../Components/Offers/Offers.jsx";
-import BestSellers from "../../Components/BestSellers/BestSellers.jsx";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, lazy } from "react";
 import "./Home.css";
+
+const Pulse = lazy(() => import("../../Components/Pulse/Pulse.jsx"));
+const Offers = lazy(() => import("../../Components/Offers/Offers.jsx"));
+const BestSellers = lazy(
+  () => import("../../Components/BestSellers/BestSellers.jsx")
+);
 
 const isMobile = () => window.innerWidth <= 660;
 
