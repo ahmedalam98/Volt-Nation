@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import styles from "./Cart.module.css";
 import { IconButton } from "@mui/material";
 import IndeterminateCheckBoxIcon from "@mui/icons-material/IndeterminateCheckBox";
@@ -10,26 +10,36 @@ import {
   removeFromCart,
 } from "../../Store/cartSlice.js";
 
+import { debounce } from "lodash";
+
 export default function CartItem(props) {
   const { _id, id, name, price, images, brand, pNumbers } = props;
   const [cartItems, setCartItems] = useState(0);
 
   const dispatch = useDispatch();
-  // console.log(props);
+
   useEffect(() => {
     //  set cart quantity
     setCartItems(pNumbers);
   }, [pNumbers]);
 
-  // handle increase  quantity
-  const handelIncrease = (id) => {
-    dispatch(addItemToCart(id));
-  };
+  // handle increase quantity
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const handelIncrease = useCallback(
+    debounce((id) => {
+      dispatch(addItemToCart(id));
+    }, 300),
+    []
+  );
 
-  // handle  decrease quantity
-  const handelDecrease = (id) => {
-    dispatch(decrementItem(id));
-  };
+  // handle decrease quantity
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const handelDecrease = useCallback(
+    debounce((id) => {
+      dispatch(decrementItem(id));
+    }, 300),
+    []
+  );
 
   // handle delete item from cart
   const handleDelete = (id) => {
