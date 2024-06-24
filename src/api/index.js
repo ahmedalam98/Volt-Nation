@@ -3,6 +3,7 @@ import axios from "axios";
 // Interceptor to add token to every request
 const api = axios.create({
   baseURL: "https://volt-nation.up.railway.app",
+  // baseURL: "http://localhost:2024/",
 });
 api.interceptors.request.use(
   (config) => {

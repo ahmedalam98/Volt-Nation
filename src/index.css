@@ -14,7 +14,6 @@ html {
   scroll-behavior: smooth;
   scrollbar-width: thin;
   font-family: Rubik, sans-serif !important;
-  background-color: var(--color-var4);
 }
 
 * {
@@ -27,6 +26,10 @@ html {
 *::before,
 *::after {
   box-sizing: inherit;
+}
+
+body {
+  background-color: var(--color-var4);
 }
 
 .spinner-container {
