@@ -9,6 +9,7 @@ import styles from "./Profile.module.css";
 import { useQuery } from "react-query";
 import { getProducts } from "../../api/apiFunctions";
 import Orders from "./Orders.jsx";
+import { ProfileForm } from "../profileForm/profileForm.jsx";
 
 export default function Profile() {
   const [value, setValue] = useState(0);
@@ -24,60 +25,65 @@ export default function Profile() {
 
   return (
     <div>
-      <div className={styles.show}>
-        <div className={`${styles.navContainer} m-5 `}>
-          <Box
-            sx={{
-              flexGrow: 1,
-              display: { xs: "none", md: "flex" },
-              flex: 2,
-              justifyContent: "center",
-              background: "transparent",
-            }}
-          >
-            <BottomNavigation
-              showLabels
-              value={value}
-              onChange={(event, newValue) => {
-                setValue(newValue);
+      <div className="grid grid-cols-12 px-10 my-12">
+        <div className="col-span-8">
+          <div className={`${styles.navContainer} m-5  `}>
+            <Box
+              sx={{
+                flexGrow: 1,
+                display: { xs: "none", md: "flex" },
+                flex: 2,
+                justifyContent: "center",
+                background: "transparent",
               }}
-              sx={{ background: "transparent" }}
             >
-              <BottomNavigationAction
-                sx={{ color: "white" }}
-                label="Orders"
-                icon={<ShoppingBasketIcon />}
-                className={`${styles.customBtn} ${styles.home}`}
-                onClick={() => {
-                  setOrders(1);
-                  setWishlist(0);
+              <BottomNavigation
+                showLabels
+                value={value}
+                onChange={(event, newValue) => {
+                  setValue(newValue);
                 }}
-              />
-              <BottomNavigationAction
-                sx={{ color: "white" }}
-                label="Wishlist"
-                icon={<FavoriteIcon />}
-                className={`${styles.customBtn} ${styles.home}`}
-                onClick={() => {
-                  setOrders(0);
-                  setWishlist(1);
-                }}
-              />
-            </BottomNavigation>
-          </Box>
+                sx={{ background: "transparent" }}
+              >
+                <BottomNavigationAction
+                  sx={{ color: "white" }}
+                  label="Orders"
+                  icon={<ShoppingBasketIcon />}
+                  className={`${styles.customBtn} ${styles.home}`}
+                  onClick={() => {
+                    setOrders(1);
+                    setWishlist(0);
+                  }}
+                />
+                <BottomNavigationAction
+                  sx={{ color: "white" }}
+                  label="Wishlist"
+                  icon={<FavoriteIcon />}
+                  className={`${styles.customBtn} ${styles.home}`}
+                  onClick={() => {
+                    setOrders(0);
+                    setWishlist(1);
+                  }}
+                />
+              </BottomNavigation>
+            </Box>
+          </div>
+          <div className="mr-16">
+            {orders ? (
+              <Orders products={orderProducts} trackOrder="TrackOrder" />
+            ) : (
+              ""
+            )}
+            {wishlist ? (
+              <Orders products={wishlistProducts} addToCard="Add to cart" />
+            ) : (
+              ""
+            )}
+          </div>
         </div>
-        <div className="mr-16">
-          {orders ? (
-            <Orders products={orderProducts} trackOrder="TrackOrder" />
-          ) : (
-            ""
-          )}
-          {wishlist ? (
-            <Orders products={wishlistProducts} addToCard="Add to cart" />
-          ) : (
-            ""
-          )}
-        </div>
+        <div className="col-span-4">
+          <ProfileForm />
+        </div>{" "}
       </div>
     </div>
   );

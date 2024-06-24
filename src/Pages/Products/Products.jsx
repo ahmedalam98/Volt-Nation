@@ -14,14 +14,12 @@ import Card from "./../../Components/Card/Card.jsx";
 import Slider from "@mui/material/Slider";
 import styles from "./Products.module.css";
 import FilterSideMenu from "../../Components/FilterSideMenu/FilterSideMenu.jsx";
+import { useParams } from "react-router-dom";
 
 const minDistance = 10;
 
 export default function Products() {
   const [filters, setFilters] = useState({
-    Smartphone: false,
-    Desktop: false,
-    Laptop: false,
     Apple: false,
     Samsung: false,
     Sony: false,
@@ -37,10 +35,12 @@ export default function Products() {
     price: [0, 0],
   });
   const [page, setPage] = useState(1);
+  const { name } = useParams(); // Get the category name from the URL
 
   ////////////fetch data
   const { data, isLoading } = useQuery(["products"], getProducts);
-
+  const selectedCatg = data?.data?.filter((el) => el.category === name);
+  
   //////////control change filters
   const handleChange = (event) => {
     setPage(1);
@@ -77,39 +77,23 @@ export default function Products() {
   };
 
   ////////////// start handling category and brand filters
-  const filteredProducts = data?.data?.filter((product) => {
-    ///if category is chosen
-    const categoryMatch = Object.entries(filters)
-      .slice(0, 3)
-      .some(([key, value]) => value && product.category === key);
-
+  const filteredProducts = selectedCatg?.filter((product) => {
     ///if brand is chosen
     const brandMatch = Object.entries(filters)
-      .slice(3, -1)
+      .slice(0, -1)
       .some(([key, value]) => value && product.brand === key);
-
-    // If no categories are selected
-    const categoryFilterApplied = Object.values(filters)
-      .slice(0, 3)
-      .some((value) => value);
-
+    console.log(Object.entries(filters));
     // If no brands are selected
     const brandFilterApplied = Object.values(filters)
-      .slice(3, -1)
+      .slice(0, -1)
       .some((value) => value);
 
-    ///if no filters of them are chosen
-    if (!categoryFilterApplied && !brandFilterApplied) {
+    ///if no filters
+    if (!brandFilterApplied) {
       return true;
     }
 
-    ///if one filter of them is chosen
-    if (!categoryFilterApplied || !brandFilterApplied) {
-      return categoryMatch || brandMatch;
-    }
-
-    //if both of them are chosen
-    return categoryMatch && brandMatch;
+    return brandMatch;
   });
   ////////////// end handling category and brand filters
 
@@ -172,35 +156,15 @@ export default function Products() {
             <div className="xl:col-span-2 lg:col-span-3 lg:block xs:hidden ">
               {/* categories */}
               <div className={styles.filters}>
-                <FormControl component="fieldset" variant="standard">
-                  <FormLabel component="legend">Categories</FormLabel>
-                  <FormGroup>
-                    {Object.entries(filters)
-                      .slice(0, 3)
-                      .map(([key, value]) => (
-                        <FormControlLabel
-                          key={key}
-                          control={
-                            <Checkbox
-                              checked={value}
-                              onChange={handleChange}
-                              name={key}
-                            />
-                          }
-                          label={key}
-                        />
-                      ))}
-                  </FormGroup>
-                </FormControl>
                 <FormControl
                   component="fieldset"
                   variant="standard"
-                  sx={{ margin: "40px 0" }}
+                  sx={{ marginBottom: "40px" }}
                 >
                   <FormLabel component="legend">Brands</FormLabel>
                   <FormGroup>
                     {Object.entries(filters)
-                      .slice(3, -1)
+                      .slice(0, -1)
                       .map(([key, value]) => (
                         <FormControlLabel
                           key={key}
@@ -224,7 +188,7 @@ export default function Products() {
                     onChange={handleChangePrice}
                     valueLabelDisplay="auto"
                     min={100}
-                    max={10000}
+                    max={1500}
                     disableSwap
                     sx={{ width: "100%" }}
                   />
