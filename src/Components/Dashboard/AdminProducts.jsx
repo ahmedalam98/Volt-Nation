@@ -14,6 +14,7 @@ import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 import DownloadButton from "./DownloadButton.jsx";
 import SearchProduct from "./SearchProduct.jsx";
 import EditProductForm from "./EditProductForm.jsx";
+import AddIcon from "@mui/icons-material/Add";
 
 const AdminProducts = () => {
   const { data, error, isLoading } = useQuery("products", getProducts);
@@ -21,29 +22,47 @@ const AdminProducts = () => {
 
   const [globalFilter, setGlobalFilter] = useState("");
   const [editingProduct, setEditingProduct] = useState(null);
+  const [addedProduct, setAddedProduct] = useState(null);
   const [selectedFiles, setSelectedFiles] = useState([]);
 
   const handleEdit = (row) => {
     setEditingProduct(row);
   };
 
-  const handleDelete = (row) => {
-    // console.log("Delete button clicked for row:", row);
+  const handleAdd = () => {
+    setAddedProduct({
+      name: "",
+      category: "",
+      description: "",
+      features: [],
+      price: "",
+      images: [],
+      colors: [],
+      releasedDate: "",
+      brand: "",
+    });
+  };
+
+  const onSubmit = (data) => {
+    console.log("Form submitted:", data);
+    console.log("Files to upload:", selectedFiles);
+    setEditingProduct(null);
+    setAddedProduct(null);
+  };
+
+  const cancelEdit = () => {
+    setEditingProduct(null);
+    setAddedProduct(null);
   };
 
   const handleFileChange = (e) => {
     const files = Array.from(e.target.files);
     setSelectedFiles(files);
+    console.log("Selected files:", files);
   };
 
-  const onSubmit = (data) => {
-    // console.log("Form submitted:", data);
-    // console.log("Files to upload:", selectedFiles);
-    setEditingProduct(null);
-  };
-
-  const cancelEdit = () => {
-    setEditingProduct(null);
+  const handleDelete = (row) => {
+    // console.log("Delete button clicked for row:", row);
   };
 
   const columnHelper = createColumnHelper();
@@ -87,6 +106,7 @@ const AdminProducts = () => {
             >
               <EditNoteIcon />
             </button>
+
             <button
               className="bg-red-500 hover:bg-red-800 duration-300 text-white p-2 rounded"
               onClick={() => handleDelete(row)}
@@ -130,6 +150,17 @@ const AdminProducts = () => {
     );
   }
 
+  if (addedProduct) {
+    return (
+      <EditProductForm
+        product={addedProduct}
+        onSubmit={onSubmit}
+        onCancel={cancelEdit}
+        handleFileChange={handleFileChange}
+      />
+    );
+  }
+
   return (
     <div className="p-4">
       <div className="max-w-6xl min-w-[800px] overflow-x-auto md:overflow-x-hidden mx-auto text-white fill-gray-600">
@@ -143,6 +174,14 @@ const AdminProducts = () => {
             onChange={(value) => setGlobalFilter(value)}
             className="p-2 bg-transparent outline-none border-b-2 w-1/5 focus:w-1/3 duration-300 border-[var(--color-var1)]"
           />
+
+          <button
+            className="flex justify-center items-center gap-2 rounded border-blue-600 bg-blue-600 hover:bg-blue-800 hover:border-blue-800 duration-300 text-white font-semibold tracking-wider p-3 me-4 md:me-2"
+            onClick={handleAdd}
+          >
+            <span>Add Product</span>
+            <AddIcon />
+          </button>
 
           <DownloadButton data={products} fileName={"Products"} />
         </div>
@@ -247,9 +286,9 @@ const AdminProducts = () => {
               onChange={(e) => {
                 table.setPageSize(Number(e.target.value));
               }}
-              className=" bg-transparent p-2 border border-gray-300 outline-none "
+              className="border border-gray-300 bg-transparent p-1 outline-none"
             >
-              {[5, 10, 20].map((pageSize) => (
+              {[5, 10, 20, 50].map((pageSize) => (
                 <option key={pageSize} value={pageSize}>
                   Show {pageSize}
                 </option>
