@@ -32,13 +32,6 @@ export const deleteCategory = async (categoryId) => {
   return data;
 };
 
-export const getCategories = async () => {
-  // get data from api
-  const data = await api.get("/category/all");
-
-  return data;
-};
-
 export const getProfileDetails = async () => {
   // get data from api
   const data = await api.get("/user/profile");
