@@ -32,7 +32,7 @@ export default function Card({ product }) {
 
         <div className={styles.content}>
           <div className={styles.name}>
-            <Link to={`/products/${product.id}`}>
+            <Link to={`/products/${product._id}`}>
               {product?.name?.slice(0, 29)}
             </Link>
           </div>
