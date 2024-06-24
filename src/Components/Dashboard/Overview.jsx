@@ -8,7 +8,7 @@ import { useQuery } from "react-query";
 
 const Overview = () => {
   const { data, error, isLoading } = useQuery("statistics", getStatistics);
-  console.log(data, error, isLoading);
+  console.log("Overview Data :", data);
 
   const headers = [
     {
@@ -33,6 +33,14 @@ const Overview = () => {
     },
   ];
 
+  if (isLoading) {
+    return (
+      <div className="spinner-container">
+        <div className="spinner"></div>
+      </div>
+    );
+  }
+
   return (
     <div className="flex flex-col justify-around xl:justify-between h-[95vh]">
       <div className="flex gap-5 md:gap-3 xl:gap-10 flex-wrap mx-auto mt-2 justify-center items-center">
@@ -52,7 +60,7 @@ const Overview = () => {
       </div>
 
       <div className=" grid grid-cols1 xl:grid-cols-[2fr_1fr] gap-10 mt-20 lg:mt-0">
-        <Status />
+        <Status data={data} isLoading={isLoading} />
 
         <div
           className="bg-[var(--color-var3)] rounded-lg p-5 h-[250px] lg:h-[400px] w-[90%] xl:w-[400px] mx-auto lg:me-10 mb-10 lg:mb-0"

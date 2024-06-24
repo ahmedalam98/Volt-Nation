@@ -1,34 +1,13 @@
 import React, { useState } from "react";
 import AddIcon from "@mui/icons-material/Add";
-import {
-  getCategories,
-  updateCategory,
-  deleteCategory,
-} from "../../api/apiFunctions";
-import { useQuery, useMutation, useQueryClient } from "react-query";
+import { getCategories } from "../../api/apiFunctions";
+import { useQuery } from "react-query";
 import EditCategory from "./EditCategory.jsx";
 
 const AdminCategories = () => {
-  const queryClient = useQueryClient();
-  const { data } = useQuery("categories", getCategories);
+  const { data, isLoading } = useQuery("categories", getCategories);
   const [editing, setEditing] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState(null);
-
-  const { mutate: mutateUpdate } = useMutation(updateCategory, {
-    onSuccess: () => {
-      queryClient.invalidateQueries("categories");
-      setEditing(false);
-      setSelectedCategory(null);
-    },
-  });
-
-  const { mutate: mutateDelete } = useMutation(deleteCategory, {
-    onSuccess: () => {
-      queryClient.invalidateQueries("categories");
-      setEditing(false);
-      setSelectedCategory(null);
-    },
-  });
 
   const handleEditCategory = (category) => {
     setSelectedCategory(category);
@@ -40,23 +19,18 @@ const AdminCategories = () => {
     setEditing(true);
   };
 
-  const handleUpdateCategory = (formData) => {
-    const updatedCategory = {
-      name: formData.name,
-      description: formData.description,
-      imgs: [formData.img],
-    };
-    mutateUpdate(selectedCategory._id, updatedCategory);
-  };
-
-  const handleDeleteCategory = (categoryId) => {
-    mutateDelete(categoryId);
-  };
-
   const handleCancel = () => {
     setEditing(false);
     setSelectedCategory(null);
   };
+
+  if (isLoading) {
+    return (
+      <div className="spinner-container">
+        <div className="spinner"></div>
+      </div>
+    );
+  }
 
   if (!data?.data || data.data.length === 0) {
     return <p>No categories found.</p>;
@@ -70,12 +44,7 @@ const AdminCategories = () => {
         </h1>
 
         {editing ? (
-          <EditCategory
-            category={selectedCategory}
-            onUpdate={handleUpdateCategory}
-            onDelete={handleDeleteCategory}
-            onCancel={handleCancel}
-          />
+          <EditCategory category={selectedCategory} onCancel={handleCancel} />
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8">
             {data.data.map((category, index) => (

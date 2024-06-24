@@ -12,7 +12,7 @@ const PrivateRoute = () => {
     if (currentTime < expirationTime) {
       valid = true;
     }
-    console.log(decodedToken);
+    // console.log(decodedToken);
   }
 
   return valid ? <Outlet /> : <Navigate to="/login" />;

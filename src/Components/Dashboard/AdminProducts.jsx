@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { useQuery } from "react-query";
-import { getProducts } from "../../api/apiFunctions";
+import { useQuery, useMutation, useQueryClient } from "react-query";
+import { getProducts, addProduct } from "../../api/apiFunctions";
 import {
   createColumnHelper,
   flexRender,
@@ -15,15 +15,31 @@ import DownloadButton from "./DownloadButton.jsx";
 import SearchProduct from "./SearchProduct.jsx";
 import EditProductForm from "./EditProductForm.jsx";
 import AddIcon from "@mui/icons-material/Add";
+import DeleteModal from "./DeleteModal.jsx"; // Import DeleteModal
 
 const AdminProducts = () => {
-  const { data, error, isLoading } = useQuery("products", getProducts);
+  const queryClient = useQueryClient();
+
+  const { data, isLoading } = useQuery("products", getProducts);
+
+  const { mutate, isLoading: isAdding } = useMutation({
+    mutationFn: (newProduct) => addProduct(newProduct),
+    onSuccess: () => {
+      queryClient.invalidateQueries("products");
+    },
+    onError: (error) => {
+      console.error("Error adding product:", error);
+    },
+  });
+
   const products = data?.data || [];
 
   const [globalFilter, setGlobalFilter] = useState("");
   const [editingProduct, setEditingProduct] = useState(null);
   const [addedProduct, setAddedProduct] = useState(null);
   const [selectedFiles, setSelectedFiles] = useState([]);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [productToDelete, setProductToDelete] = useState(null);
 
   const handleEdit = (row) => {
     setEditingProduct(row);
@@ -46,6 +62,13 @@ const AdminProducts = () => {
   const onSubmit = (data) => {
     console.log("Form submitted:", data);
     console.log("Files to upload:", selectedFiles);
+
+    // React Query
+    mutate({
+      ...data,
+      images: selectedFiles,
+    });
+
     setEditingProduct(null);
     setAddedProduct(null);
   };
@@ -62,7 +85,17 @@ const AdminProducts = () => {
   };
 
   const handleDelete = (row) => {
-    // console.log("Delete button clicked for row:", row);
+    setProductToDelete(row);
+    setIsModalOpen(true);
+  };
+
+  const confirmDelete = () => {
+    if (productToDelete) {
+      console.log("Product deleted:", productToDelete._id);
+      // Add delete mutation or API call here
+      setProductToDelete(null);
+      setIsModalOpen(false);
+    }
   };
 
   const columnHelper = createColumnHelper();
@@ -297,6 +330,15 @@ const AdminProducts = () => {
           </div>
         </div>
       </div>
+
+      <DeleteModal
+        open={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        onConfirm={confirmDelete}
+        title="Confirm Deletion"
+        description="Are you sure you want to delete this product?"
+        setModalConfirmed={(value) => setIsModalOpen(!value)}
+      />
     </div>
   );
 };
