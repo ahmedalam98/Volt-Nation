@@ -1,18 +1,12 @@
 import { Bar, BarChart, ResponsiveContainer, XAxis, YAxis } from "recharts";
-import { getStatistics } from "../../api/apiFunctions.js";
-import { useQuery } from "react-query";
 
-const Status = () => {
-  const { data, isLoading, error } = useQuery("products", getStatistics);
+const Status = ({ data }) => {
 
-  if (isLoading) return <p>Loading...</p>;
-  if (error) return <p>Error: {error.message}</p>;
-
-  // Assuming data is fetched successfully
-  const chartData = data?.data.result.map((item) => ({
-    name: item.month,
-    total: item.totalMonthlyPrice,
-  }));
+  const chartData =
+    data?.data.result.map((item) => ({
+      name: item.month,
+      total: item.totalMonthlyPrice,
+    })) || [];
 
   return (
     <ResponsiveContainer width="100%" height={420} className="self-end">

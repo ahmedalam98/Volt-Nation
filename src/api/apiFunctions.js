@@ -1,30 +1,34 @@
 import api from "./index";
 
+// Products
 export const getProducts = async () => {
   const data = await api.get("/products");
   return data;
 };
 
+export const addProduct = async (productData) => {
+  const response = await api.post("/products/add", productData);
+  return response.data;
+};
+
+// Dashboard
 export const getStatistics = async () => {
   const data = await api.get("/dashboard/statistics");
   return data;
 };
 
+// Categories
 export const getCategories = async () => {
   const data = await api.get("/category/all");
   return data;
 };
 
 export const updateCategory = async (categoryId, categoryData) => {
-  try {
-    const response = await api.patch(
-      `/category/update/${categoryId}`,
-      categoryData
-    );
-    return response.data;
-  } catch (error) {
-    throw new Error(`Error updating category: ${error.message}`);
-  }
+  const response = await api.patch(
+    `/category/update/${categoryId}`,
+    categoryData
+  );
+  return response.data;
 };
 
 export const deleteCategory = async (categoryId) => {
@@ -32,16 +36,13 @@ export const deleteCategory = async (categoryId) => {
   return data;
 };
 
+// Profile
 export const getProfileDetails = async () => {
-  // get data from api
   const data = await api.get("/user/profile");
-
   return data;
 };
 
 export const patchProfileDetails = async () => {
-  // get data from api
   const data = await api.patch("/user/details/edit");
-
   return data;
 };

@@ -1,24 +1,21 @@
 import React, { useState, useEffect } from "react";
+import DeleteModal from "./DeleteModal.jsx";
 
-const EditCategory = ({ category, onUpdate, onDelete, onCancel }) => {
+const EditCategory = ({ category = {}, onCancel }) => {
   const [formData, setFormData] = useState({
     name: "",
     description: "",
     img: "",
   });
 
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
   useEffect(() => {
     if (category) {
       setFormData({
-        name: category.name,
-        description: category.description,
-        img: category.imgs[0],
-      });
-    } else {
-      setFormData({
-        name: "",
-        description: "",
-        img: "",
+        name: category.name || "",
+        description: category.description || "",
+        img: category.imgs ? category.imgs[0] : "",
       });
     }
   }, [category]);
@@ -37,17 +34,22 @@ const EditCategory = ({ category, onUpdate, onDelete, onCancel }) => {
       imgs: [formData.img],
     };
 
-    onUpdate(category._id, updatedCategory);
     console.log("Form submitted:", updatedCategory);
+    onCancel();
   };
 
   const handleDelete = () => {
-    onDelete(category._id);
     console.log("Category deleted:", category._id);
+    setIsModalOpen(false);
+    onCancel();
   };
 
-  const handleCancel = () => {
-    onCancel();
+  const handleOpenModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
   };
 
   return (
@@ -111,26 +113,39 @@ const EditCategory = ({ category, onUpdate, onDelete, onCancel }) => {
             type="submit"
             className="px-4 py-2 border-blue-600 bg-blue-600 hover:bg-blue-800 hover:border-blue-800 duration-300 text-white rounded-md"
           >
-            Update
+            Save
           </button>
+
+          {category && category._id && (
+            <button
+              type="button"
+              onClick={handleOpenModal}
+              className="px-4 py-2 border-red-600 bg-red-600 hover:bg-red-800 hover:border-red-800 duration-300 text-white rounded-md"
+            >
+              Delete
+            </button>
+          )}
 
           <button
             type="button"
-            onClick={handleDelete}
-            className="px-4 py-2 border-red-600 bg-red-600 hover:bg-red-800 hover:border-red-800 duration-300 text-white rounded-md"
-          >
-            Delete
-          </button>
-
-          <button
-            type="button"
-            onClick={handleCancel}
+            onClick={onCancel}
             className="px-4 py-2 border-gray-600 bg-gray-600 hover:bg-gray-800 hover:border-gray-800 duration-300 text-white rounded-md"
           >
             Cancel
           </button>
         </div>
       </form>
+
+      {isModalOpen && (
+        <DeleteModal
+          open={isModalOpen}
+          onClose={handleCloseModal}
+          onConfirm={handleDelete}
+          title="Confirm Deletion"
+          description="Are you sure you want to delete this category?"
+          setModalConfirmed={(value) => setIsModalOpen(!value)}
+        />
+      )}
     </div>
   );
 };
