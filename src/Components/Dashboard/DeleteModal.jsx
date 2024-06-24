@@ -41,14 +41,14 @@ function DeleteModal({
       <DialogActions>
         <button
           onClick={onClose}
-          className="px-4 py-2 border-blue-600 bg-blue-600 hover:bg-blue-800 hover:border-blue-800 duration-300 text-white rounded-md"
+          className="px-4 py-2 border-blue-500 bg-blue-500 hover:bg-blue-700 hover:border-blue-700 duration-300 text-white rounded-md"
         >
           Cancel
         </button>
 
         <button
           onClick={handleConfirmModal}
-          className="px-4 py-2 border-red-600 bg-red-600 hover:bg-red-800 hover:border-red-800 duration-300 text-white rounded-md"
+          className="px-4 py-2 border-red-500 bg-red-500 hover:bg-red-700 hover:border-red-700 duration-300 text-white rounded-md"
         >
           Confirm
         </button>

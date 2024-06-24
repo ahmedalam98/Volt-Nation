@@ -15,7 +15,7 @@ import { useForm } from "react-hook-form";
 // import { jwtDecode } from "jwt-decode";
 
 function LoginForm() {
-  const [user, setUser] = useState(5);
+  // const [user, setUser] = useState(5);
 
   const {
     register,
@@ -51,9 +51,9 @@ function LoginForm() {
     <>
       <form
         onSubmit={handleSubmit((data) => {
-          setUser(data, () => {
-            // console.log(user);
-          });
+          // setUser(data, () => {
+          //   // console.log(user);
+          // });
           // console.log(user);
           handelUserState(data);
         })}

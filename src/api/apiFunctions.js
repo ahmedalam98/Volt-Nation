@@ -24,6 +24,7 @@ export const getCategories = async () => {
 };
 
 export const updateCategory = async (categoryId, categoryData) => {
+  console.log("Flfl Flfol", categoryId, categoryData);
   const response = await api.patch(
     `/category/update/${categoryId}`,
     categoryData
@@ -31,10 +32,15 @@ export const updateCategory = async (categoryId, categoryData) => {
   return response.data;
 };
 
-export const deleteCategory = async (categoryId) => {
-  const data = await api.delete(`/category/${categoryId}`);
-  return data;
+export const addCategory = async (categoryData) => {
+  const response = await api.post("/category/add", categoryData);
+  return response.data;
 };
+
+// export const deleteCategory = async (categoryId) => {
+//   const data = await api.delete(`/category/${categoryId}`);
+//   return data;
+// };
 
 // Profile
 export const getProfileDetails = async () => {

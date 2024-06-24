@@ -64,6 +64,7 @@ function NavBar() {
   const handleLogOut = () => {
     setAnchorEl(null);
     dispatch(logout());
+    navigate("/");
   };
 
   // fetch cart

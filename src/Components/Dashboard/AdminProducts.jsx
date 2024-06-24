@@ -15,14 +15,14 @@ import DownloadButton from "./DownloadButton.jsx";
 import SearchProduct from "./SearchProduct.jsx";
 import EditProductForm from "./EditProductForm.jsx";
 import AddIcon from "@mui/icons-material/Add";
-import DeleteModal from "./DeleteModal.jsx"; // Import DeleteModal
+import DeleteModal from "./DeleteModal.jsx";
 
 const AdminProducts = () => {
   const queryClient = useQueryClient();
 
   const { data, isLoading } = useQuery("products", getProducts);
 
-  const { mutate, isLoading: isAdding } = useMutation({
+  const { mutate } = useMutation({
     mutationFn: (newProduct) => addProduct(newProduct),
     onSuccess: () => {
       queryClient.invalidateQueries("products");
