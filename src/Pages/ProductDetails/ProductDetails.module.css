@@ -1,0 +1,55 @@
+.mainPrdImg{
+max-height: 60vh;
+max-width: 30vw;
+border-radius: 15px;
+}
+.prdImg{
+    max-width: 150px;
+    min-height:15%;
+    max-height: 25%;
+    margin:5px;
+    border-radius: 15px;
+}
+.prdDetails{
+    padding:10px;
+}
+
+.prdDetails h1{
+    font-size: x-large;
+    font-weight: 550;
+    
+}
+.prdDetails h2{
+    font-size: large;
+    font-weight: 500;
+}
+.price{
+    font-size: xx-large;
+    font-weight: 600;
+    
+}
+.color{
+    margin:5px;
+    font-size: large;
+    font-weight: 500;
+}
+.btn {
+    background-color: #09b0d1;
+    border: none;
+    padding: 8px 20px;
+    font-size: 14px;
+    color: var(--color-var5);
+    transition: all 0.3s ease-in-out;
+    text-transform: uppercase;
+    letter-spacing: 1.6px;
+    border-radius: 3px;
+  }
+  
+  .btn:hover {
+    background-color: var(--color-var2);
+  }
+  .prdImg:hover{
+    border:3px #09b0d1 solid;
+   
+  }
+  
