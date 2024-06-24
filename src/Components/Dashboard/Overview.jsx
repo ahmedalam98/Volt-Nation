@@ -7,7 +7,7 @@ import { getStatistics } from "../../api/apiFunctions.js";
 import { useQuery } from "react-query";
 
 const Overview = () => {
-  const { data, error, isLoading } = useQuery("statistics", getStatistics);
+  const { data, isLoading } = useQuery("statistics", getStatistics);
   console.log("Overview Data :", data);
 
   const headers = [

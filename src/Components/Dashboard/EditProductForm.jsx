@@ -1,5 +1,7 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
+import { getCategories } from "../../api/apiFunctions";
+import { useQuery } from "react-query";
 
 const EditProductForm = ({ product, onSubmit, onCancel, handleFileChange }) => {
   const {
@@ -8,6 +10,8 @@ const EditProductForm = ({ product, onSubmit, onCancel, handleFileChange }) => {
     formState: { errors },
   } = useForm();
 
+  const { data, isLoading } = useQuery("categories", getCategories);
+
   const [features, setFeatures] = useState(product.features || []);
   const [colors, setColors] = useState(product.colors || []);
 
@@ -15,10 +19,11 @@ const EditProductForm = ({ product, onSubmit, onCancel, handleFileChange }) => {
     "_id",
     "id",
     "reviews",
-    "quantity",
     "rating",
+    "rate",
     "salesNum",
     "images",
+    "releasedDate",
     "__v",
   ];
 
@@ -150,22 +155,25 @@ const EditProductForm = ({ product, onSubmit, onCancel, handleFileChange }) => {
                           style={{ height: 80 }}
                         />
                       ) : property === "category" ? (
-                        <select
-                          defaultValue={product[property]}
-                          {...register(property, { required: true })}
-                          className="rounded-lg py-2 px-4 outline-none bg-[var(--color-var2)] border-2 border-[var(--color-var1)] text-white w-[250px] md:w-auto"
-                        >
-                          <option value="Smartphones">Smartphones</option>
-                          <option value="Laptops">Laptops</option>
-                          <option value="Desktops">Desktops</option>
-                        </select>
-                      ) : property === "releasedDate" ? (
-                        <input
-                          type="date"
-                          defaultValue={product[property]?.substring(0, 10)}
-                          {...register(property, { required: true })}
-                          className="rounded-lg py-2 px-4 outline-none bg-[var(--color-var2)] border-2 border-[var(--color-var1)] text-white w-[250px] md:w-auto"
-                        />
+                        isLoading ? (
+                          <p>Loading categories...</p>
+                        ) : (
+                          <select
+                            defaultValue={product[property]}
+                            {...register(property, { required: true })}
+                            className="rounded-lg py-2 px-4 outline-none bg-[var(--color-var2)] border-2 border-[var(--color-var1)] text-white w-[250px] md:w-auto"
+                          >
+                            {data &&
+                              data.data.map((category) => (
+                                <option
+                                  key={category._id}
+                                  value={category.name}
+                                >
+                                  {category.name}
+                                </option>
+                              ))}
+                          </select>
+                        )
                       ) : property === "price" ? (
                         <input
                           type="number"

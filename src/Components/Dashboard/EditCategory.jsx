@@ -1,47 +1,95 @@
 import React, { useState, useEffect } from "react";
 import DeleteModal from "./DeleteModal.jsx";
+import { useQueryClient } from "react-query";
 
 const EditCategory = ({ category = {}, onCancel }) => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const [formData, setFormData] = useState({
     name: "",
     description: "",
-    img: "",
+    // img: null,
   });
 
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const queryClient = useQueryClient();
 
   useEffect(() => {
     if (category) {
       setFormData({
         name: category.name || "",
         description: category.description || "",
-        img: category.imgs ? category.imgs[0] : "",
+        // img: null,
       });
     }
   }, [category]);
 
   const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
+    setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const updatedCategory = {
-      name: formData.name,
-      description: formData.description,
-      imgs: [formData.img],
-    };
+    const formDataToSubmit = new FormData();
+    formDataToSubmit.append("name", formData.name);
+    formDataToSubmit.append("description", formData.description);
+    // if (formData.img) {
+    //   formDataToSubmit.append("img", formData.img);
+    // }
 
-    console.log("Form submitted:", updatedCategory);
-    onCancel();
+    const apiUrl =
+      category && category._id
+        ? `http://localhost:2024/category/update/${category._id}`
+        : "http://localhost:2024/category/add";
+
+    try {
+      const response = await fetch(apiUrl, {
+        method: category && category._id ? "PATCH" : "POST",
+        body: formDataToSubmit,
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+
+      queryClient.invalidateQueries("categories");
+
+      const data = await response.json();
+      console.log("Category updated/added successfully:", data);
+      onCancel();
+    } catch (error) {
+      console.error("Error updating/adding category:", error);
+    }
   };
 
-  const handleDelete = () => {
-    console.log("Category deleted:", category._id);
-    setIsModalOpen(false);
-    onCancel();
+  const handleDelete = async () => {
+    const deleteUrl = `http://localhost:2024/category/delete/${category._id}`;
+
+    try {
+      const response = await fetch(deleteUrl, {
+        method: "DELETE",
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+
+      const data = await response.json();
+      console.log("Category deleted successfully:", data);
+
+      // Invalidate and refetch categories
+      queryClient.invalidateQueries("categories");
+
+      setIsModalOpen(false);
+      onCancel();
+    } catch (error) {
+      console.error("Error deleting category:", error);
+    }
   };
 
   const handleOpenModal = () => {
@@ -85,42 +133,40 @@ const EditCategory = ({ category = {}, onCancel }) => {
             name="description"
             value={formData.description}
             onChange={handleChange}
-            className="rounded-lg py-2 px-4 outline-none bg-[var(--color-var2)] border-2 border-[var(--color-var1)] text-white w-[450px] h-[150px] md:w-[50%]"
+            className="rounded-lg py-2 px-4 outline-none bg-[var(--color-var2)] border-2 border-[var(--color-var1)] text-white w-[60%] h-[150px] md:w-[50%]"
             required
           />
         </div>
 
-        <div className="mb-4">
+        {/* <div className="mb-4">
           <label
             htmlFor="img"
             className="block text-sm font-medium text-white mb-2"
           >
-            Image URL
+            Image
           </label>
           <input
-            type="text"
+            type="file"
             id="img"
             name="img"
-            value={formData.img}
             onChange={handleChange}
             className="rounded-lg py-2 px-4 outline-none bg-[var(--color-var2)] border-2 border-[var(--color-var1)] text-white w-[250px] md:w-[50%]"
-            required
           />
-        </div>
+        </div> */}
 
         <div className="flex gap-10 mt-10">
           <button
             type="submit"
             className="px-4 py-2 border-blue-600 bg-blue-600 hover:bg-blue-800 hover:border-blue-800 duration-300 text-white rounded-md"
           >
-            Save
+            {category && category._id ? "Update" : "Save"}
           </button>
 
           {category && category._id && (
             <button
               type="button"
               onClick={handleOpenModal}
-              className="px-4 py-2 border-red-600 bg-red-600 hover:bg-red-800 hover:border-red-800 duration-300 text-white rounded-md"
+              className="px-4 py-2 border-red-500 bg-red-500 hover:bg-red-700 hover:border-red-700 duration-300 text-white rounded-md"
             >
               Delete
             </button>

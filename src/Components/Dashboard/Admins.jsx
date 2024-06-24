@@ -19,7 +19,7 @@ const Admins = () => {
         const name = info.row.original.name;
         const isAdmin = info.row.original.isAdmin;
         const firstLetter = name[0];
-        const avatarBackground = isAdmin ? "var(--color-var2)" : "#ffffff";
+        const avatarBackground = isAdmin ? "#2563EB" : "#ffffff";
         const textColor = isAdmin ? "#ffffff" : "#000000";
 
         return (
