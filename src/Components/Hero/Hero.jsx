@@ -84,7 +84,7 @@ export default function Hero() {
       <div className={styles.btnContainer}>
         <button
           className={styles.shopBtn}
-          onClick={() => navigate("/products")}
+          onClick={() => navigate("/categories")}
         >
           Shop now
         </button>
