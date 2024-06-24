@@ -255,7 +255,7 @@ function NavBar() {
                     aria-expanded={open ? "true" : undefined}
                   >
                     <Avatar sx={{ width: 32, height: 32 }}>
-                      {decodedToken.email.slice(0, 1).toUpperCase()}
+                      {decodedToken?.email?.slice(0, 1).toUpperCase()}
                     </Avatar>
                   </IconButton>
                 </Tooltip>
