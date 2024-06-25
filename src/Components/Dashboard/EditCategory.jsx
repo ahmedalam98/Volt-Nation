@@ -38,8 +38,8 @@ const EditCategory = ({ category = {}, onCancel }) => {
 
     const apiUrl =
       category && category._id
-        ? `http://localhost:2024/category/update/${category._id}`
-        : "http://localhost:2024/category/add";
+        ? `https://volt-nation.up.railway.app/category/update/${category._id}`
+        : "https://volt-nation.up.railway.app/category/add";
 
     try {
       const response = await fetch(apiUrl, {
@@ -65,7 +65,7 @@ const EditCategory = ({ category = {}, onCancel }) => {
   };
 
   const handleDelete = async () => {
-    const deleteUrl = `http://localhost:2024/category/delete/${category._id}`;
+    const deleteUrl = `https://volt-nation.up.railway.app/category/delete/${category._id}`;
 
     try {
       const response = await fetch(deleteUrl, {

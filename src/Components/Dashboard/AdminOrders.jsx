@@ -22,7 +22,7 @@ const getStatusColor = (status) => {
 };
 
 const fetchOrders = async () => {
-  const response = await fetch("http://localhost:2024/orders");
+  const response = await fetch("https://volt-nation.up.railway.app/orders");
   if (!response.ok) {
     throw new Error("Failed to fetch orders");
   }
@@ -31,7 +31,7 @@ const fetchOrders = async () => {
 
 const updateOrderStatus = async ({ _id, status }) => {
   const response = await fetch(
-    `http://localhost:2024/orders/${_id}/${status.toLowerCase()}`,
+    `https://volt-nation.up.railway.app/orders/${_id}/${status.toLowerCase()}`,
     {
       method: "PATCH",
     }
