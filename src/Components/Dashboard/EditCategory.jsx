@@ -1,9 +1,7 @@
 import React, { useState, useEffect } from "react";
-import DeleteModal from "./DeleteModal.jsx";
 import { useQueryClient } from "react-query";
 
 const EditCategory = ({ category = {}, onCancel }) => {
-  const [isModalOpen, setIsModalOpen] = useState(false);
   const [formData, setFormData] = useState({
     name: "",
     description: "",
@@ -86,19 +84,10 @@ const EditCategory = ({ category = {}, onCancel }) => {
       // Invalidate and refetch categories
       queryClient.invalidateQueries("categories");
 
-      setIsModalOpen(false);
       onCancel();
     } catch (error) {
       console.error("Error deleting category:", error);
     }
-  };
-
-  const handleOpenModal = () => {
-    setIsModalOpen(true);
-  };
-
-  const handleCloseModal = () => {
-    setIsModalOpen(false);
   };
 
   return (
@@ -139,22 +128,6 @@ const EditCategory = ({ category = {}, onCancel }) => {
           />
         </div>
 
-        {/* <div className="mb-4">
-          <label
-            htmlFor="img"
-            className="block text-sm font-medium text-white mb-2"
-          >
-            Image
-          </label>
-          <input
-            type="file"
-            id="img"
-            name="img"
-            onChange={handleChange}
-            className="rounded-lg py-2 px-4 outline-none bg-[var(--color-var2)] border-2 border-[var(--color-var1)] text-white w-[250px] md:w-[50%]"
-          />
-        </div> */}
-
         <div className="flex gap-10 mt-10">
           <button
             type="submit"
@@ -166,7 +139,7 @@ const EditCategory = ({ category = {}, onCancel }) => {
           {category && category._id && (
             <button
               type="button"
-              onClick={handleOpenModal}
+              onClick={handleDelete}
               className="px-4 py-2 border-red-500 bg-red-500 hover:bg-red-700 hover:border-red-700 duration-300 text-white rounded-md"
             >
               Delete
@@ -182,17 +155,6 @@ const EditCategory = ({ category = {}, onCancel }) => {
           </button>
         </div>
       </form>
-
-      {isModalOpen && (
-        <DeleteModal
-          open={isModalOpen}
-          onClose={handleCloseModal}
-          onConfirm={handleDelete}
-          title="Confirm Deletion"
-          description="Are you sure you want to delete this category?"
-          setModalConfirmed={(value) => setIsModalOpen(!value)}
-        />
-      )}
     </div>
   );
 };
