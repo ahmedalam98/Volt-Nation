@@ -19,7 +19,7 @@
 .detailsCard .name,
 .detailsCard .desc {
   color: rgb(213, 213, 213);
-  margin-bottom: 8px;
+  margin-bottom: 10px;
 }
 .detailsCard .name {
   color: var(--color-var1);
