@@ -129,7 +129,7 @@ export default function Profile() {
               </div>
             </CustomTabPanel>
             <CustomTabPanel value={value} index={1}>
-              {profileData.data.favourite.length === 0 && (
+              {profileData?.data?.favourite?.length === 0 && (
                 <div className={styles.noPrd}>No favorites yet</div>
               )}
 
