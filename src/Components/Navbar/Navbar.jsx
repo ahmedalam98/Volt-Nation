@@ -211,7 +211,7 @@ function NavBar() {
                   }}
                   onClick={() => navigate("/profile")}
                 >
-                  Account
+                  Profile
                 </Button>
                 <label htmlFor="search" className={styles.label}>
                   <SearchIcon sx={{ width: "30px", height: "30px" }} />
