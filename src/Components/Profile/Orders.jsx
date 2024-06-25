@@ -40,7 +40,7 @@ export default function Orders({ order, fav }) {
         </>
       ) : (
         <>
-          {fav.map((el) => (
+          {fav?.map((el) => (
             <div className={styles.detailsCard} key={el._id}>
               <div className={styles.content}>
                 <div className={styles.name}>{el.name}</div>
