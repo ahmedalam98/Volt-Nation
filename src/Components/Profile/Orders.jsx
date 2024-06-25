@@ -1,14 +1,18 @@
 import { useDispatch } from "react-redux";
 import styles from "./Orders.module.css";
 import { addItemToCart } from "../../Store/cartSlice";
+import { useQueryClient } from "react-query";
 
 export default function Orders({ order, fav }) {
-  console.log(fav, "fav");
+  // console.log(fav, "fav");
+  const queryClient = useQueryClient();
   const dispatch = useDispatch();
+  queryClient.invalidateQueries("orders");
 
   const handleAddToCart = (id) => {
     dispatch(addItemToCart(id));
   };
+
   return (
     <div className={styles.singleOrder}>
       {order ? (

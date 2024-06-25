@@ -9,7 +9,7 @@ const FooterFirstColumn = () => {
         19 444 55
       </p> */}
 
-      <p className="text-gray-400 ">iti.smartVillage.44@gmail.com</p>
+      <p className="text-gray-400 ">voltnation44@gmail.com</p>
     </div>
   );
 };

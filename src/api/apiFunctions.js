@@ -24,7 +24,6 @@ export const getCategories = async () => {
 };
 
 export const updateCategory = async (categoryId, categoryData) => {
-  console.log("Flfl Flfol", categoryId, categoryData);
   const response = await api.patch(
     `/category/update/${categoryId}`,
     categoryData

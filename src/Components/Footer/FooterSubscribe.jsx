@@ -3,7 +3,7 @@ import styles from "./FooterSubscribe.module.css";
 const FooterSubscribe = () => {
   return (
     <div className="flex flex-col gap-8 md:gap-0 md:flex-row items-center justify-between h-fit md:h-[60px] mx-12 mb-12">
-      <div className="pb-10">
+      {/* <div className="pb-10">
         <h4 className="mb-4 text-lg tracking-widest text-center text-white">
           Subsribe To Our Newsletter
         </h4>
@@ -17,7 +17,7 @@ const FooterSubscribe = () => {
 
           <button className={styles.subBtn}>Subscribe</button>
         </div>
-      </div>
+      </div> */}
 
       <div className="flex flex-col items-center justify-center gap-3 ">
         <div className={`flex gap-5 ${styles.cardsContainer}`}>
