@@ -57,7 +57,7 @@ const EditCategory = ({ category = {}, onCancel }) => {
       queryClient.invalidateQueries("categories");
 
       const data = await response.json();
-      console.log("Category updated/added successfully:", data);
+      // console.log("Category updated/added successfully:", data);
       onCancel();
     } catch (error) {
       console.error("Error updating/adding category:", error);
@@ -80,7 +80,7 @@ const EditCategory = ({ category = {}, onCancel }) => {
       }
 
       const data = await response.json();
-      console.log("Category deleted successfully:", data);
+      // console.log("Category deleted successfully:", data);
 
       // Invalidate and refetch categories
       queryClient.invalidateQueries("categories");
