@@ -17,7 +17,7 @@ export default function Categories() {
   return (
     <div className={` ${styles.categories} sm:px-8 xs:px-4`}>
       <div className="flex flex-wrap justify-center align-items-center  sm:gap-12 xs:gap-8">
-        {data?.data?.map((el) => (
+        {data?.data?.map((el, index) => (
           <CategoryCard
             key={el._id}
             img={
