@@ -19,7 +19,7 @@ const Admins = () => {
         const name = info.row.original.name;
         const isAdmin = info.row.original.isAdmin;
         const firstLetter = name[0];
-        const avatarBackground = isAdmin ? "var(--color-var2)" : "#ffffff";
+        const avatarBackground = isAdmin ? "#2563EB" : "#ffffff";
         const textColor = isAdmin ? "#ffffff" : "#000000";
 
         return (
@@ -46,13 +46,19 @@ const Admins = () => {
         return (
           <div>
             {isAdmin ? (
-              <button className="flex justify-center items-center gap-2 rounded border-[#ca3f3f] bg-[#ca3f3f] text-white tracking-wider p-2 hover:bg-[#852a2a] hover:border-[#852a2a] me-4 md:me-0 duration-300">
+              <button className="flex justify-center items-center gap-2 rounded border-blue-600 bg-blue-600 text-white tracking-wider p-2 hover:bg-blue-800 hover:border-blue-800 me-4 md:me-0 duration-300">
                 Remove Admin
               </button>
             ) : (
-              <button className="flex justify-center items-center gap-2 rounded border-[var(--color-var2)] bg-[var(--color-var2)] text-white tracking-wider p-2 hover:bg-[var(--color-var3)] hover:border-[var(--color-var3)] me-4 md:me-0 duration-300">
-                Set Admin
-              </button>
+              <div className="flex gap-5">
+                <button className="flex justify-center items-center gap-2 rounded bborder-[#ca3f3f] bg-[#ca3f3f] text-white tracking-wider p-2 hover:bg-[#852a2a] hover:border-[#852a2a] me-4 md:me-0 duration-300">
+                  Remove User
+                </button>
+
+                <button className="flex justify-center items-center gap-2 rounded border-[#16A34A] bg-[#16A34A] text-white tracking-wider p-2 hover:bg-[#166534] hover:border-[#166534]  me-4 md:me-0 duration-300">
+                  Set Admin
+                </button>
+              </div>
             )}
           </div>
         );

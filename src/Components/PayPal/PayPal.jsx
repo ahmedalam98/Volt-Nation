@@ -30,7 +30,7 @@ export default function PayPal({ price }) {
           });
         },
         onApprove: async (data, actions) => {
-          const order = await actions.order.capture();
+          // const order = await actions.order.capture();
           handleCheckout();
           // console.log(order);
         },

@@ -27,7 +27,7 @@ const GalleryCard = ({
         </div>
 
         <GalleryButton
-          navigateTo={"/products"}
+          navigateTo={"/categories"}
           fontSize={"14px"}
           color={buttonColor}
         >

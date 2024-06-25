@@ -21,7 +21,7 @@ const GridGallery = () => {
           </h2>
 
           <div className="hidden md:block">
-            <GalleryButton navigateTo={"/products"} color="white">
+            <GalleryButton navigateTo={"/categories"} color="white">
               Discover Now
             </GalleryButton>
           </div>
