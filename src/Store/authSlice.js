@@ -5,13 +5,16 @@ export const registerUser = createAsyncThunk(
   "auth/registerUser",
   async (userData, { rejectWithValue }) => {
     try {
-      const response = await fetch("http://localhost:2024/user/register", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(userData),
-      });
+      const response = await fetch(
+        "https://volt-nation.up.railway.app/user/register",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(userData),
+        }
+      );
 
       return await response.json();
     } catch (error) {
@@ -24,13 +27,16 @@ export const logInUser = createAsyncThunk(
   "auth/logInUser",
   async (userData, { rejectWithValue }) => {
     try {
-      const response = await fetch("http://localhost:2024/user/login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(userData),
-      });
+      const response = await fetch(
+        "https://volt-nation.up.railway.app/user/login",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(userData),
+        }
+      );
 
       return await response.json();
     } catch (error) {
@@ -45,7 +51,7 @@ export const userHasEmail = createAsyncThunk(
   async (userEmailwithOtp, { rejectWithValue }) => {
     try {
       const response = await fetch(
-        "http://localhost:2024/user/reset-password-mail",
+        "https://volt-nation.up.railway.app/user/reset-password-mail",
         {
           method: "POST",
           headers: {
@@ -68,7 +74,7 @@ export const updatePassword = createAsyncThunk(
   async (userData, { rejectWithValue }) => {
     try {
       const response = await fetch(
-        "http://localhost:2024/user/update-password",
+        "https://volt-nation.up.railway.app/user/update-password",
         {
           method: "POST",
           headers: {

@@ -25,7 +25,6 @@ export default function ProductDetails() {
   }, [id]);
   let handelImage = (ev) => {
     setCurrentImg(ev.target.src);
-    
   };
 
   if (prd === null) {
@@ -96,7 +95,7 @@ export default function ProductDetails() {
                 value={prd.rating}
                 readOnly
               />
-              <p className={styles.price}>Price: {prd.price} L.E.</p>
+              <p className={styles.price}>Price: {prd.price} L.E</p>
               <p className="mt-3">
                 Colors:{" "}
                 {prd.colors.map((ele, index) => (

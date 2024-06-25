@@ -1,8 +1,7 @@
 import styles from "./Orders.module.css";
 
-
 export default function Orders({ order }) {
-  console.log(order, "ss");
+  // console.log(order, "ss");
 
   return (
     <div className={styles.singleOrder}>
