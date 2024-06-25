@@ -16,7 +16,7 @@ const PrivateRoute = () => {
         isAdmin = true;
       }
     }
-    console.log(decodedToken);
+    // console.log(decodedToken);
   }
 
   if (isAdmin) {

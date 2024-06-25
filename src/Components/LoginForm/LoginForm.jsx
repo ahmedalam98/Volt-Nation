@@ -43,7 +43,7 @@ function LoginForm() {
     if (data) {
       dispatch(logInUser(data));
     } else {
-      console.log("user is null ", data);
+      // console.log("user is null ", data);
     }
   };
 

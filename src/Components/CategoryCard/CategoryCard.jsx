@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import styles from "./CategoryCard.module.css";
+
 export default function CategoryCard({ img, name, desc, quantity }) {
   return (
     <Link to={`/categories/${name}`} className={styles.card}>

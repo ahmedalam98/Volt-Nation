@@ -1,7 +1,9 @@
 import styles from "./Orders.module.css";
 
+
 export default function Orders({ order }) {
   console.log(order, "ss");
+
   return (
     <div className={styles.singleOrder}>
       {order.products.map((el) => (

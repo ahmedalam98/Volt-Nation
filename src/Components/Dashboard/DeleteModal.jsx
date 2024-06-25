@@ -5,6 +5,7 @@ import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 import Slide from "@mui/material/Slide";
+import { useQueryClient } from "react-query";
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
@@ -17,10 +18,34 @@ function DeleteModal({
   setModalConfirmed,
   title,
   description,
+  productId,
 }) {
-  function handleConfirmModal() {
-    onConfirm();
-    setModalConfirmed(true);
+  const queryClient = useQueryClient();
+
+  async function handleConfirmModal() {
+    try {
+      console.log("Deleting product with id:", productId);
+      const response = await fetch(
+        `http://localhost:2024/products/delete/${productId}`,
+        {
+          method: "DELETE",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error("Failed to delete product.");
+      }
+
+      await queryClient.invalidateQueries("products");
+      await queryClient.invalidateQueries("statistics");
+      onConfirm();
+      setModalConfirmed(true);
+    } catch (error) {
+      console.error("Error deleting product:", error);
+    }
   }
 
   return (
