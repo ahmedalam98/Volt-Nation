@@ -65,6 +65,7 @@ const EditCategory = ({ category = {}, onCancel }) => {
   };
 
   const handleDelete = async () => {
+    console.log("Deleting category:", category._id);
     const deleteUrl = `https://volt-nation.up.railway.app/category/delete/${category._id}`;
 
     try {

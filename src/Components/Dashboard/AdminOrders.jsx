@@ -117,7 +117,11 @@ const AdminOrders = () => {
   });
 
   if (isLoading) {
-    return <div>Loading...</div>;
+    return (
+      <div className="spinner-container">
+        <div className="spinner"></div>
+      </div>
+    );
   }
 
   if (error) {

@@ -4,7 +4,7 @@ import { TextField, Button } from "@mui/material";
 import styles from "./ProfileForm.module.css";
 
 export function ProfileForm({ data }) {
-  console.log(data);
+  // console.log(data);
   const queryClient = useQueryClient();
 
   const [formValues, setFormValues] = useState({

@@ -11,6 +11,7 @@ import {
 import Orders from "./Orders.jsx";
 import { ProfileForm } from "../profileForm/profileForm.jsx";
 import { Pagination, Tab, Tabs } from "@mui/material";
+
 function CustomTabPanel(props) {
   const { children, value, index, ...other } = props;
 
@@ -44,7 +45,6 @@ export default function Profile() {
     getAllOrders
   );
 
-
   // console.log(ordersData?.data, "oo");
 
   const handleChange = (event, newValue) => {
@@ -65,7 +65,16 @@ export default function Profile() {
     startIndex,
     startIndex + itemsPerPage
   );
-  console.log(paginatedProducts, "pagina");
+  // console.log(paginatedProducts, "pagina");
+
+  if (profileLoading || ordersLoading) {
+    return (
+      <div className="spinner-container">
+        <div className="spinner"></div>
+      </div>
+    );
+  }
+
   return (
     <div>
       {!profileLoading && !ordersLoading && (

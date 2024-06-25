@@ -4,7 +4,15 @@ import styles from "./Categories.module.css";
 import { getCategories } from "../../api/apiFunctions.js";
 
 export default function Categories() {
-  const { data } = useQuery("categories", getCategories);
+  const { data, isLoading } = useQuery("categories", getCategories);
+
+  if (isLoading) {
+    return (
+      <div className="spinner-container">
+        <div className="spinner"></div>
+      </div>
+    );
+  }
 
   const nonIntegratedImages = [
     "https://www.intel.com/content/dam/www/public/us/en/images/video-thumbnails/15s-vid-intel-pro-rpls-14thg-ag-na-hqprim-na-us-eng-16x9-video-thumbnail.png.rendition.intel.web.1920.1080.png",
