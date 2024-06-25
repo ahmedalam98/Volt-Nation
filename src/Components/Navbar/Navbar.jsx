@@ -159,8 +159,8 @@ function NavBar() {
                     )}
                     {filteredData?.map((el) => (
                       <Link
-                        key={el.id}
-                        to={`/products/${el.id}`}
+                        key={el._id}
+                        to={`/products/${el._id}`}
                         onClick={handleResultClick}
                       >
                         <div className={styles.result}>{el.name}</div>

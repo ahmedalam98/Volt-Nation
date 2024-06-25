@@ -52,3 +52,9 @@ export const patchProfileDetails = async () => {
   const data = await api.patch("/user/details/edit");
   return data;
 };
+export const getAllOrders = async () => {
+  // get data from api
+  const data = await api.get("/orders/user");
+
+  return data;
+};
