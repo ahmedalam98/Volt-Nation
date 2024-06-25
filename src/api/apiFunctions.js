@@ -58,3 +58,10 @@ export const getAllOrders = async () => {
 
   return data;
 };
+
+export const addToFav = async (id) => {
+  // get data from api
+  const data = await api.post(`/user/new-favourite/${id}`);
+
+  return data;
+};
