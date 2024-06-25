@@ -27,3 +27,9 @@ export const patchProfileDetails = async () => {
 
   return data;
 };
+export const getAllOrders = async () => {
+  // get data from api
+  const data = await api.get("/orders/user");
+
+  return data;
+};

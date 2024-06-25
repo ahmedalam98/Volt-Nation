@@ -1,73 +1,74 @@
 import React, { useState } from "react";
 import Box from "@mui/material/Box";
-import BottomNavigation from "@mui/material/BottomNavigation";
-import BottomNavigationAction from "@mui/material/BottomNavigationAction";
-import FavoriteIcon from "@mui/icons-material/Favorite";
-import ShoppingBasketIcon from "@mui/icons-material/ShoppingBasket";
 
 import styles from "./Profile.module.css";
 import { useQuery } from "react-query";
-import { getProducts } from "../../api/apiFunctions";
+import {
+  getAllOrders,
+  getProducts,
+  getProfileDetails,
+} from "../../api/apiFunctions";
 import Orders from "./Orders.jsx";
 import { ProfileForm } from "../profileForm/profileForm.jsx";
-
-export default function Profile() {
-  const [value, setValue] = useState(0);
-  const [orders, setOrders] = useState(1);
-  const [wishlist, setWishlist] = useState(0);
-
-  const { data, isLoading } = useQuery(["products"], getProducts);
-
-  let orderProducts = data?.data?.slice(0, 4);
-  let wishlistProducts = data?.data?.slice(10, 14);
-
-  if (isLoading) <div>Loading...</div>;
+import { Pagination, Tab, Tabs } from "@mui/material";
+function CustomTabPanel(props) {
+  const { children, value, index, ...other } = props;
 
   return (
+    <div
+      role="tabpanel"
+      hidden={value !== index}
+      id={`simple-tabpanel-${index}`}
+      aria-labelledby={`simple-tab-${index}`}
+      {...other}
+    >
+      {value === index && <Box>{children}</Box>}
+    </div>
+  );
+}
+
+function a11yProps(index) {
+  return {
+    id: `simple-tab-${index}`,
+    "aria-controls": `simple-tabpanel-${index}`,
+  };
+}
+export default function Profile() {
+  const [value, setValue] = useState(0);
+  const { data: profileData, isLoading: profileLoading } = useQuery(
+    "profileDetails",
+    getProfileDetails
+  );
+  const { data: ordersData, isLoading: ordersLoading } = useQuery(
+    "allOrders",
+    getAllOrders
+  );
+
+  console.log(ordersData?.data, "oo");
+  const handleChange = (event, newValue) => {
+    setValue(newValue);
+  };
+  const [page, setPage] = useState(1);
+
+  // Pagination
+  const itemsPerPage = 2;
+  const numPages = Math.ceil(ordersData?.data?.length / itemsPerPage);
+
+  const handleChangePage = (event, value) => {
+    setPage(value);
+  };
+
+  const startIndex = (page - 1) * itemsPerPage;
+  const paginatedProducts = ordersData?.data?.slice(
+    startIndex,
+    startIndex + itemsPerPage
+  );
+  return (
     <div>
-      <div className="grid grid-cols-12 px-10 my-12">
-        <div className="col-span-8">
-          <div className={`${styles.navContainer} m-5  `}>
-            <Box
-              sx={{
-                flexGrow: 1,
-                display: { xs: "none", md: "flex" },
-                flex: 2,
-                justifyContent: "center",
-                background: "transparent",
-              }}
-            >
-              <BottomNavigation
-                showLabels
-                value={value}
-                onChange={(event, newValue) => {
-                  setValue(newValue);
-                }}
-                sx={{ background: "transparent" }}
-              >
-                <BottomNavigationAction
-                  sx={{ color: "white" }}
-                  label="Orders"
-                  icon={<ShoppingBasketIcon />}
-                  className={`${styles.customBtn} ${styles.home}`}
-                  onClick={() => {
-                    setOrders(1);
-                    setWishlist(0);
-                  }}
-                />
-                <BottomNavigationAction
-                  sx={{ color: "white" }}
-                  label="Wishlist"
-                  icon={<FavoriteIcon />}
-                  className={`${styles.customBtn} ${styles.home}`}
-                  onClick={() => {
-                    setOrders(0);
-                    setWishlist(1);
-                  }}
-                />
-              </BottomNavigation>
-            </Box>
-          </div>
+      {!profileLoading && !ordersLoading && (
+        <div className="grid grid-cols-12 sm:px-10 xs:px-2 my-12 md:gap-5 xs:gap-7">
+          {/* <div className="col-span-8">
+         
           <div className="mr-16">
             {orders ? (
               <Orders products={orderProducts} trackOrder="TrackOrder" />
@@ -80,11 +81,58 @@ export default function Profile() {
               ""
             )}
           </div>
+        </div> */}
+          <div className={`${styles.orders} md:col-span-8 xs:col-span-12`}>
+            <Box
+              sx={{
+                borderBottom: 1,
+                borderColor: "divider",
+                paddingBottom: "20px ",
+              }}
+            >
+              <Tabs
+                value={value}
+                onChange={handleChange}
+                aria-label="basic tabs example"
+                TabIndicatorProps={{
+                  style: { backgroundColor: "var(--color-var1)" },
+                }}
+                sx={{
+                  "& .MuiTab-root": {
+                    color: "white",
+                    "&.Mui-selected": {
+                      color: "var(--color-var1)",
+                    },
+                  },
+                }}
+              >
+                <Tab label="Orders" {...a11yProps(0)} />
+                <Tab label="Wishlist" {...a11yProps(1)} />
+              </Tabs>
+            </Box>
+            <CustomTabPanel value={value} index={0}>
+              {paginatedProducts?.map((el) => (
+                <Orders key={el._id} order={el} />
+              ))}
+              <div className={styles.pagination}>
+                <Pagination
+                  count={numPages}
+                  page={page}
+                  onChange={handleChangePage}
+                  color="primary"
+                  size="large"
+                />
+              </div>
+            </CustomTabPanel>
+            <CustomTabPanel value={value} index={1}>
+              Item Two
+            </CustomTabPanel>
+          </div>
+          <div className="md:col-span-4 xs:col-span-12">
+            <ProfileForm data={profileData?.data} />
+          </div>{" "}
         </div>
-        <div className="col-span-4">
-          <ProfileForm />
-        </div>{" "}
-      </div>
+      )}
     </div>
   );
 }
