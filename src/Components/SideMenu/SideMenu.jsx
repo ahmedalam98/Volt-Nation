@@ -20,10 +20,24 @@ import { useEffect } from "react";
 import { getCart } from "../../Store/cartSlice";
 import { Link } from "react-router-dom";
 import { logout } from "../../Store/authSlice";
+import { jwtDecode } from "jwt-decode";
 
 export default function SideMenu({ toggleDrawer, open }) {
-  const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
-  // fetch cart
+  // start of Checking logged in
+  let decodedToken;
+
+  let Token = localStorage.getItem("token");
+  let valid = false;
+
+  if (Token) {
+    decodedToken = jwtDecode(Token);
+    let expirationTime = decodedToken.exp;
+    let currentTime = Math.floor(Date.now() / 1000);
+    if (currentTime < expirationTime) {
+      valid = true;
+    }
+  }
+  // end of Checking logged in  // fetch cart
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getCart());
@@ -56,7 +70,7 @@ export default function SideMenu({ toggleDrawer, open }) {
             </ListItemButton>
           </ListItem>
         </Link>
-        <Link to="/products">
+        <Link to="/categories">
           <ListItem disablePadding>
             <ListItemButton>
               <StoreIcon
@@ -68,7 +82,7 @@ export default function SideMenu({ toggleDrawer, open }) {
                 }}
               />
               <ListItemText
-                primary="Shop"
+                primary="Categories"
                 sx={{
                   "& .MuiTypography-root": {
                     fontSize: "17px",
@@ -80,7 +94,7 @@ export default function SideMenu({ toggleDrawer, open }) {
           </ListItem>
         </Link>
 
-        {isLoggedIn ? (
+        {valid ? (
           <>
             <Link to="/cart">
               <ListItem disablePadding>

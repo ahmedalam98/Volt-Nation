@@ -28,15 +28,29 @@ import { useDispatch, useSelector } from "react-redux";
 import { getCart } from "../../Store/cartSlice.js";
 import { Logout } from "@mui/icons-material";
 import { logout } from "../../Store/authSlice.js";
+import { jwtDecode } from "jwt-decode";
 
 function NavBar() {
+  let decodedToken;
   const navigate = useNavigate();
-
   const [searchQuery, setSearchQuery] = useState("");
   const [showResults, setShowResults] = useState(false);
   const [anchorEl, setAnchorEl] = useState(null);
   const searchContainerRef = useRef(null);
-  const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
+
+  // start of Checking logged in
+  let Token = localStorage.getItem("token");
+  let valid = false;
+
+  if (Token) {
+    decodedToken = jwtDecode(Token);
+    let expirationTime = decodedToken.exp;
+    let currentTime = Math.floor(Date.now() / 1000);
+    if (currentTime < expirationTime) {
+      valid = true;
+    }
+  }
+  // end of Checking logged in
 
   const open = Boolean(anchorEl);
 
@@ -50,6 +64,7 @@ function NavBar() {
   const handleLogOut = () => {
     setAnchorEl(null);
     dispatch(logout());
+    navigate("/");
   };
 
   // fetch cart
@@ -144,8 +159,8 @@ function NavBar() {
                     )}
                     {filteredData?.map((el) => (
                       <Link
-                        key={el.id}
-                        to={`/products/${el.id}`}
+                        key={el._id}
+                        to={`/products/${el._id}`}
                         onClick={handleResultClick}
                       >
                         <div className={styles.result}>{el.name}</div>
@@ -179,9 +194,9 @@ function NavBar() {
                     margin: "0 15px",
                     padding: "10px",
                   }}
-                  onClick={() => navigate("/products")}
+                  onClick={() => navigate("/categories")}
                 >
-                  Products
+                  Categories
                 </Button>
                 <Button
                   className={`${styles.customBtn} ${styles.account}`}
@@ -196,14 +211,14 @@ function NavBar() {
                   }}
                   onClick={() => navigate("/profile")}
                 >
-                  Account
+                  Profile
                 </Button>
                 <label htmlFor="search" className={styles.label}>
                   <SearchIcon sx={{ width: "30px", height: "30px" }} />
                 </label>
               </div>
             </Box>
-            {isLoggedIn ? (
+            {valid ? (
               <Box
                 sx={{
                   flexGrow: 0,
@@ -240,7 +255,9 @@ function NavBar() {
                     aria-haspopup="true"
                     aria-expanded={open ? "true" : undefined}
                   >
-                    <Avatar sx={{ width: 32, height: 32 }}>M</Avatar>
+                    <Avatar sx={{ width: 32, height: 32 }}>
+                      {decodedToken?.email?.slice(0, 1).toUpperCase()}
+                    </Avatar>
                   </IconButton>
                 </Tooltip>
               </Box>

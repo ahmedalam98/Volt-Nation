@@ -1,3 +1,4 @@
+import React from "react";
 import {
   createColumnHelper,
   flexRender,
@@ -5,57 +6,104 @@ import {
   useReactTable,
   getPaginationRowModel,
 } from "@tanstack/react-table";
-
-import { orders } from "./Dummy/orders.js";
+import { useQuery, useMutation, useQueryClient } from "react-query";
 
 const getStatusColor = (status) => {
-  switch (status) {
-    case "Pending":
+  switch (status.toLowerCase()) {
+    case "processing":
       return "text-yellow-500";
-    case "Cancelled":
+    case "cancelled":
       return "text-red-500";
-    case "Delivered":
+    case "delivered":
       return "text-green-500";
     default:
       return "text-blue-400";
   }
 };
 
+const fetchOrders = async () => {
+  const response = await fetch("http://localhost:2024/orders");
+  if (!response.ok) {
+    throw new Error("Failed to fetch orders");
+  }
+  return response.json();
+};
+
+const updateOrderStatus = async ({ _id, status }) => {
+  const response = await fetch(
+    `http://localhost:2024/orders/${_id}/${status.toLowerCase()}`,
+    {
+      method: "PATCH",
+    }
+  );
+  if (!response.ok) {
+    throw new Error("Failed to update order status");
+  }
+  return response.json();
+};
+
 const AdminOrders = () => {
+  const queryClient = useQueryClient();
+
+  const { data, isLoading, error } = useQuery("orders", fetchOrders);
+
+  const mutation = useMutation(updateOrderStatus, {
+    onSuccess: () => {
+      queryClient.invalidateQueries("orders");
+    },
+  });
+
   const columnHelper = createColumnHelper();
 
   const columns = [
-    columnHelper.accessor("orderNumber", {
-      id: "orderNumber",
-      cell: (info) => <span>{info.getValue()}</span>,
+    columnHelper.accessor("_id", {
+      id: "_id",
+      cell: (info) => <span>{info.getValue().substring(0, 10)}</span>,
       header: "Order Number",
       size: 100,
     }),
-    columnHelper.accessor("user", {
-      id: "user",
+    columnHelper.accessor("userName", {
+      id: "userName",
       cell: (info) => <span>{info.getValue()}</span>,
       header: "User",
       size: 100,
     }),
-    columnHelper.accessor("orderStatus", {
-      id: "orderStatus",
+    columnHelper.accessor("status", {
+      id: "status",
       cell: (info) => {
         const status = info.getValue();
         const statusColor = getStatusColor(status);
-        return <span className={statusColor}>{status}</span>;
+        const _id = info.row.original._id;
+
+        const handleChange = (e) => {
+          mutation.mutate({ _id, status: e.target.value });
+        };
+
+        return (
+          <select
+            value={status}
+            onChange={handleChange}
+            className={`bg-transparent ${statusColor} py-1 px-2 border rounded`}
+          >
+            <option value="cancelled">Cancelled</option>
+            <option value="delivered">Delivered</option>
+            <option value="processing">Processing</option>
+            <option value="shipped">Shipped</option>
+          </select>
+        );
       },
       header: "Order Status",
       size: 100,
     }),
-    columnHelper.accessor("orderDate", {
-      id: "orderDate",
-      cell: (info) => <span>{info.getValue()}</span>,
+    columnHelper.accessor("date", {
+      id: "date",
+      cell: (info) => <span>{info.getValue().substring(0, 10)}</span>,
       header: "Order Date",
       size: 100,
     }),
-    columnHelper.accessor("orderPrice", {
-      id: "orderPrice",
-      cell: (info) => <span>{info.getValue()}</span>,
+    columnHelper.accessor("totalPrice", {
+      id: "totalPrice",
+      cell: (info) => <span>{`$${info.getValue()}`}</span>,
       header: "Price",
       size: 100,
     }),
@@ -63,10 +111,18 @@ const AdminOrders = () => {
 
   const table = useReactTable({
     columns,
-    data: orders,
+    data: data || [],
     getCoreRowModel: getCoreRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
   });
+
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
+
+  if (error) {
+    return <div>Error loading orders</div>;
+  }
 
   return (
     <div className="p-4">
@@ -101,8 +157,8 @@ const AdminOrders = () => {
                   <tr
                     key={row.id}
                     className={`
-                ${i % 2 === 0 ? "bg-gray-900" : "bg-gray-800"}
-                `}
+                      ${i % 2 === 0 ? "bg-gray-900" : "bg-gray-800"}
+                    `}
                   >
                     {row.getVisibleCells().map((cell) => (
                       <td key={cell.id} className="px-3.5 py-2 text-center">
@@ -156,10 +212,10 @@ const AdminOrders = () => {
               onChange={(e) => {
                 table.setPageSize(Number(e.target.value));
               }}
-              className=" bg-transparent p-2 border border-gray-300 outline-none "
+              className="bg-transparent p-2 border border-gray-300 outline-none"
             >
               {[5, 10, 20].map((pageSize) => (
-                <option key={pageSize} value={pageSize} className=" text-black">
+                <option key={pageSize} value={pageSize} className="text-black">
                   Show {pageSize}
                 </option>
               ))}

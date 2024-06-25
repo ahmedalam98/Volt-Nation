@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useQuery } from "react-query";
+import { useQuery, useQueryClient } from "react-query";
 import { getProducts } from "../../api/apiFunctions";
 import {
   createColumnHelper,
@@ -14,36 +14,61 @@ import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 import DownloadButton from "./DownloadButton.jsx";
 import SearchProduct from "./SearchProduct.jsx";
 import EditProductForm from "./EditProductForm.jsx";
+import AddIcon from "@mui/icons-material/Add";
+import DeleteModal from "./DeleteModal.jsx";
 
 const AdminProducts = () => {
-  const { data, error, isLoading } = useQuery("products", getProducts);
+  const queryClient = useQueryClient();
+
+  const { data, isLoading } = useQuery("products", getProducts);
+
   const products = data?.data || [];
 
   const [globalFilter, setGlobalFilter] = useState("");
   const [editingProduct, setEditingProduct] = useState(null);
-  const [selectedFiles, setSelectedFiles] = useState([]);
+  const [addedProduct, setAddedProduct] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [productToDelete, setProductToDelete] = useState(null);
 
   const handleEdit = (row) => {
     setEditingProduct(row);
   };
 
-  const handleDelete = (row) => {
-    // console.log("Delete button clicked for row:", row);
-  };
-
-  const handleFileChange = (e) => {
-    const files = Array.from(e.target.files);
-    setSelectedFiles(files);
+  const handleAdd = () => {
+    setAddedProduct({
+      name: "",
+      category: "",
+      price: "",
+      description: "",
+      brand: "",
+      quantity: "",
+      features: [],
+      colors: [],
+      // images: [],
+      // releasedDate: "",
+    });
   };
 
   const onSubmit = (data) => {
-    // console.log("Form submitted:", data);
-    // console.log("Files to upload:", selectedFiles);
     setEditingProduct(null);
+    setAddedProduct(null);
   };
 
   const cancelEdit = () => {
     setEditingProduct(null);
+    setAddedProduct(null);
+  };
+
+  const handleDelete = (row) => {
+    setProductToDelete(row);
+    setIsModalOpen(true);
+  };
+
+  const confirmDelete = () => {
+    if (productToDelete) {
+      setProductToDelete(null);
+      setIsModalOpen(false);
+    }
   };
 
   const columnHelper = createColumnHelper();
@@ -87,6 +112,7 @@ const AdminProducts = () => {
             >
               <EditNoteIcon />
             </button>
+
             <button
               className="bg-red-500 hover:bg-red-800 duration-300 text-white p-2 rounded"
               onClick={() => handleDelete(row)}
@@ -125,7 +151,16 @@ const AdminProducts = () => {
         product={editingProduct}
         onSubmit={onSubmit}
         onCancel={cancelEdit}
-        handleFileChange={handleFileChange}
+      />
+    );
+  }
+
+  if (addedProduct) {
+    return (
+      <EditProductForm
+        product={addedProduct}
+        onSubmit={onSubmit}
+        onCancel={cancelEdit}
       />
     );
   }
@@ -143,6 +178,14 @@ const AdminProducts = () => {
             onChange={(value) => setGlobalFilter(value)}
             className="p-2 bg-transparent outline-none border-b-2 w-1/5 focus:w-1/3 duration-300 border-[var(--color-var1)]"
           />
+
+          <button
+            className="flex justify-center items-center gap-2 rounded border-blue-600 bg-blue-600 hover:bg-blue-800 hover:border-blue-800 duration-300 text-white font-semibold tracking-wider p-3 me-4 md:me-2"
+            onClick={handleAdd}
+          >
+            <span>Add Product</span>
+            <AddIcon />
+          </button>
 
           <DownloadButton data={products} fileName={"Products"} />
         </div>
@@ -247,9 +290,9 @@ const AdminProducts = () => {
               onChange={(e) => {
                 table.setPageSize(Number(e.target.value));
               }}
-              className=" bg-transparent p-2 border border-gray-300 outline-none "
+              className="border border-gray-300 bg-transparent p-1 outline-none"
             >
-              {[5, 10, 20].map((pageSize) => (
+              {[5, 10, 20, 50].map((pageSize) => (
                 <option key={pageSize} value={pageSize}>
                   Show {pageSize}
                 </option>
@@ -258,6 +301,16 @@ const AdminProducts = () => {
           </div>
         </div>
       </div>
+
+      <DeleteModal
+        open={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        onConfirm={confirmDelete}
+        productId={productToDelete?._id}
+        title="Confirm Deletion"
+        description="Are you sure you want to delete this product?"
+        setModalConfirmed={(value) => setIsModalOpen(!value)}
+      />
     </div>
   );
 };

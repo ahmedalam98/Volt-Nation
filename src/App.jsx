@@ -11,6 +11,7 @@ import LoginPage from "./Pages/Login/LoginPage.jsx";
 import Register from "./Pages/Registartion/Register.jsx";
 
 const Products = lazy(() => import("./Pages/Products/Products.jsx"));
+const Categories = lazy(() => import("./Pages/Categories/Categories.jsx"));
 const ProductDetails = lazy(
   () => import("./Pages/ProductDetails/ProductDetails.jsx")
 );
@@ -21,7 +22,7 @@ const ResetPassword = lazy(
 const ResetUserPassword = lazy(
   () => import("./Components/ResetPassword/ResetUserPassword.jsx")
 );
-const Profile = lazy(() => import("./Pages/Profile/Profile.jsx"));
+const Profile = lazy(() => import("./Components/Profile/Profile.jsx"));
 const Cart = lazy(() => import("./Components/Cart/Cart.jsx"));
 const NotFound = lazy(() => import("./Pages/NotFound/NotFound.jsx"));
 const Dashboard = lazy(() => import("./Components/Dashboard/Dashboard.jsx"));
@@ -62,12 +63,14 @@ function App() {
               <Route path="/" element={<Layout />}>
                 {/* Public Routes */}
                 <Route path="/" element={<Home />} />
-                <Route path="/products" element={<Products />} />
+                {/* <Route path="/products" element={<Products />} /> */}
+                <Route path="/categories" element={<Categories />} />
+                <Route path="/categories/:name" element={<Products />} />
                 <Route path="/products/:id" element={<ProductDetails />} />
-                <Route element={<ProtectedRoute />}>
-                  <Route path="/cart" element={<Cart />} />
-                  <Route path="/profile" element={<Profile />} />
-                </Route>
+
+                <Route path="/cart" element={<Cart />} />
+                <Route path="/profile" element={<Profile />} />
+
                 <Route
                   path="/under-construction"
                   element={<UnderConstruction />}

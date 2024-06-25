@@ -57,7 +57,7 @@ export default function MobileNavbar({ data }) {
 
       <Typography
         variant="h6"
-        component="a"
+        component="div"
         sx={{
           flex: 1,
           fontWeight: 700,

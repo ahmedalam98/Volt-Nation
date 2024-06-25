@@ -1,60 +1,16 @@
 import { Bar, BarChart, ResponsiveContainer, XAxis, YAxis } from "recharts";
 
-const data = [
-  {
-    name: "Jan",
-    total: Math.floor(Math.random() * 5000) + 1000,
-  },
-  {
-    name: "Feb",
-    total: Math.floor(Math.random() * 5000) + 1000,
-  },
-  {
-    name: "Mar",
-    total: Math.floor(Math.random() * 5000) + 1000,
-  },
-  {
-    name: "Apr",
-    total: Math.floor(Math.random() * 5000) + 1000,
-  },
-  {
-    name: "May",
-    total: Math.floor(Math.random() * 5000) + 1000,
-  },
-  {
-    name: "Jun",
-    total: Math.floor(Math.random() * 5000) + 1000,
-  },
-  {
-    name: "Jul",
-    total: Math.floor(Math.random() * 5000) + 1000,
-  },
-  {
-    name: "Aug",
-    total: Math.floor(Math.random() * 5000) + 1000,
-  },
-  {
-    name: "Sep",
-    total: Math.floor(Math.random() * 5000) + 1000,
-  },
-  {
-    name: "Oct",
-    total: Math.floor(Math.random() * 5000) + 1000,
-  },
-  {
-    name: "Nov",
-    total: Math.floor(Math.random() * 5000) + 1000,
-  },
-  {
-    name: "Dec",
-    total: Math.floor(Math.random() * 5000) + 1000,
-  },
-];
+const Status = ({ data }) => {
 
-const Status = () => {
+  const chartData =
+    data?.data.result.map((item) => ({
+      name: item.month,
+      total: item.totalMonthlyPrice,
+    })) || [];
+
   return (
     <ResponsiveContainer width="100%" height={420} className="self-end">
-      <BarChart data={data}>
+      <BarChart data={chartData}>
         <XAxis
           dataKey="name"
           stroke="#888888"
@@ -64,14 +20,13 @@ const Status = () => {
         />
 
         <YAxis
-          domain={[0, 6000]}
+          domain={[0, 7000]}
           stroke="#888888"
           fontSize={12}
           tickLine={false}
           axisLine={false}
           tickFormatter={(value) => `$${value}`}
         />
-
         <Bar dataKey="total" fill="#08cff6" radius={[4, 4, 0, 0]} />
       </BarChart>
     </ResponsiveContainer>

@@ -25,35 +25,15 @@ export default function FilterSideMenu({
   const DrawerList = (
     <Box sx={{ width: 250 }} role="presentation" onClick={toggleDrawer(false)}>
       <div className={styles.filterMenu}>
-        <FormControl component="fieldset" variant="standard">
-          <FormLabel component="legend">Categories</FormLabel>
-          <FormGroup>
-            {Object.entries(filters)
-              .slice(0, 3)
-              .map(([key, value]) => (
-                <FormControlLabel
-                  key={key}
-                  control={
-                    <Checkbox
-                      checked={value}
-                      onChange={handleChange}
-                      name={key}
-                    />
-                  }
-                  label={key}
-                />
-              ))}
-          </FormGroup>
-        </FormControl>
         <FormControl
           component="fieldset"
           variant="standard"
-          sx={{ margin: "40px 0" }}
+          sx={{ marginBottom: "40px" }}
         >
           <FormLabel component="legend">Brands</FormLabel>
           <FormGroup>
             {Object.entries(filters)
-              .slice(3, -1)
+              .slice(0, -1)
               .map(([key, value]) => (
                 <FormControlLabel
                   key={key}
@@ -77,7 +57,7 @@ export default function FilterSideMenu({
             onChange={handleChangePrice}
             valueLabelDisplay="auto"
             min={100}
-            max={10000}
+            max={1500}
             disableSwap
             sx={{ width: "100%" }}
           />
