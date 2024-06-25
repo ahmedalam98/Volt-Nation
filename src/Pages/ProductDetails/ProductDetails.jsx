@@ -1,13 +1,19 @@
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import styles from "./ProductDetails.module.css";
 import { Rating } from "@mui/material";
 import { getProducts } from "../../api/apiFunctions";
 import { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { addItemToCart } from "../../Store/cartSlice";
+import BestSellers from "../../Components/BestSellers/BestSellers.jsx";
 export default function ProductDetails() {
   //get the product ID
   const { id } = useParams();
   const [prd, setPrd] = useState(null);
   const [currentImg, setCurrentImg] = useState(0);
+  const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
+  let navigate = useNavigate();
+  let dispatch=useDispatch()
 
   useEffect(() => {
     const fetchProduct = async () => {
@@ -25,14 +31,33 @@ export default function ProductDetails() {
   }, [id]);
   let handelImage = (ev) => {
     setCurrentImg(ev.target.src);
+
+  };
+  let addToCart = () => {
+    //check if the user logged in
+    if (isLoggedIn) {
+      dispatch(addItemToCart(prd._id));
+    } else {
+      alert("Your Are Not Logged in please Login");
+      navigate("/login");
+    }
+  };
+  let buyNow = () => {
+    //check if the user logged in
+   addToCart();
+   navigate('/cart')
   };
 
   if (prd === null) {
-    return "loading ...";
+    return (
+      <div className="spinner-container">
+        <div className="spinner"></div>
+      </div>
+    );
   } else {
     return (
       <>
-        <div className="flex p-3 m-3">
+        <div className="flex p-3 m-3" id={styles.mainDiv}>
           <div className="w-1/2  p-4 " style={{ display: "flex" }}>
             {/* First column Images */}
 
@@ -122,13 +147,17 @@ export default function ProductDetails() {
                   marginTop: "5%",
                 }}
               >
-                <button className={styles.btn}>Add to Cart</button>
-                <button className={styles.btn}>Add to WishLiat</button>
-                <button className={styles.btn}>Buy Now</button>
+                <button className={styles.btn} onClick={addToCart}>
+                  Add to Cart
+                </button>
+                <button className={styles.btn} onClick={buyNow}>
+                  Buy Now
+                </button>
               </div>
             </div>
           </div>
         </div>
+        <BestSellers/>
       </>
     );
   }

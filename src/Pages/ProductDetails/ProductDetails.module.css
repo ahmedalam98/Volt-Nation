@@ -1,39 +1,37 @@
-.mainPrdImg{
-max-height: 60vh;
-max-width: 30vw;
-border-radius: 15px;
-}
-.prdImg{
-    max-width: 150px;
-    min-height:15%;
-    max-height: 25%;
-    margin:5px;
+.mainPrdImg {
+    max-height: 60vh;
+    max-width: 30vw;
     border-radius: 15px;
-}
-.prdDetails{
-    padding:10px;
-}
-
-.prdDetails h1{
+  }
+  .prdImg {
+    max-width: 150px;
+    min-height: 15%;
+    max-height: 25%;
+    margin: 5px;
+    border-radius: 15px;
+  }
+  .prdDetails {
+    padding: 10px;
+  }
+  
+  .prdDetails h1 {
     font-size: x-large;
     font-weight: 550;
-    
-}
-.prdDetails h2{
+  }
+  .prdDetails h2 {
     font-size: large;
     font-weight: 500;
-}
-.price{
+  }
+  .price {
     font-size: xx-large;
     font-weight: 600;
-    
-}
-.color{
-    margin:5px;
+  }
+  .color {
+    margin: 5px;
     font-size: large;
     font-weight: 500;
-}
-.btn {
+  }
+  .btn {
     background-color: #09b0d1;
     border: none;
     padding: 8px 20px;
@@ -43,13 +41,56 @@ border-radius: 15px;
     text-transform: uppercase;
     letter-spacing: 1.6px;
     border-radius: 3px;
+    margin: 5px;
   }
   
   .btn:hover {
     background-color: var(--color-var2);
   }
-  .prdImg:hover{
-    border:3px #09b0d1 solid;
-   
+  .prdImg:hover {
+    border: 3px #09b0d1 solid;
+  }
+  
+  /* Small devices  */
+  @media (max-width: 575.98px) {
+    #mainDiv {
+      display: block;
+    }
+    #mainDiv > div {
+      width: 100%;
+    }
+    .mainPrdImg{
+      max-height: 95vh;
+      max-width: 60vw;
+      border-radius: 15px;
+    }
+  }
+  
+  /* Small devices  */
+  @media (min-width: 576px) and (max-width: 767.98px) {
+    #mainDiv {
+      display: block;
+    }
+    #mainDiv > div {
+      width: 100%;
+    }
+    
+    .mainPrdImg{
+      max-height: 95vh;
+      max-width: 60vw;
+      border-radius: 15px;
+    }
+  }
+  
+  /* Medium devices (tablets, 768px and up) */
+  @media (min-width: 768px) and (max-width: 991.98px) {
+  }
+  
+  /* Large devices  */
+  @media (min-width: 992px) and (max-width: 1199.98px) {
+  }
+  
+  /* Extra large devices  */
+  @media (min-width: 1200px) {
   }
   
