@@ -9,6 +9,7 @@ export default function Orders({ order, fav }) {
   const handleAddToCart = (id) => {
     dispatch(addItemToCart(id));
   };
+  
   return (
     <div className={styles.singleOrder}>
       {order ? (

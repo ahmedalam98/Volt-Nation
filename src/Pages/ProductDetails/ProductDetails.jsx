@@ -31,6 +31,7 @@ export default function ProductDetails() {
   }, [id]);
   let handelImage = (ev) => {
     setCurrentImg(ev.target.src);
+
   };
   let addToCart = () => {
     //check if the user logged in
@@ -119,7 +120,7 @@ export default function ProductDetails() {
                 value={prd.rating}
                 readOnly
               />
-              <p className={styles.price}>Price: {prd.price} L.E.</p>
+              <p className={styles.price}>Price: {prd.price} L.E</p>
               <p className="mt-3">
                 Colors:{" "}
                 {prd.colors.map((ele, index) => (

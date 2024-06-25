@@ -44,7 +44,9 @@ export default function Profile() {
     getAllOrders
   );
 
-  console.log(profileData?.data.favourite, "oo");
+
+  // console.log(ordersData?.data, "oo");
+
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
