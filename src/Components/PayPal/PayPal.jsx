@@ -2,12 +2,17 @@ import React, { useEffect, useRef } from "react";
 import { checkout } from "../../Store/cartSlice";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
+import { useQueryClient } from "react-query";
 
 export default function PayPal({ price }) {
+  const queryClient = useQueryClient();
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const handleCheckout = () => {
     dispatch(checkout());
+    queryClient.invalidateQueries(["allOrders"]);
+
     navigate("/");
   };
 

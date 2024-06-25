@@ -6,8 +6,8 @@ export default function Categories() {
   const { data } = useQuery("categories", getCategories);
 
   return (
-    <div className={` ${styles.categories} px-8`}>
-      <div className="flex flex-wrap justify-center align-items-center gap-12">
+    <div className={` ${styles.categories} sm:px-8 xs:px-4`}>
+      <div className="flex flex-wrap justify-center align-items-center sm:gap-12 xs:gap-8">
         {data?.data?.map((el) => (
           <CategoryCard
             key={el._id}

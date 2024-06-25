@@ -48,8 +48,9 @@
 .card .img {
   border-radius: 1rem;
   border-radius: 50%;
-  width: 90%;
+  width: 85%;
   height: 320px;
+  padding-top: 10px;
 }
 .card img {
   object-fit: cover;
@@ -96,4 +97,16 @@
 .card:hover .card-info {
   color: #f7ba2b;
   transition: color 1s;
+}
+
+@media (max-width: 400px) {
+  .card {
+    width: 100%;
+  }
+  .card .desc {
+    font-size: 12px;
+  }
+  .card .img {
+    height: 250px;
+  }
 }
