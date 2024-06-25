@@ -26,7 +26,7 @@ function DeleteModal({
     try {
       console.log("Deleting product with id:", productId);
       const response = await fetch(
-        `http://localhost:2024/products/delete/${productId}`,
+        `https://volt-nation.up.railway.app/products/delete/${productId}`,
         {
           method: "DELETE",
           headers: {
