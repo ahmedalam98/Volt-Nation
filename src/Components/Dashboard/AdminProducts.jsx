@@ -60,8 +60,8 @@ const AdminProducts = () => {
   };
 
   const onSubmit = (data) => {
-    console.log("Form submitted:", data);
-    console.log("Files to upload:", selectedFiles);
+    // console.log("Form submitted:", data);
+    // console.log("Files to upload:", selectedFiles);
 
     // React Query
     mutate({
@@ -81,7 +81,7 @@ const AdminProducts = () => {
   const handleFileChange = (e) => {
     const files = Array.from(e.target.files);
     setSelectedFiles(files);
-    console.log("Selected files:", files);
+    // console.log("Selected files:", files);
   };
 
   const handleDelete = (row) => {
@@ -91,7 +91,7 @@ const AdminProducts = () => {
 
   const confirmDelete = () => {
     if (productToDelete) {
-      console.log("Product deleted:", productToDelete._id);
+      // console.log("Product deleted:", productToDelete._id);
       // Add delete mutation or API call here
       setProductToDelete(null);
       setIsModalOpen(false);

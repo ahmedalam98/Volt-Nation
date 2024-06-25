@@ -9,6 +9,7 @@ const LoginPage = () => {
   const [loaded, setLoaded] = useState(false);
   const navigate = useNavigate();
   let decodedToken;
+
   const [isSignUpClicked, setIsSignUpClicked] = useState(false);
   let goToHome = () => {
     navigate("/");
@@ -70,10 +71,10 @@ const LoginPage = () => {
                               decodedToken = jwtDecode(
                                 credentialResponse?.credential
                               );
-                              console.log(decodedToken);
+                              // console.log(decodedToken);
                             }}
                             onError={() => {
-                              console.log("Login Failed");
+                              // console.log("Login Failed");
                             }}
                           />
                         </div>
@@ -83,8 +84,7 @@ const LoginPage = () => {
                           marginTop: "2%",
                           textAlign: "center",
                           color: "white",
-                          fontWeight:'bold'
-                          
+                          fontWeight: "bold",
                         }}
                       >
                         <Link className="text-sm" onClick={handleSignUpClick}>
@@ -96,8 +96,7 @@ const LoginPage = () => {
                           marginTop: "2%",
                           textAlign: "center",
                           color: "white",
-                          fontWeight:'bold'
-                          
+                          fontWeight: "bold",
                         }}
                       >
                         <Link to="/resetPassword" className="text-sm">

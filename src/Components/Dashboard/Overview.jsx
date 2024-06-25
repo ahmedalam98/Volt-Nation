@@ -8,7 +8,7 @@ import { useQuery } from "react-query";
 
 const Overview = () => {
   const { data, isLoading } = useQuery("statistics", getStatistics);
-  console.log("Overview Data :", data);
+  // console.log("Overview Data :", data);
 
   const headers = [
     {

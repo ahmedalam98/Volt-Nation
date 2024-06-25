@@ -2,7 +2,7 @@ import React from "react";
 import styles from "./Profile.module.css";
 
 export default function Orders({ products, trackOrder, addToCard }) {
-  console.log("Products  from orders", products);
+  // console.log("Products  from orders", products);
   return (
     <div>
       {products?.map((product) => (
@@ -28,7 +28,7 @@ export default function Orders({ products, trackOrder, addToCard }) {
                     <button
                       className={`${styles.track_btn} `}
                       onClick={() => {
-                        console.log("proudct details", product);
+                        // console.log("proudct details", product);
                       }}
                     >
                       Details
@@ -36,7 +36,7 @@ export default function Orders({ products, trackOrder, addToCard }) {
                     <button
                       className={`${styles.track_btn} `}
                       onClick={() => {
-                        console.log("Track Order", product);
+                        // console.log("Track Order", product);
                       }}
                     >
                       Track Order
@@ -48,7 +48,7 @@ export default function Orders({ products, trackOrder, addToCard }) {
                     <button
                       className={`${styles.track_btn} `}
                       onClick={() => {
-                        console.log("Add to Cart", product);
+                        // console.log("Add to Cart", product);
                       }}
                     >
                       Add to Cart

@@ -50,7 +50,7 @@ const Admins = () => {
                 Remove Admin
               </button>
             ) : (
-              <div className="flex gap-5">
+              <div className="flex gap-5 flex-wrap">
                 <button className="flex justify-center items-center gap-2 rounded bborder-[#ca3f3f] bg-[#ca3f3f] text-white tracking-wider p-2 hover:bg-[#852a2a] hover:border-[#852a2a] me-4 md:me-0 duration-300">
                   Remove User
                 </button>

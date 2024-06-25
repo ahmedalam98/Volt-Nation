@@ -40,7 +40,7 @@ export default function Products() {
   ////////////fetch data
   const { data, isLoading } = useQuery(["products"], getProducts);
   const selectedCatg = data?.data?.filter((el) => el.category === name);
-  
+
   //////////control change filters
   const handleChange = (event) => {
     setPage(1);
@@ -82,7 +82,7 @@ export default function Products() {
     const brandMatch = Object.entries(filters)
       .slice(0, -1)
       .some(([key, value]) => value && product.brand === key);
-    console.log(Object.entries(filters));
+    // console.log(Object.entries(filters));
     // If no brands are selected
     const brandFilterApplied = Object.values(filters)
       .slice(0, -1)

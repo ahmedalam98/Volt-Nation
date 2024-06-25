@@ -67,7 +67,7 @@ const EditProductForm = ({ product, onSubmit, onCancel, handleFileChange }) => {
       features,
       colors,
     };
-    console.log(finalData);
+    // console.log(finalData);
     onSubmit(finalData);
   };
 
