@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { useQuery, useMutation, useQueryClient } from "react-query";
-import { getProducts, addProduct } from "../../api/apiFunctions";
+import { useQuery, useQueryClient } from "react-query";
+import { getProducts } from "../../api/apiFunctions";
 import {
   createColumnHelper,
   flexRender,
@@ -22,22 +22,11 @@ const AdminProducts = () => {
 
   const { data, isLoading } = useQuery("products", getProducts);
 
-  const { mutate } = useMutation({
-    mutationFn: (newProduct) => addProduct(newProduct),
-    onSuccess: () => {
-      queryClient.invalidateQueries("products");
-    },
-    onError: (error) => {
-      console.error("Error adding product:", error);
-    },
-  });
-
   const products = data?.data || [];
 
   const [globalFilter, setGlobalFilter] = useState("");
   const [editingProduct, setEditingProduct] = useState(null);
   const [addedProduct, setAddedProduct] = useState(null);
-  const [selectedFiles, setSelectedFiles] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [productToDelete, setProductToDelete] = useState(null);
 
@@ -49,26 +38,18 @@ const AdminProducts = () => {
     setAddedProduct({
       name: "",
       category: "",
-      description: "",
-      features: [],
       price: "",
-      images: [],
-      colors: [],
-      releasedDate: "",
+      description: "",
       brand: "",
+      quantity: "",
+      features: [],
+      colors: [],
+      // images: [],
+      // releasedDate: "",
     });
   };
 
   const onSubmit = (data) => {
-    // console.log("Form submitted:", data);
-    // console.log("Files to upload:", selectedFiles);
-
-    // React Query
-    mutate({
-      ...data,
-      images: selectedFiles,
-    });
-
     setEditingProduct(null);
     setAddedProduct(null);
   };
@@ -78,12 +59,6 @@ const AdminProducts = () => {
     setAddedProduct(null);
   };
 
-  const handleFileChange = (e) => {
-    const files = Array.from(e.target.files);
-    setSelectedFiles(files);
-    // console.log("Selected files:", files);
-  };
-
   const handleDelete = (row) => {
     setProductToDelete(row);
     setIsModalOpen(true);
@@ -91,8 +66,6 @@ const AdminProducts = () => {
 
   const confirmDelete = () => {
     if (productToDelete) {
-      // console.log("Product deleted:", productToDelete._id);
-      // Add delete mutation or API call here
       setProductToDelete(null);
       setIsModalOpen(false);
     }
@@ -178,7 +151,6 @@ const AdminProducts = () => {
         product={editingProduct}
         onSubmit={onSubmit}
         onCancel={cancelEdit}
-        handleFileChange={handleFileChange}
       />
     );
   }
@@ -189,7 +161,6 @@ const AdminProducts = () => {
         product={addedProduct}
         onSubmit={onSubmit}
         onCancel={cancelEdit}
-        handleFileChange={handleFileChange}
       />
     );
   }
@@ -335,6 +306,7 @@ const AdminProducts = () => {
         open={isModalOpen}
         onClose={() => setIsModalOpen(false)}
         onConfirm={confirmDelete}
+        productId={productToDelete?._id}
         title="Confirm Deletion"
         description="Are you sure you want to delete this product?"
         setModalConfirmed={(value) => setIsModalOpen(!value)}

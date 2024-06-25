@@ -50,7 +50,7 @@ const Admins = () => {
                 Remove Admin
               </button>
             ) : (
-              <div className="flex gap-5 flex-wrap">
+              <div className="flex gap-5">
                 <button className="flex justify-center items-center gap-2 rounded bborder-[#ca3f3f] bg-[#ca3f3f] text-white tracking-wider p-2 hover:bg-[#852a2a] hover:border-[#852a2a] me-4 md:me-0 duration-300">
                   Remove User
                 </button>
@@ -76,7 +76,7 @@ const Admins = () => {
 
   return (
     <div className="p-4">
-      <div className="max-w-6xl min-w-[500px] md:min-w-[600px] lg:min-w-[800px]  overflow-x-auto md:overflow-x-hidden mx-auto text-white fill-gray-600">
+      <div className="max-w-6xl min-w-[700px] lg:min-w-[800px]  overflow-x-auto md:overflow-x-hidden mx-auto text-white fill-gray-600">
         <h1 className="text-4xl border-s-4 border-[var(--color-var1)] ps-4 mb-10">
           Users
         </h1>
