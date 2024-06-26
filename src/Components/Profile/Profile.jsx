@@ -11,6 +11,7 @@ import {
 import Orders from "./Orders.jsx";
 import { ProfileForm } from "../profileForm/profileForm.jsx";
 import { Pagination, Tab, Tabs } from "@mui/material";
+
 function CustomTabPanel(props) {
   const { children, value, index, ...other } = props;
 
@@ -44,7 +45,8 @@ export default function Profile() {
     getAllOrders
   );
 
-  console.log(ordersData?.data, "oo");
+  // console.log(ordersData?.data, "oo");
+
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
@@ -63,10 +65,20 @@ export default function Profile() {
     startIndex,
     startIndex + itemsPerPage
   );
+  // console.log(paginatedProducts, "pagina");
+
+  if (profileLoading || ordersLoading) {
+    return (
+      <div className="spinner-container">
+        <div className="spinner"></div>
+      </div>
+    );
+  }
+
   return (
     <div>
       {!profileLoading && !ordersLoading && (
-        <div className="grid grid-cols-12 sm:px-10 xs:px-2 my-12 md:gap-5 xs:gap-7">
+        <div className="grid grid-cols-12 sm:px-10 xs:px-5 my-12 md:gap-5 xs:gap-0">
           {/* <div className="col-span-8">
          
           <div className="mr-16">
@@ -111,6 +123,9 @@ export default function Profile() {
               </Tabs>
             </Box>
             <CustomTabPanel value={value} index={0}>
+              {paginatedProducts.length === 0 && (
+                <div className={styles.noPrd}>No orders yet</div>
+              )}
               {paginatedProducts?.map((el) => (
                 <Orders key={el._id} order={el} />
               ))}
@@ -125,7 +140,11 @@ export default function Profile() {
               </div>
             </CustomTabPanel>
             <CustomTabPanel value={value} index={1}>
-              Item Two
+              {profileData?.data?.favourite?.length === 0 && (
+                <div className={styles.noPrd}>No favorites yet</div>
+              )}
+
+              <Orders fav={profileData.data.favourite} />
             </CustomTabPanel>
           </div>
           <div className="md:col-span-4 xs:col-span-12">

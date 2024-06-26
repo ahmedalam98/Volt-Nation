@@ -24,7 +24,6 @@ export const getCategories = async () => {
 };
 
 export const updateCategory = async (categoryId, categoryData) => {
-  console.log("Flfl Flfol", categoryId, categoryData);
   const response = await api.patch(
     `/category/update/${categoryId}`,
     categoryData
@@ -55,6 +54,13 @@ export const patchProfileDetails = async () => {
 export const getAllOrders = async () => {
   // get data from api
   const data = await api.get("/orders/user");
+
+  return data;
+};
+
+export const addToFav = async (id) => {
+  // get data from api
+  const data = await api.post(`/user/new-favourite/${id}`);
 
   return data;
 };

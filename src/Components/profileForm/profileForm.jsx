@@ -4,6 +4,7 @@ import { TextField, Button } from "@mui/material";
 import styles from "./ProfileForm.module.css";
 
 export function ProfileForm({ data }) {
+  // console.log(data);
   const queryClient = useQueryClient();
 
   const [formValues, setFormValues] = useState({
@@ -24,11 +25,14 @@ export function ProfileForm({ data }) {
     };
 
     try {
-      const response = await fetch("http://localhost:2024/user/details/edit", {
-        method: "PATCH",
-        headers: headers,
-        body: JSON.stringify(formValues),
-      });
+      const response = await fetch(
+        "https://volt-nation.up.railway.app/user/details/edit",
+        {
+          method: "PATCH",
+          headers: headers,
+          body: JSON.stringify(formValues),
+        }
+      );
 
       if (!response.ok) {
         throw new Error(`HTTP error! Status: ${response.status}`);

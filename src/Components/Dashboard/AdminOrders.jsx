@@ -22,16 +22,29 @@ const getStatusColor = (status) => {
 };
 
 const fetchOrders = async () => {
-  const response = await fetch("http://localhost:2024/orders");
-  if (!response.ok) {
-    throw new Error("Failed to fetch orders");
+  try {
+    const response = await fetch("https://volt-nation.up.railway.app/orders");
+    if (!response.ok) {
+      throw new Error("Failed to fetch orders");
+    }
+    const orders = await response.json();
+
+    // Sort orders by descending order date
+    orders.sort((a, b) => {
+      const dateA = new Date(a.date).getTime();
+      const dateB = new Date(b.date).getTime();
+      return dateB - dateA;
+    });
+
+    return orders;
+  } catch (error) {
+    throw new Error(`Error fetching orders: ${error.message}`);
   }
-  return response.json();
 };
 
 const updateOrderStatus = async ({ _id, status }) => {
   const response = await fetch(
-    `http://localhost:2024/orders/${_id}/${status.toLowerCase()}`,
+    `https://volt-nation.up.railway.app/orders/${_id}/${status.toLowerCase()}`,
     {
       method: "PATCH",
     }
@@ -117,7 +130,11 @@ const AdminOrders = () => {
   });
 
   if (isLoading) {
-    return <div>Loading...</div>;
+    return (
+      <div className="spinner-container">
+        <div className="spinner"></div>
+      </div>
+    );
   }
 
   if (error) {

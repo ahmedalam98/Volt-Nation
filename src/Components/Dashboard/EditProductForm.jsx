@@ -72,8 +72,8 @@ const EditProductForm = ({ product, onSubmit, onCancel }) => {
     const isNewProduct = !product._id;
 
     const url = isNewProduct
-      ? "http://localhost:2024/products/add"
-      : `http://localhost:2024/products/update/${product._id}`;
+      ? "https://volt-nation.up.railway.app/products/add"
+      : `https://volt-nation.up.railway.app/products/update/${product._id}`;
 
     const method = isNewProduct ? "POST" : "PATCH";
 
@@ -94,6 +94,7 @@ const EditProductForm = ({ product, onSubmit, onCancel }) => {
         );
       }
       await queryClient.invalidateQueries("products");
+      await queryClient.invalidateQueries("categories");
       onSubmit();
     } catch (error) {
       console.error(

@@ -26,7 +26,7 @@ function DeleteModal({
     try {
       console.log("Deleting product with id:", productId);
       const response = await fetch(
-        `http://localhost:2024/products/delete/${productId}`,
+        `https://volt-nation.up.railway.app/products/delete/${productId}`,
         {
           method: "DELETE",
           headers: {
@@ -40,6 +40,7 @@ function DeleteModal({
       }
 
       await queryClient.invalidateQueries("products");
+      await queryClient.invalidateQueries("categories");
       await queryClient.invalidateQueries("statistics");
       onConfirm();
       setModalConfirmed(true);

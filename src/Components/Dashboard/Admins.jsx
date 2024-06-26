@@ -17,7 +17,9 @@ const Admins = () => {
     isLoading,
     error,
   } = useQuery("users", async () => {
-    const response = await fetch("http://localhost:2024/dashboard/users");
+    const response = await fetch(
+      "https://volt-nation.up.railway.app/dashboard/users"
+    );
     if (!response.ok) {
       throw new Error("Failed to fetch users");
     }
@@ -27,7 +29,7 @@ const Admins = () => {
   const updateRole = async (id, role) => {
     try {
       const response = await fetch(
-        `http://localhost:2024/dashboard/role/${id}`,
+        `https://volt-nation.up.railway.app/dashboard/role/${id}`,
         {
           method: "PATCH",
           headers: {
@@ -49,7 +51,7 @@ const Admins = () => {
   const deleteUser = async (id) => {
     try {
       const response = await fetch(
-        `http://localhost:2024/dashboard/delete-user/${id}`,
+        `https://volt-nation.up.railway.app/dashboard/delete-user/${id}`,
         {
           method: "DELETE",
         }
@@ -151,7 +153,11 @@ const Admins = () => {
   });
 
   if (isLoading) {
-    return <div>Loading...</div>;
+    return (
+      <div className="spinner-container">
+        <div className="spinner"></div>
+      </div>
+    );
   }
 
   if (error) {

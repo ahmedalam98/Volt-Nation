@@ -102,3 +102,17 @@
   width: 30px;
   height: 30px;
 }
+.orders .noPrd {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 200px;
+  font-size: 20px;
+  color: var(--color-var5);
+}
+
+@media (max-width: 780px) {
+  .orders {
+    margin-bottom: 30px;
+  }
+}
