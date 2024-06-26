@@ -36,6 +36,7 @@ function a11yProps(index) {
 }
 export default function Profile() {
   const [value, setValue] = useState(0);
+  const [pagination, setShowPagination] = useState(true);
   const { data: profileData, isLoading: profileLoading } = useQuery(
     "profileDetails",
     getProfileDetails
@@ -45,27 +46,45 @@ export default function Profile() {
     getAllOrders
   );
 
-  // console.log(ordersData?.data, "oo");
-
   const handleChange = (event, newValue) => {
     setValue(newValue);
+    setShowPagination(true);
   };
   const [page, setPage] = useState(1);
 
-  // Pagination
-  const itemsPerPage = 2;
-  const numPages = Math.ceil(ordersData?.data?.length / itemsPerPage);
+  // Pagination for orders
+  const [ordersPage, setOrdersPage] = useState(1);
+  const ordersItemsPerPage = 2;
+  const numOrdersPages = Math.ceil(
+    ordersData?.data?.length / ordersItemsPerPage
+  );
 
-  const handleChangePage = (event, value) => {
-    setPage(value);
+  const handleChangeOrdersPage = (event, value) => {
+    setOrdersPage(value);
   };
 
-  const startIndex = (page - 1) * itemsPerPage;
-  const paginatedProducts = ordersData?.data?.slice(
-    startIndex,
-    startIndex + itemsPerPage
+  const ordersStartIndex = (ordersPage - 1) * ordersItemsPerPage;
+  const paginatedOrders = ordersData?.data?.slice(
+    ordersStartIndex,
+    ordersStartIndex + ordersItemsPerPage
   );
-  // console.log(paginatedProducts, "pagina");
+
+  // Pagination for favorites
+  const [favPage, setFavPage] = useState(1);
+  const favItemsPerPage = 2;
+  const numFavPages = Math.ceil(
+    profileData?.data?.favourite?.length / favItemsPerPage
+  );
+
+  const handleChangeFavPage = (event, value) => {
+    setFavPage(value);
+  };
+
+  const favStartIndex = (favPage - 1) * favItemsPerPage;
+  const paginatedFavourites = profileData?.data?.favourite?.slice(
+    favStartIndex,
+    favStartIndex + favItemsPerPage
+  );
 
   if (profileLoading || ordersLoading) {
     return (
@@ -123,28 +142,40 @@ export default function Profile() {
               </Tabs>
             </Box>
             <CustomTabPanel value={value} index={0}>
-              {paginatedProducts.length === 0 && (
+              {paginatedOrders.length === 0 && (
                 <div className={styles.noPrd}>No orders yet</div>
               )}
-              {paginatedProducts?.map((el) => (
-                <Orders key={el._id} order={el} />
-              ))}
+              <Orders
+                orders={paginatedOrders}
+                setShowPagination={setShowPagination}
+              />
+              <div className={styles.pagination}>
+                {pagination && (
+                  <Pagination
+                    count={numOrdersPages}
+                    page={ordersPage}
+                    onChange={handleChangeOrdersPage}
+                    color="primary"
+                    size="large"
+                  />
+                )}
+              </div>
+            </CustomTabPanel>
+            <CustomTabPanel value={value} index={1}>
+              {paginatedFavourites?.length === 0 && (
+                <div className={styles.noPrd}>No favorites yet</div>
+              )}
+
+              <Orders fav={paginatedFavourites} />
               <div className={styles.pagination}>
                 <Pagination
-                  count={numPages}
-                  page={page}
-                  onChange={handleChangePage}
+                  count={numFavPages}
+                  page={favPage}
+                  onChange={handleChangeFavPage}
                   color="primary"
                   size="large"
                 />
               </div>
-            </CustomTabPanel>
-            <CustomTabPanel value={value} index={1}>
-              {profileData?.data?.favourite?.length === 0 && (
-                <div className={styles.noPrd}>No favorites yet</div>
-              )}
-
-              <Orders fav={profileData.data.favourite} />
             </CustomTabPanel>
           </div>
           <div className="md:col-span-4 xs:col-span-12">

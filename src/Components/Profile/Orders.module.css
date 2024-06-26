@@ -1,3 +1,8 @@
+.singleOrder {
+  padding: 30px;
+  background-color: rgba(0, 0, 0, 0.2);
+  margin-bottom: 20px;
+}
 .detailsCard {
   position: relative;
   display: flex;
@@ -6,18 +11,21 @@
   font-size: 15px;
   padding: 30px;
   margin-bottom: 20px;
-  background-color: rgba(0, 0, 0, 0.2); /* Adjust the opacity value (0 to 1) */
 }
 
-.detailsCard .date {
+.singleOrder .date {
   color: var(--color-var5);
-  margin-bottom: 8px;
+  /* margin-bottom: 8px; */
 }
 .content {
   flex: 2;
 }
 .detailsCard .name,
-.detailsCard .desc {
+.detailsCard .desc,
+.detailsCard .desc,
+.detailsCard .price,
+.detailsCard .quantity,
+.status {
   color: rgb(213, 213, 213);
   margin-bottom: 10px;
 }
@@ -31,8 +39,8 @@
 }
 .detailsBtn {
   background-color: var(--color-var1);
-  width: 120px;
-  height: 35px;
+  width: 130px;
+  height: 37px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -46,15 +54,33 @@
 }
 .deliveredBtn {
   border: 1px solid var(--color-var1);
-  width: 120px;
-  height: 35px;
+  width: 130px;
+  height: 37px;
+  margin-inline-end: 30px;
   display: flex;
   align-items: center;
   justify-content: center;
   border-radius: 3px;
   color: var(--color-var1);
 }
-
+.bottomBtns {
+  display: flex;
+  align-items: center;
+}
+.bottomBtns .cancelBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgb(195, 20, 20);
+  color: white;
+  width: 130px;
+  height: 37px;
+  border-radius: 3px;
+  cursor: pointer;
+}
+.bottomBtns .cancelBtn:hover {
+  background-color: rgb(162, 17, 17);
+}
 .detailsCard .orderImg {
   display: flex;
   align-items: end;
@@ -71,9 +97,28 @@
   height: 100%;
   /* object-fit: contain; */
 }
+.line {
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(
+    90deg,
+    rgba(8, 207, 246, 1) 0%,
+    rgba(18, 46, 66, 1) 100%
+  );
+  margin: 20px 0;
+}
+.totalPrice {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: var(--color-var1);
+}
+.totalPrice :first-child {
+  font-size: 18px;
+}
 @media (max-width: 700px) {
   .detailsCard {
-    font-size: 13px;
+    font-size: 14px;
   }
   .detailsCard .orderImg div {
     width: 130px;
@@ -90,5 +135,25 @@
   .detailsCard .orderImg div {
     width: 100%;
     height: 100%;
+  }
+  .totalPrice {
+    flex-direction: column;
+  }
+  .totalPrice :first-child {
+    margin-bottom: 20px;
+  }
+}
+
+@media (max-width: 555px) {
+  .bottomBtns {
+    flex-direction: column;
+  }
+  .bottomBtns div {
+    margin-inline-end: 0;
+    margin-bottom: 20px;
+    width: 100% !important;
+  }
+  .detailsBtn {
+    width: 100%;
   }
 }

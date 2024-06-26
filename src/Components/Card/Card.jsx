@@ -10,10 +10,8 @@ import { useMutation, useQuery, useQueryClient } from "react-query";
 import { useState } from "react";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 export default function Card({ product }) {
-  // console.log(product, "prod");
-  const { data, isLoading } = useQuery("profileDetails", getProfileDetails);
-  // console.log(data?.data?.favourite, "fffffff");
-  const dispatch = useDispatch();
+   const { data, isLoading } = useQuery("profileDetails", getProfileDetails);
+   const dispatch = useDispatch();
   const queryClient = useQueryClient();
   const [fav, setFav] = useState();
 
