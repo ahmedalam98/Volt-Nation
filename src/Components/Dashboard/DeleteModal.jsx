@@ -40,6 +40,7 @@ function DeleteModal({
       }
 
       await queryClient.invalidateQueries("products");
+      await queryClient.invalidateQueries("categories");
       await queryClient.invalidateQueries("statistics");
       onConfirm();
       setModalConfirmed(true);
