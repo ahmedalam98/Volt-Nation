@@ -7,8 +7,8 @@ import {
   FormLabel,
   Pagination,
 } from "@mui/material";
-import React, { useState } from "react";
-import { useQuery } from "react-query";
+import React, { useState, useEffect } from "react";
+import { useQuery, useQueryClient } from "react-query";
 import { getProducts } from "../../api/apiFunctions";
 import Card from "./../../Components/Card/Card.jsx";
 import Slider from "@mui/material/Slider";
@@ -36,6 +36,14 @@ export default function Products() {
   });
   const [page, setPage] = useState(1);
   const { name } = useParams(); // Get the category name from the URL
+
+  const queryClient = useQueryClient();
+
+  useEffect(() => {
+    return () => {
+      queryClient.invalidateQueries("products");
+    };
+  }, []);
 
   ////////////fetch data
   const { data, isLoading } = useQuery(["products"], getProducts);

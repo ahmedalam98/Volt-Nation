@@ -79,7 +79,7 @@ export default function Orders({ orders, fav, setShowPagination }) {
                 <div className={styles.status}>
                   Status: {selectedProduct.status}
                 </div>
-              </div>
+              </div>  -
               <div className={styles.orderImg}>
                 <div>
                   <img src={order.product.images[0]} alt={order.product.name} />
@@ -120,6 +120,7 @@ export default function Orders({ orders, fav, setShowPagination }) {
                       src={order.product.images[0]}
                       alt={order.product.name}
                     />
+
                   </div>
                 </div>
               </div>

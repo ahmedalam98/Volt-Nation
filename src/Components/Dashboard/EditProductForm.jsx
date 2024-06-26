@@ -94,6 +94,7 @@ const EditProductForm = ({ product, onSubmit, onCancel }) => {
         );
       }
       await queryClient.invalidateQueries("products");
+      await queryClient.invalidateQueries("categories");
       onSubmit();
     } catch (error) {
       console.error(

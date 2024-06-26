@@ -163,6 +163,7 @@ export default function Profile() {
             </CustomTabPanel>
             <CustomTabPanel value={value} index={1}>
               {paginatedFavourites?.length === 0 && (
+
                 <div className={styles.noPrd}>No favorites yet</div>
               )}
 

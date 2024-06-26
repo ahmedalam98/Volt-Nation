@@ -22,11 +22,24 @@ const getStatusColor = (status) => {
 };
 
 const fetchOrders = async () => {
-  const response = await fetch("https://volt-nation.up.railway.app/orders");
-  if (!response.ok) {
-    throw new Error("Failed to fetch orders");
+  try {
+    const response = await fetch("https://volt-nation.up.railway.app/orders");
+    if (!response.ok) {
+      throw new Error("Failed to fetch orders");
+    }
+    const orders = await response.json();
+
+    // Sort orders by descending order date
+    orders.sort((a, b) => {
+      const dateA = new Date(a.date).getTime();
+      const dateB = new Date(b.date).getTime();
+      return dateB - dateA;
+    });
+
+    return orders;
+  } catch (error) {
+    throw new Error(`Error fetching orders: ${error.message}`);
   }
-  return response.json();
 };
 
 const updateOrderStatus = async ({ _id, status }) => {

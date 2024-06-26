@@ -1,10 +1,19 @@
-import { useQuery } from "react-query";
+import { useQuery, useQueryClient } from "react-query";
+import { useEffect } from "react";
 import CategoryCard from "../../Components/CategoryCard/CategoryCard.jsx";
 import styles from "./Categories.module.css";
 import { getCategories } from "../../api/apiFunctions.js";
 
 export default function Categories() {
   const { data, isLoading } = useQuery("categories", getCategories);
+
+  const queryClient = useQueryClient();
+
+  useEffect(() => {
+    return () => {
+      queryClient.invalidateQueries("categories");
+    };
+  }, []);
 
   if (isLoading) {
     return (
