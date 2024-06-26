@@ -26,11 +26,14 @@ export function ProfileForm({ data }) {
     };
 
     try {
-      const response = await fetch("http://localhost:2024/user/details/edit", {
-        method: "PATCH",
-        headers: headers,
-        body: JSON.stringify(formValues),
-      });
+      const response = await fetch(
+        "http://volt-nation.up.railway.app/user/details/edit",
+        {
+          method: "PATCH",
+          headers: headers,
+          body: JSON.stringify(formValues),
+        }
+      );
 
       if (!response.ok) {
         throw new Error(`HTTP error! Status: ${response.status}`);
@@ -38,9 +41,10 @@ export function ProfileForm({ data }) {
 
       queryClient.invalidateQueries(["profileDetails"]);
       setSaved(true);
-      setLoading(false);
     } catch (error) {
       console.error("Error saving profile details:", error);
+    } finally {
+      setLoading(false);
     }
   };
 

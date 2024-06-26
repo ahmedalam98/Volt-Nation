@@ -10,8 +10,8 @@ import { useMutation, useQuery, useQueryClient } from "react-query";
 import { useState } from "react";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 export default function Card({ product }) {
-   const { data, isLoading } = useQuery("profileDetails", getProfileDetails);
-   const dispatch = useDispatch();
+  const { data, isLoading } = useQuery("profileDetails", getProfileDetails);
+  const dispatch = useDispatch();
   const queryClient = useQueryClient();
   const [fav, setFav] = useState();
 
@@ -37,7 +37,7 @@ export default function Card({ product }) {
 
     try {
       const response = await fetch(
-        `http://localhost:2024/user/remove-favourite/${id}`,
+        `http://volt-nation.up.railway.app/user/remove-favourite/${id}`,
         {
           method: "PATCH",
           headers: headers,

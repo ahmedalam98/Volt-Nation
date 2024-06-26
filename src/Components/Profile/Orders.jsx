@@ -38,7 +38,7 @@ export default function Orders({ orders, fav, setShowPagination }) {
 
     try {
       const response = await fetch(
-        `http://localhost:2024/orders/${id}/cancelled`,
+        `http://volt-nation.up.railway.app/orders/${id}/cancelled`,
         {
           method: "PATCH",
           headers: headers,
@@ -79,7 +79,8 @@ export default function Orders({ orders, fav, setShowPagination }) {
                 <div className={styles.status}>
                   Status: {selectedProduct.status}
                 </div>
-              </div>  -
+              </div>{" "}
+              -
               <div className={styles.orderImg}>
                 <div>
                   <img src={order.product.images[0]} alt={order.product.name} />
@@ -120,7 +121,6 @@ export default function Orders({ orders, fav, setShowPagination }) {
                       src={order.product.images[0]}
                       alt={order.product.name}
                     />
-
                   </div>
                 </div>
               </div>

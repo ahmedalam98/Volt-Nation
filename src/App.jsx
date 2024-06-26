@@ -69,8 +69,9 @@ function App() {
                 <Route path="/products/:id" element={<ProductDetails />} />
 
                 <Route path="/cart" element={<Cart />} />
-                <Route path="/profile" element={<Profile />} />
-
+                <Route element={<ProtectedRoute />}>
+                  <Route path="/profile" element={<Profile />} />
+                </Route>
                 <Route
                   path="/under-construction"
                   element={<UnderConstruction />}
