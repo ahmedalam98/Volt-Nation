@@ -1,10 +1,9 @@
 import { useState } from "react";
 import { useQueryClient } from "react-query";
-import { TextField, Button } from "@mui/material";
+import { TextField, Button, CircularProgress } from "@mui/material";
 import styles from "./ProfileForm.module.css";
 
 export function ProfileForm({ data }) {
-  // console.log(data);
   const queryClient = useQueryClient();
 
   const [formValues, setFormValues] = useState({
@@ -16,8 +15,10 @@ export function ProfileForm({ data }) {
   });
 
   const [saved, setSaved] = useState(true);
+  const [loading, setLoading] = useState(false);
 
   const handleSave = async () => {
+    setLoading(true);
     const token = localStorage.getItem("token");
     const headers = {
       "Content-Type": "application/json",
@@ -25,14 +26,11 @@ export function ProfileForm({ data }) {
     };
 
     try {
-      const response = await fetch(
-        "https://volt-nation.up.railway.app/user/details/edit",
-        {
-          method: "PATCH",
-          headers: headers,
-          body: JSON.stringify(formValues),
-        }
-      );
+      const response = await fetch("http://localhost:2024/user/details/edit", {
+        method: "PATCH",
+        headers: headers,
+        body: JSON.stringify(formValues),
+      });
 
       if (!response.ok) {
         throw new Error(`HTTP error! Status: ${response.status}`);
@@ -40,6 +38,7 @@ export function ProfileForm({ data }) {
 
       queryClient.invalidateQueries(["profileDetails"]);
       setSaved(true);
+      setLoading(false);
     } catch (error) {
       console.error("Error saving profile details:", error);
     }
@@ -162,7 +161,16 @@ export function ProfileForm({ data }) {
           </div>
         ) : (
           <div className={styles.profileBtn}>
-            <button onClick={handleSave}>Save</button>
+            <button onClick={handleSave}>
+              {loading ? (
+                <CircularProgress
+                  size={22}
+                  sx={{ color: "var(--color-var3)" }}
+                />
+              ) : (
+                "Save"
+              )}
+            </button>
           </div>
         )}
       </div>
