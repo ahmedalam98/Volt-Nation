@@ -6,6 +6,8 @@ import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { addItemToCart } from "../../Store/cartSlice";
 import BestSellers from "../../Components/BestSellers/BestSellers.jsx";
+import { toast } from "react-toastify";
+
 export default function ProductDetails() {
   //get the product ID
   const { id } = useParams();
@@ -13,7 +15,7 @@ export default function ProductDetails() {
   const [currentImg, setCurrentImg] = useState(0);
   const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
   let navigate = useNavigate();
-  let dispatch=useDispatch()
+  let dispatch = useDispatch();
 
   useEffect(() => {
     const fetchProduct = async () => {
@@ -31,21 +33,23 @@ export default function ProductDetails() {
   }, [id]);
   let handelImage = (ev) => {
     setCurrentImg(ev.target.src);
-
   };
   let addToCart = () => {
     //check if the user logged in
     if (isLoggedIn) {
       dispatch(addItemToCart(prd._id));
     } else {
-      alert("Your Are Not Logged in please Login");
-      navigate("/login");
+      toast.error("You should log in first!");
     }
   };
   let buyNow = () => {
     //check if the user logged in
-   addToCart();
-   navigate('/cart')
+    if (isLoggedIn) {
+      addToCart();
+      navigate("/cart");
+    } else {
+      toast.error("You should log in first!");
+    }
   };
 
   if (prd === null) {
@@ -58,7 +62,7 @@ export default function ProductDetails() {
     return (
       <>
         <div className="flex p-3 m-3" id={styles.mainDiv}>
-          <div className="w-1/2  p-4 " style={{ display: "flex" }}>
+          <div className="w-1/2 p-4 " style={{ display: "flex" }}>
             {/* First column Images */}
 
             {/* for other images */}
@@ -157,7 +161,7 @@ export default function ProductDetails() {
             </div>
           </div>
         </div>
-        <BestSellers/>
+        <BestSellers />
       </>
     );
   }
