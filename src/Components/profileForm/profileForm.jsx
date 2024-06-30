@@ -5,7 +5,6 @@ import styles from "./ProfileForm.module.css";
 
 export function ProfileForm({ data }) {
   const queryClient = useQueryClient();
-  console.log(data, "dddddddd");
   const [formValues, setFormValues] = useState({
     data: {
       name: data?.name || "",

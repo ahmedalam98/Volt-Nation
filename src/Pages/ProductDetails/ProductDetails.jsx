@@ -7,13 +7,27 @@ import { useDispatch, useSelector } from "react-redux";
 import { addItemToCart } from "../../Store/cartSlice";
 import BestSellers from "../../Components/BestSellers/BestSellers.jsx";
 import { toast } from "react-toastify";
+import { jwtDecode } from "jwt-decode";
 
 export default function ProductDetails() {
   //get the product ID
   const { id } = useParams();
   const [prd, setPrd] = useState(null);
   const [currentImg, setCurrentImg] = useState(0);
-  const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
+  // start of Checking logged in
+  let decodedToken;
+  let Token = localStorage.getItem("token");
+  let valid = false;
+
+  if (Token) {
+    decodedToken = jwtDecode(Token);
+    let expirationTime = decodedToken.exp;
+    let currentTime = Math.floor(Date.now() / 1000);
+    if (currentTime < expirationTime) {
+      valid = true;
+    }
+  }
+  // end of Checking logged in
   let navigate = useNavigate();
   let dispatch = useDispatch();
 
@@ -36,7 +50,7 @@ export default function ProductDetails() {
   };
   let addToCart = () => {
     //check if the user logged in
-    if (isLoggedIn) {
+    if (valid) {
       dispatch(addItemToCart(prd._id));
     } else {
       toast.error("You should log in first!");
@@ -44,7 +58,7 @@ export default function ProductDetails() {
   };
   let buyNow = () => {
     //check if the user logged in
-    if (isLoggedIn) {
+    if (valid) {
       addToCart();
       navigate("/cart");
     } else {

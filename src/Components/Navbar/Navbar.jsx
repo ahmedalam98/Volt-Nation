@@ -31,14 +31,14 @@ import { logout } from "../../Store/authSlice.js";
 import { jwtDecode } from "jwt-decode";
 
 function NavBar() {
-  let decodedToken;
   const navigate = useNavigate();
   const [searchQuery, setSearchQuery] = useState("");
   const [showResults, setShowResults] = useState(false);
   const [anchorEl, setAnchorEl] = useState(null);
   const searchContainerRef = useRef(null);
-
+  
   // start of Checking logged in
+  let decodedToken;
   let Token = localStorage.getItem("token");
   let valid = false;
 

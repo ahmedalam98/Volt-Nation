@@ -3,12 +3,13 @@ import styles from "./Orders.module.css";
 import { addItemToCart } from "../../Store/cartSlice";
 import { useState } from "react";
 import { useQueryClient } from "react-query";
+import { CircularProgress } from "@mui/material";
 
 export default function Orders({ orders, fav, setShowPagination }) {
   console.log(orders);
   const dispatch = useDispatch();
   const queryClient = useQueryClient();
-
+  const [loadingCancel, setLoadingCancel] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState(null);
 
   const handleAddToCart = (id) => {
@@ -16,20 +17,16 @@ export default function Orders({ orders, fav, setShowPagination }) {
   };
 
   const handleShowProductDetails = (id) => {
-    // const product = orders
-    //   ?.flatMap((order) => order.products)
-    //   .find((item) => item.product._id === id);
-    // setSelectedProduct(product);
     const product = orders.find((item) => item._id === id);
     setSelectedProduct(product);
     setShowPagination(false);
   };
-  console.log(selectedProduct, "ss");
   const handleBackToOrders = () => {
     setSelectedProduct(null);
     setShowPagination(true);
   };
   const handleCancelOrder = async (id) => {
+    setLoadingCancel(true);
     const token = localStorage.getItem("token");
     const headers = {
       "Content-Type": "application/json",
@@ -52,6 +49,8 @@ export default function Orders({ orders, fav, setShowPagination }) {
       queryClient.invalidateQueries(["allOrders"]);
     } catch (error) {
       console.error("Error saving profile details:", error);
+    } finally {
+      setLoadingCancel(false);
     }
   };
   return (
@@ -133,12 +132,19 @@ export default function Orders({ orders, fav, setShowPagination }) {
               >
                 Show Details
               </div>
-              {el.status !== "cancelled" && (
+              {el.status !== "delivered" && (
                 <div
                   className={styles.cancelBtn}
                   onClick={() => handleCancelOrder(el._id)}
                 >
-                  Cancel order
+                  {loadingCancel ? (
+                    <CircularProgress
+                      size={22}
+                      sx={{ color: "var(--color-var3)" }}
+                    />
+                  ) : (
+                    "Cancel order"
+                  )}{" "}
                 </div>
               )}
             </div>{" "}
