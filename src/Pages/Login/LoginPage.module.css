@@ -105,6 +105,9 @@ small a{
   text-decoration: underline;
   cursor: pointer;
 }
+.errorMsg{
+  color:red;
+}
 
 
 /* Small devices  */

@@ -25,7 +25,10 @@ export default function MobileNavbar({ data }) {
   const toggleDrawer = (newOpen) => () => {
     setOpen(newOpen);
   };
-
+  const handleResultClick = () => {
+    setSearchQueryMob("");
+    setOpenModal(false);
+  };
   const handleOpenModal = () => setOpenModal(true);
   const handleCloseModal = () => setOpenModal(false);
   return (
@@ -140,9 +143,15 @@ export default function MobileNavbar({ data }) {
             {filteredData?.length !== 0 &&
               searchQueryMob !== "" &&
               filteredData?.map((el) => (
-                <div className={styles.result} key={el.id}>
-                  {el.name}
-                </div>
+                <Link
+                  key={el._id}
+                  to={`/products/${el._id}`}
+                  onClick={handleResultClick}
+                >
+                  <div className={styles.result} key={el.id}>
+                    {el.name}
+                  </div>
+                </Link>
               ))}
           </Box>
         </Box>

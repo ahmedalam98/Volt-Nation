@@ -90,7 +90,7 @@ export default function Products() {
     const brandMatch = Object.entries(filters)
       .slice(0, -1)
       .some(([key, value]) => value && product.brand === key);
-    // console.log(Object.entries(filters));
+      
     // If no brands are selected
     const brandFilterApplied = Object.values(filters)
       .slice(0, -1)

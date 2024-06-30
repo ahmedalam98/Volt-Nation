@@ -1,12 +1,11 @@
 import { useState } from "react";
 import { useQueryClient } from "react-query";
-import { TextField, Button } from "@mui/material";
+import { TextField, Button, CircularProgress } from "@mui/material";
 import styles from "./ProfileForm.module.css";
 
 export function ProfileForm({ data }) {
-  // console.log(data);
   const queryClient = useQueryClient();
-
+  console.log(data, "dddddddd");
   const [formValues, setFormValues] = useState({
     data: {
       name: data?.name || "",
@@ -16,8 +15,10 @@ export function ProfileForm({ data }) {
   });
 
   const [saved, setSaved] = useState(true);
+  const [loading, setLoading] = useState(false);
 
   const handleSave = async () => {
+    setLoading(true);
     const token = localStorage.getItem("token");
     const headers = {
       "Content-Type": "application/json",
@@ -42,6 +43,8 @@ export function ProfileForm({ data }) {
       setSaved(true);
     } catch (error) {
       console.error("Error saving profile details:", error);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -162,7 +165,16 @@ export function ProfileForm({ data }) {
           </div>
         ) : (
           <div className={styles.profileBtn}>
-            <button onClick={handleSave}>Save</button>
+            <button onClick={handleSave}>
+              {loading ? (
+                <CircularProgress
+                  size={22}
+                  sx={{ color: "var(--color-var3)" }}
+                />
+              ) : (
+                "Save"
+              )}
+            </button>
           </div>
         )}
       </div>

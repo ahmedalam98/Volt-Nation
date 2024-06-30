@@ -4,11 +4,17 @@ import { Link, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { GoogleLogin } from "@react-oauth/google";
 import { jwtDecode } from "jwt-decode";
+import { useDispatch, useSelector } from "react-redux";
+import { logInUser } from "../../Store/authSlice.js";
 
 const LoginPage = () => {
   const [loaded, setLoaded] = useState(false);
+  let dispatch = useDispatch();
   const navigate = useNavigate();
+  const logInError = useSelector((state) => state.auth.logInError);
+
   let decodedToken;
+  let user;
 
   const [isSignUpClicked, setIsSignUpClicked] = useState(false);
   let goToHome = () => {
@@ -20,6 +26,21 @@ const LoginPage = () => {
     setTimeout(() => {
       navigate("/sign-up");
     }, 500);
+  };
+
+  const handleSuccess = (response) => {
+    decodedToken = jwtDecode(response.credential);
+    console.log("Login with google Success:");
+    user = {
+      email: decodedToken.email,
+      gmail: true,
+    };
+    console.log(user);
+    dispatch(logInUser(user));
+  };
+
+  const handleFailure = (error) => {
+    console.log("Login with google Failed:", error);
   };
 
   useEffect(() => {
@@ -67,17 +88,13 @@ const LoginPage = () => {
                       <div className={styles.conOfOptions}>
                         <div className="google mx-3 my-2">
                           <GoogleLogin
-                            onSuccess={(credentialResponse) => {
-                              decodedToken = jwtDecode(
-                                credentialResponse?.credential
-                              );
-                              // console.log(decodedToken);
-                            }}
-                            onError={() => {
-                              // console.log("Login Failed");
-                            }}
+                            onSuccess={handleSuccess}
+                            onError={handleFailure}
                           />
                         </div>
+                        {logInError ? (
+                          <div className={styles.errorMsg}>{logInError}</div>
+                        ) : null}
                       </div>
                       <div
                         style={{
