@@ -36,7 +36,8 @@ function NavBar() {
   const [showResults, setShowResults] = useState(false);
   const [anchorEl, setAnchorEl] = useState(null);
   const searchContainerRef = useRef(null);
-  
+  const queryClient = useQueryClient();
+
   // start of Checking logged in
   let decodedToken;
   let Token = localStorage.getItem("token");
@@ -63,6 +64,8 @@ function NavBar() {
   };
   const handleLogOut = () => {
     setAnchorEl(null);
+    queryClient.invalidateQueries(["profileDetails"]);
+    queryClient.invalidateQueries(["allOrders"]);
     dispatch(logout());
     navigate("/");
   };
