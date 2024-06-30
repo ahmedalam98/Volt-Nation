@@ -11,7 +11,7 @@ const FooterFirstColumn = () => {
 
       <div className="flex flex-col items-center justify-center gap-3 mb-8">
         <div className={`flex gap-5 ${styles.cardsContainer}`}>
-          <img src="public/cards_all.svg" alt="visa" />
+          <img src="./cards_all.svg" alt="visa" />
         </div>
 
         <p className="mt-5 tracking-widest text-gray-400 text-md md:mt-0">
