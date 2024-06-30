@@ -21,7 +21,7 @@ import {
 import styles from "./NavBar.module.css";
 import MobileNavbar from "../MobileNavbar/MobileNavbar.jsx";
 import { Link, useNavigate } from "react-router-dom";
-import { useQuery } from "react-query";
+import { useQuery, useQueryClient } from "react-query";
 import { getProducts } from "./../../api/apiFunctions";
 import { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
