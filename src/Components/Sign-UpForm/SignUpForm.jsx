@@ -34,7 +34,6 @@ const SignUpForm = () => {
 
   const onSubmit = (data) => {
     delete data.repassword;
-    // console.log(data);
     dispatch(registerUser(data));
   };
 
@@ -210,7 +209,9 @@ const SignUpForm = () => {
           <small className={styles.errorMsg}>{errors.mobile?.message}</small>
         </div>
 
-        {registrationError ? <div className={styles.errorMsg}>{registrationError}</div> : null}
+        {registrationError ? (
+          <div className={styles.errorMsg}>{registrationError}</div>
+        ) : null}
 
         <div className={styles.submitBtnContainer}>
           <Button

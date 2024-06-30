@@ -44,7 +44,6 @@ const ResetPassword = () => {
       .then((res) => {
         if (res.payload.message === "reset mail sent successfully") {
           navigate("/OTP", { state: { otp: otp, email: userEmail } });
-          // console.log(otp);
         } else {
           alert("Email is not found , please sign up");
         }

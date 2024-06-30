@@ -30,12 +30,10 @@ const LoginPage = () => {
 
   const handleSuccess = (response) => {
     decodedToken = jwtDecode(response.credential);
-    console.log("Login with google Success:");
     user = {
       email: decodedToken.email,
       gmail: true,
     };
-    console.log(user);
     dispatch(logInUser(user));
   };
 

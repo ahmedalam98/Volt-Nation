@@ -6,7 +6,6 @@ import { useQueryClient } from "react-query";
 import { CircularProgress } from "@mui/material";
 
 export default function Orders({ orders, fav, setShowPagination }) {
-  console.log(orders);
   const dispatch = useDispatch();
   const queryClient = useQueryClient();
   const [loadingCancel, setLoadingCancel] = useState(false);
