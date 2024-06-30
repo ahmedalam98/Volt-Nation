@@ -1,15 +1,23 @@
+import styles from "./FooterSubscribe.module.css";
+
 const FooterFirstColumn = () => {
   return (
-    <div className="flex flex-col items-center gap-5 md:items-start">
-      <h3 className="text-xl font-bold tracking-widest">CONTACT US</h3>
+    <div className="flex flex-col items-center justify-between gap-5 md:items-start">
+      <div>
+        <h3 className="text-xl font-bold tracking-widest">CONTACT US</h3>
 
-      {/* <p className="text-gray-400 ">Call Us 24/7 Free</p>
-      <p className="text-3xl lg:text-4xl" style={{ color: "var(--color-var1" }}>
-        <PhoneIcon fontSize="large" className="mr-4" />
-        19 444 55
-      </p> */}
+        <p className="text-gray-400 ">voltnation44@gmail.com</p>
+      </div>
 
-      <p className="text-gray-400 ">voltnation44@gmail.com</p>
+      <div className="flex flex-col items-center justify-center gap-3 mb-8">
+        <div className={`flex gap-5 ${styles.cardsContainer}`}>
+          <img src="public/cards_all.svg" alt="visa" />
+        </div>
+
+        <p className="mt-5 tracking-widest text-gray-400 text-md md:mt-0">
+          &#169; 2024 VoltNation
+        </p>
+      </div>
     </div>
   );
 };

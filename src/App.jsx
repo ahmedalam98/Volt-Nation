@@ -9,6 +9,8 @@ import UnderConstruction from "./Pages/UnderConstruction/UnderConstruction.jsx";
 import Home from "./Pages/Home/Home.jsx";
 import LoginPage from "./Pages/Login/LoginPage.jsx";
 import Register from "./Pages/Registartion/Register.jsx";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Products = lazy(() => import("./Pages/Products/Products.jsx"));
 const Categories = lazy(() => import("./Pages/Categories/Categories.jsx"));
@@ -59,6 +61,7 @@ function App() {
               </div>
             }
           >
+            <ToastContainer />
             <Routes>
               <Route path="/" element={<Layout />}>
                 {/* Public Routes */}

@@ -1,6 +1,6 @@
 import FooterFirstColumn from "./FooterFirstColumn.jsx";
 import FooterSecondColumn from "./FooterSecondColumn.jsx";
-import FooterSubscribe from "./FooterSubscribe.jsx";
+// import FooterSubscribe from "./FooterSubscribe.jsx";
 import styles from "./FooterSubscribe.module.css";
 
 export default function Footer() {
@@ -20,7 +20,7 @@ export default function Footer() {
         </div>
       </div>
 
-      <FooterSubscribe />
+      {/* <FooterSubscribe /> */}
     </div>
   );
 }

@@ -4,17 +4,19 @@ import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import ShoppingBagOutlinedIcon from "@mui/icons-material/ShoppingBagOutlined";
 import { Link } from "react-router-dom";
 import { addItemToCart } from "../../Store/cartSlice.js";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { addToFav, getProfileDetails } from "../../api/apiFunctions.js";
 import { useMutation, useQuery, useQueryClient } from "react-query";
 import { useState } from "react";
 import FavoriteIcon from "@mui/icons-material/Favorite";
+import { toast } from "react-toastify";
+
 export default function Card({ product }) {
   const { data, isLoading } = useQuery("profileDetails", getProfileDetails);
   const dispatch = useDispatch();
   const queryClient = useQueryClient();
   const [fav, setFav] = useState();
-
+  const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
   const { mutate: addToFavorites } = useMutation(addToFav, {
     onSuccess: () => {
       queryClient.invalidateQueries(["profileDetails"]);
@@ -26,7 +28,11 @@ export default function Card({ product }) {
   //   },
   // });
   const handleAddToFavorites = (id) => {
-    addToFavorites(id);
+    if (isLoggedIn) {
+      addToFavorites(id);
+    } else {
+      toast.error("You should log in first!");
+    }
   };
   const handleRemoveFromFavorites = async (id) => {
     const token = localStorage.getItem("token");
@@ -53,8 +59,12 @@ export default function Card({ product }) {
       console.error("Error saving profile details:", error);
     }
   };
-  const handelIncrease = (id) => {
-    dispatch(addItemToCart(id));
+  const addToCart = (id) => {
+    if (isLoggedIn) {
+      dispatch(addItemToCart(id));
+    } else {
+      toast.error("You should log in first!");
+    }
   };
   const isFavorite = data?.data?.favourite?.some(
     (favItem) => favItem._id === product._id
@@ -102,9 +112,7 @@ export default function Card({ product }) {
           )}
 
           <button>
-            <ShoppingBagOutlinedIcon
-              onClick={() => handelIncrease(product._id)}
-            />
+            <ShoppingBagOutlinedIcon onClick={() => addToCart(product._id)} />
           </button>
         </div>
       </div>

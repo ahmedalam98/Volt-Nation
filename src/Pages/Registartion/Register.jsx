@@ -2,16 +2,40 @@ import React, { useEffect, useState } from "react";
 import SignUpForm from "../../Components/Sign-UpForm/SignUpForm.jsx";
 import styles from "./Register.module.css";
 import { Link, useNavigate } from "react-router-dom";
+import { GoogleLogin } from "@react-oauth/google";
+import { jwtDecode } from "jwt-decode";
+import { useDispatch } from "react-redux";
+import { registerUser } from "../../Store/authSlice.js";
+
 // import { Button } from "@mui/material";
 
 const Register = () => {
   const [loaded, setLoaded] = useState(false);
   const navigate = useNavigate();
+  let dispatch=useDispatch()
   let goToHome = () => {
     navigate("/");
   };
   const [isSignUpClicked, setIsSignUpClicked] = useState(false);
+  let decodedToken;
+  let user;
+  const handleSuccess = (response) => {
+    decodedToken = jwtDecode(response.credential);
+    console.log("Login with google Success:");
+    user = {
+      firstName: decodedToken.given_name,
+      lastName: decodedToken.family_name,
+      email: decodedToken.email,
+      gmail: true,
+    };
+    
+     console.log(user);
+     dispatch(registerUser(user))
+  };
 
+  const handleFailure = (error) => {
+    console.log("Login with google Failed:", error);
+  };
   const handleSignUpClick = () => {
     // Add any other logic before navigating, if needed
     setIsSignUpClicked(true);
@@ -115,13 +139,22 @@ const Register = () => {
                 <div className={styles.conOfOptions}></div>
                 <div
                   style={{
-                    marginTop: "2%",
+                    marginTop: "1%",
+                    padding: "15px",
                     textAlign: "center",
                     color: "white",
                     fontWeight: "bold",
+                    display: "flex",
+                    flexDirection: "column",
+                    alignItems: "center",
+                    justifyContent: "space-between",
                   }}
                 >
-                  <Link onClick={handleSignUpClick} className="text-sm">
+                  <GoogleLogin
+                    onSuccess={handleSuccess}
+                    onError={handleFailure}
+                  />
+                  <Link onClick={handleSignUpClick} className="text-sm mt-5">
                     Allready Have An Accoun ?! LOG IN{" "}
                   </Link>
                 </div>
