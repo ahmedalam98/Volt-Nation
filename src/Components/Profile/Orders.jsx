@@ -38,7 +38,7 @@ export default function Orders({ orders, fav, setShowPagination }) {
 
     try {
       const response = await fetch(
-        `http://volt-nation.up.railway.app/orders/${id}/cancelled`,
+        `https://volt-nation.up.railway.app/orders/${id}/cancelled`,
         {
           method: "PATCH",
           headers: headers,

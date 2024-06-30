@@ -5,7 +5,7 @@ import styles from "./ProfileForm.module.css";
 
 export function ProfileForm({ data }) {
   const queryClient = useQueryClient();
-
+  console.log(data, "dddddddd");
   const [formValues, setFormValues] = useState({
     data: {
       name: data?.name || "",
@@ -27,7 +27,7 @@ export function ProfileForm({ data }) {
 
     try {
       const response = await fetch(
-        "http://volt-nation.up.railway.app/user/details/edit",
+        "https://volt-nation.up.railway.app/user/details/edit",
         {
           method: "PATCH",
           headers: headers,

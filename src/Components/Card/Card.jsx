@@ -37,7 +37,7 @@ export default function Card({ product }) {
 
     try {
       const response = await fetch(
-        `http://volt-nation.up.railway.app/user/remove-favourite/${id}`,
+        `https://volt-nation.up.railway.app/user/remove-favourite/${id}`,
         {
           method: "PATCH",
           headers: headers,
