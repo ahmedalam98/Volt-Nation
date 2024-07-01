@@ -64,8 +64,6 @@ function NavBar() {
   };
   const handleLogOut = () => {
     setAnchorEl(null);
-    queryClient.invalidateQueries(["profileDetails"]);
-    queryClient.invalidateQueries(["allOrders"]);
     dispatch(logout());
     navigate("/");
   };

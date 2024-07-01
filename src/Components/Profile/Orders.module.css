@@ -12,7 +12,11 @@
   padding: 30px;
   margin-bottom: 20px;
 }
-
+.loadingContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 .singleOrder .date {
   color: var(--color-var5);
   /* margin-bottom: 8px; */
