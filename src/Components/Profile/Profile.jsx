@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Box from "@mui/material/Box";
 
 import styles from "./Profile.module.css";
@@ -85,6 +85,11 @@ export default function Profile() {
     favStartIndex,
     favStartIndex + favItemsPerPage
   );
+
+  useEffect(() => {
+    // Reset orders page to 1 when data changes
+    setOrdersPage(1);
+  }, [ordersData?.data]);
 
   if (profileLoading || ordersLoading) {
     return (
