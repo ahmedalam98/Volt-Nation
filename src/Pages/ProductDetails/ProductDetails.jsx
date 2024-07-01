@@ -148,7 +148,7 @@ export default function ProductDetails() {
                 ))}
               </p>
               <p>Realse date : {prd.releasedDate}</p>
-              <p className="mt-3">
+              <div className="mt-3">
                 About this item:
                 <ol>
                   {prd.features.map((ele, index) => (
@@ -157,7 +157,7 @@ export default function ProductDetails() {
                     </li>
                   ))}
                 </ol>
-              </p>
+              </div>
               <div
                 style={{
                   display: "flex",
