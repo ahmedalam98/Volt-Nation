@@ -12,7 +12,7 @@ import { registerUser } from "../../Store/authSlice.js";
 const Register = () => {
   const [loaded, setLoaded] = useState(false);
   const navigate = useNavigate();
-  let dispatch=useDispatch()
+  let dispatch = useDispatch();
   let goToHome = () => {
     navigate("/");
   };
@@ -21,16 +21,14 @@ const Register = () => {
   let user;
   const handleSuccess = (response) => {
     decodedToken = jwtDecode(response.credential);
-    console.log("Login with google Success:");
     user = {
       firstName: decodedToken.given_name,
       lastName: decodedToken.family_name,
       email: decodedToken.email,
       gmail: true,
     };
-    
-     console.log(user);
-     dispatch(registerUser(user))
+
+    dispatch(registerUser(user));
   };
 
   const handleFailure = (error) => {

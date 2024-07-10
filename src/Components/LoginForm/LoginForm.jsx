@@ -13,10 +13,11 @@ import { logInUser } from "../../Store/authSlice";
 import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 // import { jwtDecode } from "jwt-decode";
+import { useQueryClient } from "react-query";
 
 function LoginForm() {
   // const [user, setUser] = useState(5);
-
+  const queryClient = useQueryClient();
   const {
     register,
     handleSubmit,
@@ -37,6 +38,8 @@ function LoginForm() {
     navigate("/dashboard");
   } else if (isLoggedIn) {
     navigate("/");
+    queryClient.invalidateQueries(["profileDetails"]);
+    queryClient.invalidateQueries(["allOrders"]);
   }
 
   const handelUserState = (data) => {

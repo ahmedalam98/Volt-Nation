@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Box from "@mui/material/Box";
 
 import styles from "./Profile.module.css";
@@ -41,16 +41,16 @@ export default function Profile() {
     "profileDetails",
     getProfileDetails
   );
-  const { data: ordersData, isLoading: ordersLoading } = useQuery(
-    "allOrders",
-    getAllOrders
-  );
+  const {
+    data: ordersData,
+    isLoading: ordersLoading,
+    refetch,
+  } = useQuery("allOrders", getAllOrders);
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
     setShowPagination(true);
   };
-  const [page, setPage] = useState(1);
 
   // Pagination for orders
   const [ordersPage, setOrdersPage] = useState(1);
@@ -86,6 +86,11 @@ export default function Profile() {
     favStartIndex + favItemsPerPage
   );
 
+  useEffect(() => {
+    // Reset orders page to 1 when data changes
+    setOrdersPage(1);
+  }, [ordersData?.data]);
+
   if (profileLoading || ordersLoading) {
     return (
       <div className="spinner-container">
@@ -98,21 +103,6 @@ export default function Profile() {
     <div>
       {!profileLoading && !ordersLoading && (
         <div className="grid grid-cols-12 sm:px-10 xs:px-5 my-12 md:gap-5 xs:gap-0">
-          {/* <div className="col-span-8">
-         
-          <div className="mr-16">
-            {orders ? (
-              <Orders products={orderProducts} trackOrder="TrackOrder" />
-            ) : (
-              ""
-            )}
-            {wishlist ? (
-              <Orders products={wishlistProducts} addToCard="Add to cart" />
-            ) : (
-              ""
-            )}
-          </div>
-        </div> */}
           <div className={`${styles.orders} md:col-span-8 xs:col-span-12`}>
             <Box
               sx={{
@@ -147,36 +137,40 @@ export default function Profile() {
               )}
               <Orders
                 orders={paginatedOrders}
+                refetch={refetch}
                 setShowPagination={setShowPagination}
               />
-              <div className={styles.pagination}>
-                {pagination && (
-                  <Pagination
-                    count={numOrdersPages}
-                    page={ordersPage}
-                    onChange={handleChangeOrdersPage}
-                    color="primary"
-                    size="large"
-                  />
-                )}
-              </div>
+              {paginatedOrders.length !== 0 && (
+                <div className={styles.pagination}>
+                  {pagination && (
+                    <Pagination
+                      count={numOrdersPages}
+                      page={ordersPage}
+                      onChange={handleChangeOrdersPage}
+                      color="primary"
+                      size="large"
+                    />
+                  )}
+                </div>
+              )}
             </CustomTabPanel>
             <CustomTabPanel value={value} index={1}>
               {paginatedFavourites?.length === 0 && (
-
                 <div className={styles.noPrd}>No favorites yet</div>
               )}
 
               <Orders fav={paginatedFavourites} />
-              <div className={styles.pagination}>
-                <Pagination
-                  count={numFavPages}
-                  page={favPage}
-                  onChange={handleChangeFavPage}
-                  color="primary"
-                  size="large"
-                />
-              </div>
+              {paginatedFavourites.length !== 0 && (
+                <div className={styles.pagination}>
+                  <Pagination
+                    count={numFavPages}
+                    page={favPage}
+                    onChange={handleChangeFavPage}
+                    color="primary"
+                    size="large"
+                  />
+                </div>
+              )}
             </CustomTabPanel>
           </div>
           <div className="md:col-span-4 xs:col-span-12">

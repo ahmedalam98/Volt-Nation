@@ -10,13 +10,28 @@ import { useMutation, useQuery, useQueryClient } from "react-query";
 import { useState } from "react";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import { toast } from "react-toastify";
+import { jwtDecode } from "jwt-decode";
 
 export default function Card({ product }) {
   const { data, isLoading } = useQuery("profileDetails", getProfileDetails);
   const dispatch = useDispatch();
   const queryClient = useQueryClient();
   const [fav, setFav] = useState();
-  const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
+
+  // start of Checking logged in
+  let decodedToken;
+  let Token = localStorage.getItem("token");
+  let valid = false;
+
+  if (Token) {
+    decodedToken = jwtDecode(Token);
+    let expirationTime = decodedToken.exp;
+    let currentTime = Math.floor(Date.now() / 1000);
+    if (currentTime < expirationTime) {
+      valid = true;
+    }
+  }
+  // end of Checking logged in
   const { mutate: addToFavorites } = useMutation(addToFav, {
     onSuccess: () => {
       queryClient.invalidateQueries(["profileDetails"]);
@@ -28,7 +43,7 @@ export default function Card({ product }) {
   //   },
   // });
   const handleAddToFavorites = (id) => {
-    if (isLoggedIn) {
+    if (valid) {
       addToFavorites(id);
     } else {
       toast.error("You should log in first!");
@@ -60,7 +75,7 @@ export default function Card({ product }) {
     }
   };
   const addToCart = (id) => {
-    if (isLoggedIn) {
+    if (valid) {
       dispatch(addItemToCart(id));
     } else {
       toast.error("You should log in first!");

@@ -7,8 +7,6 @@ import Card from "../Card/Card.jsx";
 export default function BestSellers() {
   const { isLoading, data } = useQuery(["products"], getProducts);
 
-  // console.log(data?.data);
-
   const settings = {
     infinite: true,
     // fade: true,

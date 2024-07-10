@@ -26,7 +26,7 @@ export default function Offers() {
           </h5>
           <div className="text-center md:text-start">
             <button
-              onClick={() => navigate("/products")}
+              onClick={() => navigate("/categories")}
               className={`${styles.button} mt-16 mb-8 md:mb-0`}
             >
               SHOP NOW

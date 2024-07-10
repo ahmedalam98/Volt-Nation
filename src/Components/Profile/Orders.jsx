@@ -3,12 +3,12 @@ import styles from "./Orders.module.css";
 import { addItemToCart } from "../../Store/cartSlice";
 import { useState } from "react";
 import { useQueryClient } from "react-query";
+import { CircularProgress } from "@mui/material";
 
-export default function Orders({ orders, fav, setShowPagination }) {
-  console.log(orders);
+export default function Orders({ orders, fav, setShowPagination, refetch }) {
   const dispatch = useDispatch();
   const queryClient = useQueryClient();
-
+  const [loadingCancel, setLoadingCancel] = useState(null);
   const [selectedProduct, setSelectedProduct] = useState(null);
 
   const handleAddToCart = (id) => {
@@ -16,20 +16,16 @@ export default function Orders({ orders, fav, setShowPagination }) {
   };
 
   const handleShowProductDetails = (id) => {
-    // const product = orders
-    //   ?.flatMap((order) => order.products)
-    //   .find((item) => item.product._id === id);
-    // setSelectedProduct(product);
     const product = orders.find((item) => item._id === id);
     setSelectedProduct(product);
     setShowPagination(false);
   };
-  console.log(selectedProduct, "ss");
   const handleBackToOrders = () => {
     setSelectedProduct(null);
     setShowPagination(true);
   };
   const handleCancelOrder = async (id) => {
+    setLoadingCancel(id);
     const token = localStorage.getItem("token");
     const headers = {
       "Content-Type": "application/json",
@@ -49,9 +45,12 @@ export default function Orders({ orders, fav, setShowPagination }) {
         throw new Error(`HTTP error! Status: ${response.status}`);
       }
 
-      queryClient.invalidateQueries(["allOrders"]);
+      // queryClient.invalidateQueries(["allOrders"]);
+      await refetch();
+      setLoadingCancel(null);
     } catch (error) {
       console.error("Error saving profile details:", error);
+      setLoadingCancel(null);
     }
   };
   return (
@@ -101,47 +100,60 @@ export default function Orders({ orders, fav, setShowPagination }) {
       ) : orders && !selectedProduct ? (
         orders.map((el) => (
           <div className={styles.singleOrder} key={el._id}>
-            <div className={styles.date}>
-              Order Date: {el?.date?.slice(0, 10)}
-            </div>
-            {el?.products?.map((order) => (
-              <div
-                className={styles.detailsCard}
-                key={order._id}
-                style={{ margin: "30px 0", padding: "0px" }}
-              >
-                <div className={styles.content}>
-                  <div className={styles.name}>{order.product.name}</div>
-                  <div className={styles.desc}>{order.product.description}</div>
-                  <div className={styles.btns}></div>
+            {loadingCancel === el._id ? (
+              <div className={styles.loadingContainer}>
+                <CircularProgress
+                  size={52}
+                  sx={{ color: "var(--color-var1)" }}
+                />
+              </div>
+            ) : (
+              <>
+                <div className={styles.date}>
+                  Order Date: {el?.date?.slice(0, 10)}
                 </div>
-                <div className={styles.orderImg}>
-                  <div>
-                    <img
-                      src={order.product.images[0]}
-                      alt={order.product.name}
-                    />
+                {el?.products?.map((order) => (
+                  <div
+                    className={styles.detailsCard}
+                    key={order._id}
+                    style={{ margin: "30px 0", padding: "0px" }}
+                  >
+                    <div className={styles.content}>
+                      <div className={styles.name}>{order.product.name}</div>
+                      <div className={styles.desc}>
+                        {order.product.description}
+                      </div>
+                      <div className={styles.btns}></div>
+                    </div>
+                    <div className={styles.orderImg}>
+                      <div>
+                        <img
+                          src={order.product.images[0]}
+                          alt={order.product.name}
+                        />
+                      </div>
+                    </div>
                   </div>
+                ))}
+                <div className={styles.bottomBtns}>
+                  <div className={styles.deliveredBtn}>{el.status}</div>{" "}
+                  <div
+                    className={styles.detailsBtn}
+                    onClick={() => handleShowProductDetails(el._id)}
+                  >
+                    Show Details
+                  </div>
+                  {el.status !== "delivered" && (
+                    <div
+                      className={styles.cancelBtn}
+                      onClick={() => handleCancelOrder(el._id)}
+                    >
+                      Cancel order
+                    </div>
+                  )}
                 </div>
-              </div>
-            ))}
-            <div className={styles.bottomBtns}>
-              <div className={styles.deliveredBtn}>{el.status}</div>{" "}
-              <div
-                className={styles.detailsBtn}
-                onClick={() => handleShowProductDetails(el._id)}
-              >
-                Show Details
-              </div>
-              {el.status !== "cancelled" && (
-                <div
-                  className={styles.cancelBtn}
-                  onClick={() => handleCancelOrder(el._id)}
-                >
-                  Cancel order
-                </div>
-              )}
-            </div>{" "}
+              </>
+            )}
           </div>
         ))
       ) : (

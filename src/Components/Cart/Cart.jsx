@@ -17,7 +17,6 @@ export default function Cart() {
 
   // Get cart items from the store
   const products = useSelector((state) => state.cart.products);
-  // console.log(products);
 
   // If the cart is empty, display a message
   if (products.length === 0)
@@ -79,7 +78,6 @@ export default function Cart() {
                   className={`${styles.checkout_btn} `}
                   onClick={() => {
                     setCheckout(!checkout);
-                    // console.log("checkout");
                   }}
                 >
                   Checkout

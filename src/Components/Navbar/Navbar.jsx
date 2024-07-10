@@ -21,7 +21,7 @@ import {
 import styles from "./NavBar.module.css";
 import MobileNavbar from "../MobileNavbar/MobileNavbar.jsx";
 import { Link, useNavigate } from "react-router-dom";
-import { useQuery } from "react-query";
+import { useQuery, useQueryClient } from "react-query";
 import { getProducts } from "./../../api/apiFunctions";
 import { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -31,14 +31,15 @@ import { logout } from "../../Store/authSlice.js";
 import { jwtDecode } from "jwt-decode";
 
 function NavBar() {
-  let decodedToken;
   const navigate = useNavigate();
   const [searchQuery, setSearchQuery] = useState("");
   const [showResults, setShowResults] = useState(false);
   const [anchorEl, setAnchorEl] = useState(null);
   const searchContainerRef = useRef(null);
+  const queryClient = useQueryClient();
 
   // start of Checking logged in
+  let decodedToken;
   let Token = localStorage.getItem("token");
   let valid = false;
 
