@@ -1,1 +1,4 @@
-# ⏳ Currently in active development, this project will continue beyond the job fair period. For updates on ongoing work, please refer to the commits ... 
+![Preview](./img/preview1.png)
+![Preview](./img/preview2.png)
+![Preview](./img/preview3.png)
+![Preview](./img/preview4.png)
